@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+<title>TOEIC</title>
+<meta charset="UTF-8"/>
+<script>
+"use strict";
+let Answer =`<span style='color:red'>★</span>`;
+let english_qestion_part1 = new Array(70);
+let english_qestion_part1_answer = new Array(70);
+
+english_qestion_part1[0]=`<h2>第１章　重要構文の問題</h2>
+<h3>1. 次の日本文と英文が同じ意味になるように、空所に適切な語を入れなさい。</h3>`;english_qestion_part1_answer[0]="";
+english_qestion_part1[1]=`1. 彼は学者というよりもむしろ小説家であると思う。
+I think he is not so much a scholar (${Answer}) a novelist.`;english_qestion_part1_answer[1]="as";
+english_qestion_part1[2]=`2. 彼は彼女のことをきいて怒らずにはいられなかった。
+He could not (${Answer}) getting angry at her words.`;english_qestion_part1_answer[2]="help";
+english_qestion_part1[3]=`3. 健康にはいくら注意しても注意しすぎることはない。
+You cannot be (${Answer}) careful about your health.`;english_qestion_part1_answer[3]="too";
+english_qestion_part1[4]=`4. 自分の家庭を愛さない人はいない。
+There is no man (${Answer}) loves his home.`;english_qestion_part1_answer[4]="but";
+english_qestion_part1[5]=`5.いったん約束をしたら、 守らなければいけない。
+(${Answer}) you have made a promise, you must keep it.`;english_qestion_part1_answer[5]="Once";
+english_qestion_part1[6]=`6.彼がその要求を拒絶したのは当然だ。
+It is natural that he (${Answer}) have refused that request.`;english_qestion_part1_answer[6]="should";
+english_qestion_part1[7]=`7.ぼくにはそんなに金は出せない。
+I can't (${Answer}) to pay so much.`;english_qestion_part1_answer[7]="afford";
+english_qestion_part1[8]=`8. 日曜日には彼はよく釣りに行ったものだ。
+He (${Answer}) often go fishing on Sunday.`;english_qestion_part1_answer[8]="would";
+english_qestion_part1[9]=`9.彼を待つより仕方がない。
+(${Answer}) we can do is to wait for him.`;english_qestion_part1_answer[9]="All";
+english_qestion_part1[10]=`10. 私はその少年になけなしの金をやった。
+I gave the boy (${Answer}) little money I had.`;english_qestion_part1_answer[10]="what";
+english_qestion_part1[11]=`11. 料理ということになれば、だれもメアリーにかなわない。
+When it (${Answer}) to cooking, no one can equal Mary.`;english_qestion_part1_answer[11]="comes";
+english_qestion_part1[12]=`12. よいご返事をお待ちしております。
+I am looking (${Answer}) to receiving your favorable answer.`;english_qestion_part1_answer[12]="forward";
+english_qestion_part1[13]=`13. 彼女にはよくあることだが､今日の午後の会合に遅れた。
+As is often the (${Answer}) with her, she was late for the meeting this afternoon.`;english_qestion_part1_answer[13]="case";
+english_qestion_part1[14]=`14. 私に関する限り、その問題は単純ではない。
+As far as I am (${Answer}), the problem is not a simple one.`;english_qestion_part1_answer[14]="concerned";
+english_qestion_part1[15]=`15. 寝た方がよい。
+You may as (${Answer}) go to bed now.`;english_qestion_part1_answer[15]="well";
+english_qestion_part1[16]=`16. 雨で外出できなかった。
+The rain prevented me (${Answer}) going out.`;english_qestion_part1_answer[16]="from";
+english_qestion_part1[17]=`17. もし太陽が消滅したら、 生物は皆死ぬだろう。
+If the sun (${Answer}) to vanish, all living things would die.`;english_qestion_part1_answer[17]="were";
+english_qestion_part1[18]=`18. 私が百万長者であればよいのに。
+I wish I (${Answer}) a millionaire.`;english_qestion_part1_answer[18]="were";
+english_qestion_part1[19]=`19. もし私が君の立場なら、その計画に反対するだろう。
+(${Answer}) I in your position, I would oppose that plan.`;english_qestion_part1_answer[19]="Were";
+english_qestion_part1[20]=`20. 水がなければ, 生物は生きて行けないでしょう｡
+(${Answer}) it not for water, nothing could live.`;english_qestion_part1_answer[20]="Were";
+english_qestion_part1[21]=`21. 万一この飛行機が乗っ取られたら、君はいったいどうするだろうか。
+(${Answer}) this airplane be hijacked, what in the world would you do?`;english_qestion_part1_answer[21]="Should";
+english_qestion_part1[22]=`22. 彼の父の援助があれば、彼はこの仕事にもっと早く成功しただろう。
+(${Answer}) his father's help, he would have succeeded in this task sooner.`;english_qestion_part1_answer[22]="With";
+english_qestion_part1[23]=`23.今日じゅうに宿題が終わればなあ。
+If (${Answer}) I could be through with my homework today!`;english_qestion_part1_answer[23]="only";
+english_qestion_part1[24]=`24. 彼女と議論してもむだだ。
+It is no (${Answer}) arguing with her.`;english_qestion_part1_answer[24]="use";
+english_qestion_part1[25]=`25. その計画はやってみる価値が十分にある。
+The plan is well (${Answer}) trying.`;english_qestion_part1_answer[25]="worth";
+english_qestion_part1[26]=`26. 私は学生の頃はよくテニスをしたものです。
+I (${Answer}) to play tennis when Ⅰ was a student.`;english_qestion_part1_answer[26]="used";
+english_qestion_part1[27]=`27. 私は公園で金を盗まれた。
+I (${Answer}) my money stolen in the park.`;english_qestion_part1_answer[27]="had";
+english_qestion_part1[28]=`28. どんなゲームをやっても、彼はいつも勝つ。
+(${Answer}) game he plays, he always wins.`;english_qestion_part1_answer[28]="Whatever";
+english_qestion_part1[29]=`29 どんなに疲れていようとも、今日君はその仕事を終えねばならない。
+(${Answer}) tired you may be, you must finish that work today.`;english_qestion_part1_answer[29]="However";
+english_qestion_part1[30]=`30. 何が起ころうとも、私は決心を変えない。
+Come what (${Answer}), I won't change my mind.`;english_qestion_part1_answer[30]="may";
+english_qestion_part1[31]=`31.実を言うと、それはこんなぐあいにして起こったのです。
+To tell the truth, this is (${Answer}) it happened.`;english_qestion_part1_answer[31]="how";
+english_qestion_part1[32]=`32. そういうわけで彼は彼らが提案したことに賛成しなかった。
+That is (${Answer}) he did not agree to what they had proposed.`;english_qestion_part1_answer[32]="why";
+english_qestion_part1[33]=`33. 彼のような有能な人が成功しても不思議ではない。
+It is no (${Answer}) that a man of his ability is successful.`;english_qestion_part1_answer[33]="wonder";
+english_qestion_part1[34]=`34. 彼らは見つからないようにとても用心して前進した。
+They proceeded very cautiously (${Answer}) they should be caught.`;english_qestion_part1_answer[34]="lest";
+english_qestion_part1[35]=`35. 学生にもっと考えさせるような本を読ませなさい。
+Have students read such books (${Answer}) will make them think more.`;english_qestion_part1_answer[35]="as";
+english_qestion_part1[36]=`36. 彼は自分の家族が楽にくらせるように日夜働いた。
+He worked day and night so (${Answer}) his family could live in comfort.`;english_qestion_part1_answer[36]="that";
+english_qestion_part1[37]=`37 彼女は非常な美人だったので、 彼女が通りすぎるとだれでも振り向いたものです。
+She was (${Answer}) a beautiful girl that everybody turned to look at her as she passed.`;english_qestion_part1_answer[37]="such";
+english_qestion_part1[38]=`38. 彼が息子を自慢するのももっともです。
+He may (${Answer}) be proud of his son.`;english_qestion_part1_answer[38]="well";
+english_qestion_part1[39]=`39. 彼に金を貸すくらいなら海に捨てたほうがましだ。
+You might just as (${Answer}) throw your money into the sea as lend it to him.`;english_qestion_part1_answer[39]="well";
+english_qestion_part1[40]=`40. 彼女はたいへん腹を立てたので、自制心を失った。
+(${Answer}) was her anger that she lost control of herself.`;english_qestion_part1_answer[40]="Such";
+english_qestion_part1[41]=`41. 彼女は正しいというのが私の意見です。
+I am (${Answer}) the opinion that she is right.`;english_qestion_part1_answer[41]="of";
+english_qestion_part1[42]=`42. その国がもっとも必要としているのは賢明な指導者である。
+(${Answer}) the country needs most is wise leaders.`;english_qestion_part1_answer[42]="What";
+english_qestion_part1[43]=`43. 私たちは彼が興奮するのは当然だと思った。
+We thought (${Answer}) natural that he should get excited.`;english_qestion_part1_answer[43]="it";
+english_qestion_part1[44]=`44. 以前とくらべると状況はずいぶんよくなった。
+The situation has improved considerably compared with (${Answer}) it was.`;english_qestion_part1_answer[44]="what";
+english_qestion_part1[45]=`45. そこで彼に会おうとは思わなかった。
+(${Answer}) did I expect that I would see him there.`;english_qestion_part1_answer[45]="Never";
+english_qestion_part1[46]=`46. 彼は自分自身の家を持てるほど裕福ではなかった。
+He was not rich (${Answer}) to have a house of his own.`;english_qestion_part1_answer[46]="enough";
+english_qestion_part1[47]=`47. うちの庭には花はほとんど何も見られません。
+There are scarcely (${Answer}) flowers in our garden.`;english_qestion_part1_answer[47]="any";
+english_qestion_part1[48]=`48. 私は4分の3マイル歩いた。
+I walked three- (${Answer}) of a mile.`;english_qestion_part1_answer[48]="fourths";
+english_qestion_part1[49]=`49. さらに悪いことには雨が降り出した。
+To make matters (${Answer}), it began to rain.`;english_qestion_part1_answer[49]="worse";
+english_qestion_part1[50]=`50. 率直に言って、君が悪いと思う。
+To be frank (${Answer}) you, I think you are to blame.`;english_qestion_part1_answer[50]="with";
+english_qestion_part1[51]=`51. 若いが彼は経験が豊富です。
+Young (${Answer}) he is, he has a lot of experience.`;english_qestion_part1_answer[51]="as";
+english_qestion_part1[52]=`52 天気がよければ、私たちは明朝出発します。
+We shall leave tomorrow morning, weather (${Answer}).`;english_qestion_part1_answer[52]="permitting";
+english_qestion_part1[53]=`53 彼は今までにないほど勤勉な男だ。
+He is as diligent a man as (${Answer}) lived.`;english_qestion_part1_answer[53]="ever";
+english_qestion_part1[54]=`54 彼はクラスのどの少年にも劣らず利口だ。
+He is as smart as (${Answer}) other boy in the class.`;english_qestion_part1_answer[54]="any";
+english_qestion_part1[55]=`55. 彼は学生並みから言えば勤勉です。
+He is a diligent student, as students (${Answer}).`;english_qestion_part1_answer[55]="go";
+english_qestion_part1[56]=`56. 間もなくそのうわさは消えた。
+It was not long (${Answer}) the rumor died out.`;english_qestion_part1_answer[56]="before";
+english_qestion_part1[57]=`57. ビルは一日おきに釣りに行く。
+Every (${Answer}) day Bill goes fishing.`;english_qestion_part1_answer[57]="other";
+english_qestion_part1[58]=`58. 彼は俳優になるべきだったのに。
+He (${Answer}) to have been an actor.`;english_qestion_part1_answer[58]="ought";
+english_qestion_part1[59]=`59. その彫刻は非常に貴重である。
+The sculptures are (${Answer}) great value.`;english_qestion_part1_answer[59]="of";
+english_qestion_part1[60]=`60. 私が彼女に最後に会ってから１０年になります。
+It is ten years (${Answer}) I saw her last.`;english_qestion_part1_answer[60]="since";
+english_qestion_part1[61]=`61. それをそのままにしておきなさい。 そうしないとしかられますよ。
+Leave it (${Answer}) it is, or you will be scolded.`;english_qestion_part1_answer[61]="as";
+english_qestion_part1[62]=`62. 彼も私もどちらも英語を話すことができない。
+Neither he (${Answer}) I can speak English.`;english_qestion_part1_answer[62]="nor";
+english_qestion_part1[63]=`63. 君がいつも眠いのは仕事のしすぎだからです。
+It is (${Answer}) you work too much that you are sleepy all the time.`;english_qestion_part1_answer[63]="because";
+english_qestion_part1[64]=`64 彼はけっして他人の悪口を言うような人ではない。
+He is the (${Answer}) person to speak ill of others.`;english_qestion_part1_answer[64]="last";
+english_qestion_part1[65]=`65. パーティーに来たい人はだれでも来てよい。
+(${Answer}) wants to come to my party may come.`;english_qestion_part1_answer[65]="Whoever";
+english_qestion_part1[66]=`66. もうそろそろ学校へ行く時間です。
+It is about time you (${Answer}) to school.`;english_qestion_part1_answer[66]="went";
+english_qestion_part1[67]=``;english_qestion_part1_answer[67]="";
+english_qestion_part1[68]=``;english_qestion_part1_answer[68]="";
+english_qestion_part1[69]=``;english_qestion_part1_answer[69]="";
+
+const qestion_const = 67;
+
+let qestion_string = "";
+qestion_string = english_qestion_part1[0]+"<br><br>";;
+
+for(let i= 1;i<qestion_const;i++){
+  qestion_string += english_qestion_part1[i]+"<br>";
+  qestion_string += `<input type="text" id="ID_input_text${i}" value="">　`;
+  qestion_string += `<input type="button" id="ID_btn_voice${i}" value="ヒント発音">　`;
+  qestion_string += `<input type="button" id="ID_btn${i}" value="答え合わせ">　`;
+  qestion_string += `<span id="ID_span_yes_or_no${i}"></span>　`;
+  qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
+}
+let answerCount=0;
+let answerTrueCount=0;
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('ID_pre').innerHTML = qestion_string;
+  for(let i= 1;i<qestion_const;i++){
+    document.getElementById(`ID_btn${i}`).addEventListener("click", function(){
+      answerCount ++;
+      if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1_answer[i]){
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${english_qestion_part1_answer[i]}</span>　`;
+        answerTrueCount++;
+      }else{
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${english_qestion_part1_answer[i]}</span>　`;
+
+      }
+    },false);
+
+    document.getElementById(`ID_btn_voice${i}`).addEventListener("click", function(){
+      /*
+      answerCount ++;
+      if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1_answer[i]){
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${english_qestion_part1_answer[i]}</span>　`;
+        answerTrueCount++;
+      }else{
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${english_qestion_part1_answer[i]}</span>　`;
+      }
+      */
+      console.log(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]));
+      speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]));
+    },false);
+  }
+
+
+
+  document.getElementById('ID_btn_all_check_the_answer').addEventListener("click", function(){
+    answerCount=0;
+    answerTrueCount=0;
+    for(let i= 1;i<qestion_const;i++){
+      answerCount ++;
+      if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1_answer[i]){
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${english_qestion_part1_answer[i]}</span>　`;
+        answerTrueCount++;
+      }else{
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${english_qestion_part1_answer[i]}</span>　`;
+      }
+    }
+
+    //小数第一位を基準とした方法
+    //Math.round(123.456 * 10) / 10 // 出力：123.5
+    
+    let timer=new Date(); 
+    //年・月・日・曜日を取得する
+    let year = timer.getFullYear();
+    let month = timer.getMonth()+1;
+    let week = timer.getDay();
+    let day = timer.getDate();
+    //時・分・秒を取得する
+    let hour = timer.getHours();
+    let minute = timer.getMinutes();
+    let second = timer.getSeconds();
+    let yobi= new Array("日","月","火","水","木","金","土");
+    let t = year+"年"+month+"月"+day+"日("+yobi[week] +")  "+ hour+"時" +minute+"分"+second+"秒：";
+
+    let p = Math.round(answerTrueCount/answerCount *100*1000)/1000;
+    let ans =`<span style='color:red'>${t} ${answerCount}問中 ${answerTrueCount}点正解： ${p}%</span>`;
+    document.getElementById('ID_span_all_answer').innerHTML = ans;  
+  },false);
+  
+});
+
+function speech_type(speech){
+  const uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化
+  uttr.text = speech;
+  uttr.rate = 1.0;// 速度 min 0 ~ max 10
+  uttr.lang = "en-US"; 
+  
+  /*
+  console.log(`Voices #: ${speechSynthesis.getVoices().length}`);
+  speechSynthesis.getVoices().forEach(voice => {
+    console.log(voice.name,"★", voice.lang)
+  })
+  */
+  speechSynthesis.speak(uttr);
+
+};
+
+</script>
+</head>
+<body>
+<pre id="ID_pre"></pre>
+<input type="button" id="ID_btn_all_check_the_answer" value="全答え合わせ">　
+
+<span id="ID_span_all_answer"></span>
+
+</body>
+</html>
+<!-- 148→106→156→235→→→→→ -->

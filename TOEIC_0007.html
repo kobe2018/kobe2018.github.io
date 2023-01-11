@@ -262,6 +262,15 @@ function speech_type(speech){
   })
   */
   //speechSynthesis.speak(uttr);
+ 
+  // 英語に対応しているvoiceを設定
+  const voices = speechSynthesis.getVoices()
+    for (let i = 0; i < voices.length; i++) {
+      if (voices[i].lang === 'en-US') {
+        uttr.voice = voices[i]
+      }
+    }
+
   window.speechSynthesis.speak(uttr)
 
 

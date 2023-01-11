@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="ja-jp">
 <head>
 <title>TOEIC</title>
 <meta charset="UTF-8"/>
@@ -16,7 +16,6 @@
 }
 </style>
 <script>
-  //ja-jp
 "use strict";
 let Answer =`<span style='color:red'>★</span>`;
 const qestion_const = 67;
@@ -253,8 +252,8 @@ document.addEventListener('DOMContentLoaded',function(){
 function speech_type(speech){
   const uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化
   uttr.text = speech;
-  uttr.rate = 1.0;// 速度 min 0 ~ max 10
   uttr.lang = "en-US"; 
+  uttr.rate = 1.0;// 速度 min 0 ~ max 10
   
   /*
   console.log(`Voices #: ${speechSynthesis.getVoices().length}`);
@@ -262,7 +261,9 @@ function speech_type(speech){
     console.log(voice.name,"★", voice.lang)
   })
   */
-  speechSynthesis.speak(uttr);
+  //speechSynthesis.speak(uttr);
+  window.speechSynthesis.speak(uttr)
+
 
 };
 

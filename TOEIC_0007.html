@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja-jp">
+<html lang="en-US">
 <head>
 <title>TOEIC</title>
 <meta charset="UTF-8"/>
@@ -16,16 +16,18 @@
 }
 </style>
 <script>
+  //ja-jp
 "use strict";
 let Answer =`<span style='color:red'>★</span>`;
-let english_qestion_part1 = new Array(70);
-let english_qestion_part1_answer = new Array(70);
+const qestion_const = 67;
+let english_qestion_part1 = new Array(qestion_const);
+let english_qestion_part1_answer = new Array(qestion_const);
 
 english_qestion_part1[0]=`<h2>第１章　重要構文の問題</h2>
 <h3>1. 次の日本文と英文が同じ意味になるように、<br>空所に適切な語を入れなさい。</h3>`;english_qestion_part1_answer[0]="";
-/*1. 彼は学者というよりもむしろ小説家であると思う。*/
 
-english_qestion_part1[1]=`I think he is not so much a scholar (${Answer}) a novelist.`;english_qestion_part1_answer[1]="as";
+english_qestion_part1[1]=`1. 彼は学者というよりもむしろ小説家であると思う。
+I think he is not so much a scholar (${Answer}) a novelist.`;english_qestion_part1_answer[1]="as";
 english_qestion_part1[2]=`2. 彼は彼女のことをきいて怒らずにはいられなかった。
 He could not (${Answer}) getting angry at her words.`;english_qestion_part1_answer[2]="help";
 english_qestion_part1[3]=`3. 健康にはいくら注意しても注意しすぎることはない。
@@ -156,18 +158,17 @@ english_qestion_part1[65]=`65. パーティーに来たい人はだれでも来�
 (${Answer}) wants to come to my party may come.`;english_qestion_part1_answer[65]="Whoever";
 english_qestion_part1[66]=`66. もうそろそろ学校へ行く時間です。
 It is about time you (${Answer}) to school.`;english_qestion_part1_answer[66]="went";
-english_qestion_part1[67]=``;english_qestion_part1_answer[67]="";
-english_qestion_part1[68]=``;english_qestion_part1_answer[68]="";
-english_qestion_part1[69]=``;english_qestion_part1_answer[69]="";
+//english_qestion_part1[67]=``;english_qestion_part1_answer[67]="";
+//english_qestion_part1[68]=``;english_qestion_part1_answer[68]="";
+//english_qestion_part1[69]=``;english_qestion_part1_answer[69]="";
 
-const qestion_const = 67;
 
 let qestion_string = "";
 qestion_string = english_qestion_part1[0]+"<br><br>";;
 
 for(let i= 1;i<qestion_const;i++){
   qestion_string += english_qestion_part1[i]+"<br>";
-  qestion_string += `<input type="text" id="ID_input_text${i}" value="">　`;
+  qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
   qestion_string += `<input type="button" id="ID_btn_voice${i}" value="ヒント発音">　`;
   qestion_string += `<input type="button" id="ID_btn${i}" value="答え合わせ">　`;
   qestion_string += `<span id="ID_span_yes_or_no${i}"></span>　`;
@@ -204,8 +205,8 @@ document.addEventListener('DOMContentLoaded',function(){
         document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${english_qestion_part1_answer[i]}</span>　`;
       }
       */
-      console.log(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]));
-      speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]));
+      console.log(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1]);
+      speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1]);
     },false);
   }
 

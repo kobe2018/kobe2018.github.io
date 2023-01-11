@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+<title>TOEIC</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+  
+@media screen and (max-width:600px) {
+	/*　この位置に記述する　*/
+	main {
+    font-size:22px;
+		width: 100%;
+	}
+}
+</style>
+<script>
+"use strict";
+let Answer =`<span style='color:red'>★</span>`;
+const qestion_const = 3;
+let wordLevel1 = new Array(qestion_const);
+wordLevel1[0]={no:"0039",en:"several",jp:"名：いくつか。形：いくつかの"};
+wordLevel1[1]={no:"0046",en:"among",jp:"前：・・・の間で"};
+wordLevel1[2]={no:"0077",en:"grow",jp:"自：育つ"};
+
+//wordLevel1[0].no=`0039`;wordLevel1[0].en=`several`;wordLevel1[0].jp=`名：いくつか。形：いくつかの`;
+//wordLevel1[1].no=`0046`;wordLevel1[1].en=`among`;wordLevel1[1].jp=`前：・・・の間で`;
+//wordLevel1[2].no=`0077`;wordLevel1[2].en=`grow`;wordLevel1[2].jp=`自：育つ`;
+
+
+
+let qestion_string = "";
+
+for(let i= 0;i<qestion_const;i++){
+  qestion_string += `<input type="button" id="ID_btn_understand${i}" value="覚えた！">　`;
+  qestion_string += `<input type="button" id="ID_btn_voice${i}" value="発音">　`;
+  qestion_string += `<input type="button" id="ID_btn_answer${i}" value="答え">　`;
+  qestion_string += wordLevel1[i].en+"<br>";
+  qestion_string += `<span id="ID_span_yes_or_no${i}"></span>　`;
+  qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
+}
+let answerCount=0;
+let answerTrueCount=0;
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('ID_pre').innerHTML = qestion_string;
+  for(let i= 0;i<qestion_const;i++){
+    document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){
+      answerCount ++;
+      if(document.getElementById(`ID_input_text${i}`).value == wordLevel1[i].en){
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${wordLevel1[i].jp}</span>　`;
+        answerTrueCount++;
+      }else{
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${wordLevel1[i].jp}</span>　`;
+
+      }
+    },false);
+
+    document.getElementById(`ID_btn_voice${i}`).addEventListener("click", function(){
+      /*
+      answerCount ++;
+      if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1_answer[i]){
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${english_qestion_part1_answer[i]}</span>　`;
+        answerTrueCount++;
+      }else{
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${english_qestion_part1_answer[i]}</span>　`;
+      }
+      */
+      console.log(wordLevel1[i].no,wordLevel1[i].en,`(<span style='color:red'>${wordLevel1[i].jp}</span>)`);
+      speech_type(wordLevel1[i].en);
+    },false);
+  }
+
+
+
+  document.getElementById('ID_btn_all_check_the_answer').addEventListener("click", function(){
+    answerCount=0;
+    answerTrueCount=0;
+    for(let i= 0;i<qestion_const;i++){
+      answerCount ++;
+      if(document.getElementById(`ID_input_text${i}`).value == wordLevel1[i]){
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${wordLevel1[i]}</span>　`;
+        answerTrueCount++;
+      }else{
+        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
+        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${wordLevel1[i]}</span>　`;
+      }
+    }
+
+    //小数第一位を基準とした方法
+    //Math.round(123.456 * 10) / 10 // 出力：123.5
+    
+    let timer=new Date(); 
+    //年・月・日・曜日を取得する
+    let year = timer.getFullYear();
+    let month = timer.getMonth()+1;
+    let week = timer.getDay();
+    let day = timer.getDate();
+    //時・分・秒を取得する
+    let hour = timer.getHours();
+    let minute = timer.getMinutes();
+    let second = timer.getSeconds();
+    let yobi= new Array("日","月","火","水","木","金","土");
+    let t = year+"年"+month+"月"+day+"日("+yobi[week] +")  "+ hour+"時" +minute+"分"+second+"秒：";
+
+    let p = Math.round(answerTrueCount/answerCount *100*1000)/1000;
+    let ans =`<span style='color:red'>${t} ${answerCount}問中 ${answerTrueCount}点正解： ${p}%</span>`;
+    document.getElementById('ID_span_all_answer').innerHTML = ans;  
+  },false);
+  
+});
+
+function speech_type(speech){
+  const uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化
+  uttr.text = speech;
+  uttr.lang = "en-US"; 
+  uttr.rate = 1.0;// 速度 min 0 ~ max 10
+  
+  /*
+  console.log(`Voices #: ${speechSynthesis.getVoices().length}`);
+  speechSynthesis.getVoices().forEach(voice => {
+    console.log(voice.name,"★", voice.lang)
+  })
+  */
+  //speechSynthesis.speak(uttr);
+ 
+  // 英語に対応しているvoiceを設定
+  const voices = speechSynthesis.getVoices()
+    for (let i = 0; i < voices.length; i++) {
+      if (voices[i].lang === 'en-US') {
+        uttr.voice = voices[i]
+      }
+    }
+
+  window.speechSynthesis.speak(uttr)
+
+
+};
+
+</script>
+</head>
+<body>
+<pre id="ID_pre"></pre>
+<input type="button" id="ID_btn_all_check_the_answer" value="全答え合わせ">　
+
+<span id="ID_span_all_answer"></span>
+
+</body>
+</html>
+<!-- 148→106→156→235→→→→→ -->

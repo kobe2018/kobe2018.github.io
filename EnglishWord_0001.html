@@ -17,59 +17,56 @@
 <script>
 "use strict";
 let Answer =`<span style='color:red'>★</span>`;
-const qestion_const = 3;
+const qestion_const = 14;
 let wordLevel1 = new Array(qestion_const);
-wordLevel1[0]={no:"0039",en:"several",jp:"名：いくつか。形：いくつかの"};
-wordLevel1[1]={no:"0046",en:"among",jp:"前：・・・の間で"};
-wordLevel1[2]={no:"0077",en:"grow",jp:"自：育つ"};
-
-//wordLevel1[0].no=`0039`;wordLevel1[0].en=`several`;wordLevel1[0].jp=`名：いくつか。形：いくつかの`;
-//wordLevel1[1].no=`0046`;wordLevel1[1].en=`among`;wordLevel1[1].jp=`前：・・・の間で`;
-//wordLevel1[2].no=`0077`;wordLevel1[2].en=`grow`;wordLevel1[2].jp=`自：育つ`;
-
-
-
+wordLevel1[0]={no:"0039",en:"several",jp:"名「いくつか」　形「いくつかの」"};
+wordLevel1[1]={no:"0046",en:"among",jp:"前「・・・の間で」"};
+wordLevel1[2]={no:"0076",en:"never",jp:"例「Peter Pan never grows old.ピーターパンは決して年を取らない」"};
+wordLevel1[3]={no:"0077",en:"grow",jp:"自「育つ」"};
+wordLevel1[4]={no:"0087",en:"quiet",jp:"形「静かな」"};
+wordLevel1[5]={no:"0096",en:"gloove",jp:"名「手袋」"};
+wordLevel1[6]={no:"0103",en:"vegetable",jp:"名「野菜」"};
+wordLevel1[7]={no:"0104",en:"salad",jp:"名「サラダ」"};
+wordLevel1[8]={no:"0118",en:"shine",jp:"自「輝く」他「・・・を磨く」"};
+wordLevel1[9]={no:"0133",en:"along",jp:"前「・・・に沿って」"};
+wordLevel1[10]={no:"0133A",en:"alone",jp:"「1人」"};
+wordLevel1[11]={no:"0143",en:"turn",jp:"例「turn on TV.テレビをつける」"};
+wordLevel1[12]={no:"0175",en:"hurt",jp:"他「を傷つける」他"};
+wordLevel1[13]={no:"0178",en:"invite",jp:"他「・・・を誘う。引き起こす」"};
+wordLevel1[14]={no:"0185",en:"college",jp:"名「大学」"};
+/*
+wordLevel1[15]={no:"0",en:"",jp:""};
+wordLevel1[16]={no:"0",en:"",jp:""};
+wordLevel1[17]={no:"0",en:"",jp:""};
+wordLevel1[18]={no:"0",en:"",jp:""};
+wordLevel1[19]={no:"0",en:"",jp:""};
+wordLevel1[20]={no:"0",en:"",jp:""};
+wordLevel1[21]={no:"0",en:"",jp:""};
+wordLevel1[22]={no:"0",en:"",jp:""};
+wordLevel1[23]={no:"0",en:"",jp:""};
+*/
 let qestion_string = "";
 
 for(let i= 0;i<qestion_const;i++){
-  qestion_string += `<input type="button" id="ID_btn_understand${i}" value="覚えた！">　`;
+  //qestion_string += wordLevel1[i].en+"　";
+  qestion_string += wordLevel1[i].en + " ".repeat(12-(wordLevel1[i].en).length);  
   qestion_string += `<input type="button" id="ID_btn_voice${i}" value="発音">　`;
-  qestion_string += `<input type="button" id="ID_btn_answer${i}" value="答え">　`;
-  qestion_string += wordLevel1[i].en+"<br>";
-  qestion_string += `<span id="ID_span_yes_or_no${i}"></span>　`;
-  qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
+  qestion_string += `<input type="button" id="ID_btn_answer${i}" value="訳語">　`;
+  qestion_string += `<input type="button" id="ID_btn_understand${i}" value="覚えた">　`;
+
+  qestion_string += `<span id="ID_answer${i}"></span><br>`;    
 }
-let answerCount=0;
-let answerTrueCount=0;
 
 document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('ID_pre').innerHTML = qestion_string;
   for(let i= 0;i<qestion_const;i++){
     document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){
-      answerCount ++;
-      if(document.getElementById(`ID_input_text${i}`).value == wordLevel1[i].en){
-        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
-        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${wordLevel1[i].jp}</span>　`;
-        answerTrueCount++;
-      }else{
-        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
-        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${wordLevel1[i].jp}</span>　`;
-
-      }
+      document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:black">${wordLevel1[i].jp}</span>　`;
     },false);
+  
 
     document.getElementById(`ID_btn_voice${i}`).addEventListener("click", function(){
-      /*
-      answerCount ++;
-      if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1_answer[i]){
-        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
-        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${english_qestion_part1_answer[i]}</span>　`;
-        answerTrueCount++;
-      }else{
-        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
-        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${english_qestion_part1_answer[i]}</span>　`;
-      }
-      */
+
       console.log(wordLevel1[i].no,wordLevel1[i].en,`(<span style='color:red'>${wordLevel1[i].jp}</span>)`);
       speech_type(wordLevel1[i].en);
     },false);
@@ -78,42 +75,15 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
   document.getElementById('ID_btn_all_check_the_answer').addEventListener("click", function(){
-    answerCount=0;
-    answerTrueCount=0;
     for(let i= 0;i<qestion_const;i++){
-      answerCount ++;
-      if(document.getElementById(`ID_input_text${i}`).value == wordLevel1[i]){
-        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:green">〇</span>　`;
-        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:green">${wordLevel1[i]}</span>　`;
-        answerTrueCount++;
-      }else{
-        document.getElementById(`ID_span_yes_or_no${i}`).innerHTML = `<span style="color:red">×</span>　`;
-        document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:red">${wordLevel1[i]}</span>　`;
-      }
+      document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:black">${wordLevel1[i].jp}</span>　`;
+      speech_type(wordLevel1[i].en);
     }
-
-    //小数第一位を基準とした方法
-    //Math.round(123.456 * 10) / 10 // 出力：123.5
-    
-    let timer=new Date(); 
-    //年・月・日・曜日を取得する
-    let year = timer.getFullYear();
-    let month = timer.getMonth()+1;
-    let week = timer.getDay();
-    let day = timer.getDate();
-    //時・分・秒を取得する
-    let hour = timer.getHours();
-    let minute = timer.getMinutes();
-    let second = timer.getSeconds();
-    let yobi= new Array("日","月","火","水","木","金","土");
-    let t = year+"年"+month+"月"+day+"日("+yobi[week] +")  "+ hour+"時" +minute+"分"+second+"秒：";
-
-    let p = Math.round(answerTrueCount/answerCount *100*1000)/1000;
-    let ans =`<span style='color:red'>${t} ${answerCount}問中 ${answerTrueCount}点正解： ${p}%</span>`;
-    document.getElementById('ID_span_all_answer').innerHTML = ans;  
   },false);
   
-});
+//});
+},false);
+
 
 function speech_type(speech){
   const uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化
@@ -145,8 +115,8 @@ function speech_type(speech){
 </script>
 </head>
 <body>
+<input type="button" id="ID_btn_all_check_the_answer" value="全部発音">　
 <pre id="ID_pre"></pre>
-<input type="button" id="ID_btn_all_check_the_answer" value="全答え合わせ">　
 
 <span id="ID_span_all_answer"></span>
 

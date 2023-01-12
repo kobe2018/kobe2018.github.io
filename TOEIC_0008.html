@@ -168,6 +168,7 @@ qestion_string = english_qestion_part1[0]+"<br><br>";;
 for(let i= 1;i<qestion_const;i++){
   qestion_string += english_qestion_part1[i]+"<br>";
   qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
+  qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3">　`;
   qestion_string += `<input type="button" id="ID_btn_voice_0.5_${i}" value="0.5">　`;
   qestion_string += `<input type="button" id="ID_btn_voice_0.8_${i}" value="0.8">　`;
   qestion_string += `<input type="button" id="ID_btn_voice${i}" value="1.0発音">　`;
@@ -195,7 +196,7 @@ document.addEventListener('DOMContentLoaded',function(){
     },false);
 
     document.getElementById(`ID_btn_voice${i}`).addEventListener("click", function(){
-      console.log(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1]);
+      //console.log(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1]);
       speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],1.0);
     },false);
 
@@ -205,6 +206,10 @@ document.addEventListener('DOMContentLoaded',function(){
 
     document.getElementById(`ID_btn_voice_0.5_${i}`).addEventListener("click", function(){
       speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],0.5);
+    },false);
+
+    document.getElementById(`ID_btn_voice_0.3_${i}`).addEventListener("click", function(){
+      speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],0.3);
     },false);
   }
 

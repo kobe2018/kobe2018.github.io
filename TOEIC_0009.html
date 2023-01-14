@@ -168,7 +168,6 @@ for(let i= 1;i<qestion_const;i++){
   qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
   qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3">　`;
   qestion_string += `<input type="button" id="ID_btn_voice_0.5_${i}" value="0.5">　`;
-  qestion_string += `<input type="button" id="ID_btn_voice_0.8_${i}" value="0.8">　`;
   qestion_string += `<input type="button" id="ID_btn_voice${i}" value="1.0発音">　`;
   qestion_string += `<input type="button" id="ID_btn${i}" value="答え">　`;
   qestion_string += `<span id="ID_span_yes_or_no${i}"></span>　`;
@@ -198,9 +197,6 @@ document.addEventListener('DOMContentLoaded',function(){
       speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],1.0);
     },false);
 /*
-    document.getElementById(`ID_btn_voice_0.8_${i}`).addEventListener("click", function(){
-      speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],0.8);
-    },false);
 
     document.getElementById(`ID_btn_voice_0.5_${i}`).addEventListener("click", function(){
       speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],0.5);
@@ -208,7 +204,6 @@ document.addEventListener('DOMContentLoaded',function(){
 */
 
     let str = english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1];
-    click_speeck_type(`ID_btn_voice_0.8_${i}`,str,"0.8");
     click_speeck_type(`ID_btn_voice_0.5_${i}`,str,"0.5");
     click_speeck_type(`ID_btn_voice_0.3_${i}`,str,"0.3");
 
@@ -216,14 +211,14 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
   document.getElementById('ID_btn_all_voices').addEventListener("click", function(){
-    for(let i= 0;i<qestion_const;i++){
+    for(let i= 1;i<qestion_const;i++){
       speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],1.0);
     }
   },false);
 
 
   document.getElementById('ID_btn_all_voices0.3').addEventListener("click", function(){
-    for(let i= 0;i<qestion_const;i++){
+    for(let i= 1;i<qestion_const;i++){
       speech_type(english_qestion_part1[i].replace(`(<span style='color:red'>★</span>)`,english_qestion_part1_answer[i]).split("\n")[1],0.3);
     }  },false);
 
@@ -295,8 +290,6 @@ function speech_type(speech,rate_num){
     }
 
   window.speechSynthesis.speak(uttr)
-
-
 };
 
 </script>

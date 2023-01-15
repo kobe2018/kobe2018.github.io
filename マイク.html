@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+<title>TOEIC</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+ /*　画面サイズが480px以下の場合ここの記述が適用される　*/
+@media screen and (max-width:600px) {
+	/*　この位置に記述する　*/
+	main {
+    font-size:22px;
+		width: 100%;
+	}
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  document.getElementById("ID_btn_record_en").addEventListener("click",function(){  
+    voice("en-US");
+  },false);
+  document.getElementById("ID_btn_record_jp").addEventListener("click",function(){  
+    voice("ja-JP");
+  },false);
+  
+},false);
+
+function voice(lang){
+  SpeechRecognition = webkitSpeechRecognition || SpeechRecognition;
+  const recognition = new SpeechRecognition();
+  /*
+  recognition.onresult = (event) => {
+    alert(event.results[0][0].transcript);
+  }
+*/
+  recognition.interimResults = true; // 認識している途中にも結果を得る
+  //recognition.lang = 'ja-JP';
+  //recognition.lang = 'en-US';//アメリカ英語
+  recognition.lang = lang;
+    //recognition.onresult = function(event){
+      recognition.onresult = (event) => {
+      //alert(event.results[0][0].transcript);
+      document.getElementById('ID_div').innerText = event.results[0][0].transcript;
+    }
+  recognition.start();
+}
+
+
+</script>
+</head>
+<body>
+<input type ="button" id="ID_btn_record_en" value="英語認識"><br>
+<br>
+<input type ="button" id="ID_btn_record_jp" value="日本語認識"><br>
+
+<div id="ID_div"></div>
+
+</body>
+</html>
+<!-- →→ -->

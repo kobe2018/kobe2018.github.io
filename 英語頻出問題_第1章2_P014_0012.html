@@ -73,7 +73,7 @@ let english_qestion_part1=[
 {no:"43",jp:`43. 私はあなたに会えば必ず父を思いだす。`,en:`I never see you (${Answer[1]}) (${Answer[2]}) of my father.`,answer1:`without thinking`},
 {no:"44",jp:`44. 彼はさよならも言わずにその家を出た。`,en:`He left the house (${Answer[1]}) (${Answer[2]}) much as saying goodbye.`,answer1:`without so`},
 {no:"45",jp:`45. 彼はそのなぞを難なく解いた。`,en:`He had no (${Answer[1]}) (${Answer[2]}) explaining the mystery.`,answer1:`difficulty in`},
-{no:"46",jp:`46. 彼はクラスの他のどの少年よりも背が高い。`,en:`He is taller(${Answer[1]}) (${Answer[2]}) (${Answer[3]}) boy in the class.`,answer1:`than any other`},
+{no:"46",jp:`46. 彼はクラスの他のどの少年よりも背が高い。`,en:`He is taller (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) boy in the class.`,answer1:`than any other`},
 {no:"47",jp:`47. 私たちの会社で彼女ほど高慢な女性はいない。`,en:`(${Answer[1]}) (${Answer[2]}) woman in our company is so proud as she.`,answer1:`No other`},
 {no:"48",jp:`48. 彼は興奮すればするほど口数が少なくなりました。`,en:`(${Answer[1]}) (${Answer[2]}) excited he got the (${Answer[3]}) talkative he became.`,answer1:`The more, less`},
 {no:"49",jp:`49. 彼には欠点がありますが、それでも私は彼が好きです。`,en:`I love him (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) for his faults.`,answer1:`none the less`},
@@ -121,6 +121,24 @@ let qestion_string = "";
 let answerCount=0;
 let answerTrueCount=0;
 
+//const wl = await navigator.wakeLock.request('screen');
+//wl.release();
+// The wake lock sentinel.
+
+let wakeLock = null;
+// Function that attempts to request a wake lock.
+const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => {
+      console.log('Wake Lock was released');
+    });
+    console.log('Wake Lock is active');
+  } catch (err) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+};
+
 function init_data(){//初期化
   qestion_string = english_qestion_part1_start+"<br><br>";
   for(let i= 0;i<qestion_const;i++){
@@ -161,10 +179,12 @@ function init_btn(){
   }
 }
 
+
 document.addEventListener('DOMContentLoaded',function(){
   init_data();
   init_btn();
-
+  requestWakeLock();
+  
   document.getElementById('ID_btn_all_voices0p3').addEventListener("click", function(){
 
 for(let i= 0;i<qestion_const;i++){

@@ -132,10 +132,15 @@ const requestWakeLock = async () => {
     wakeLock = await navigator.wakeLock.request('screen');
     wakeLock.addEventListener('release', () => {
       console.log('Wake Lock was released');
+      document.getElementById('ID_wake').innerHTML = "Wake Lock was released";
     });
     console.log('Wake Lock is active');
+    document.getElementById('ID_wake').innerHTML = "Wake Lock is active";
+
   } catch (err) {
     console.error(`${err.name}, ${err.message}`);
+    document.getElementById('ID_wake').innerHTML = `${err.name}, ${err.message}`;
+
   }
 };
 
@@ -184,7 +189,7 @@ document.addEventListener('DOMContentLoaded',function(){
   init_data();
   init_btn();
   requestWakeLock();
-  
+
   document.getElementById('ID_btn_all_voices0p3').addEventListener("click", function(){
 
 for(let i= 0;i<qestion_const;i++){
@@ -247,9 +252,6 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
     .replace(`(<span style='color:red'>★3</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[2]}</span>`)
     .replace(`(<span style='color:red'>★4</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[3]}</span>`)
     
-    //.replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1])
-    //.replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2])
-    //.replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])
     +"<br>";
 
     qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
@@ -258,13 +260,13 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
     qestion_string += `<input type="button" id="ID_btn_answer${i}" value="答え">　`;
     qestion_string += `<span id="ID_output_Yes_No${i}"></span>　`;
     qestion_string += `<span id="ID_answer${i}"></span><br><br>`;
-  }    
-  document.getElementById('ID_pre').innerHTML = qestion_string;
+  }
 
+  document.getElementById('ID_pre').innerHTML = qestion_string;
     //小数第一位を基準とした方法:Math.round(123.456 * 10) / 10 // 出力：123.5
     let p = Math.round(answerTrueCount/answerCount *100*1000)/1000;
     let ans =`<span style='color:red'>${return_time()} ${answerCount}問中 ${answerTrueCount}点正解： ${p}%</span>`;
-    document.getElementById('ID_span_all_answer').innerHTML = ans;  
+    document.getElementById('ID_span_all_answer').innerHTML = ans;
   },false);
   
 
@@ -323,7 +325,6 @@ function speech_type(speech,rate_num){
         uttr.voice = voices[i]
       }
     }
-
   window.speechSynthesis.speak(uttr)
 };
 
@@ -343,7 +344,7 @@ let shuffle = ([...array]) => {
 
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答"> 
 <input type="button" id="ID_btn_all_shuffle" value="シャッフル"> 
-
+<div id="ID_wake">a</div>
 <div id="ID_pre"></div>
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答">　
 
@@ -351,4 +352,4 @@ let shuffle = ([...array]) => {
 
 </body>
 </html>
-<!-- 148→106→156→235→298→243→248→→ -->
+<!-- 148→106→156→235→298→243→248→354→ -->

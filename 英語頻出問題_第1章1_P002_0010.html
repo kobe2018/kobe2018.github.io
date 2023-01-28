@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja-jp">
 <head>
-<title>TOEIC</title>
+<title>英語頻出問題</title>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
@@ -93,6 +93,25 @@ let qestion_string = "";
 let answerCount=0;
 let answerTrueCount=0;
 
+let wakeLock = null;
+// Function that attempts to request a wake lock.
+const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => {
+      console.log('Wake Lock was released');
+      document.getElementById('ID_wake').innerHTML = "Wake Lock was released";
+    });
+    console.log('Wake Lock is active');
+    document.getElementById('ID_wake').innerHTML = "Wake Lock is active";
+
+  } catch (err) {
+    console.error(`${err.name}, ${err.message}`);
+    document.getElementById('ID_wake').innerHTML = `${err.name}, ${err.message}`;
+
+  }
+};
+
 function init_data(){//初期化
   qestion_string = english_qestion_part1_start+"<br><br>";;
   for(let i= 0;i<qestion_const;i++){
@@ -105,7 +124,7 @@ function init_data(){//初期化
     qestion_string += `<span id="ID_output_Yes_No${i}"></span>　`;
     qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
   }
-  document.getElementById('ID_pre').innerHTML = qestion_string;
+  document.getElementById('ID_output').innerHTML = qestion_string;
 }
 function init_btn(){
   for(let i= 0;i<qestion_const;i++){
@@ -130,6 +149,7 @@ function init_btn(){
 document.addEventListener('DOMContentLoaded',function(){
   init_data();
   init_btn();
+  requestWakeLock();
 
   document.getElementById('ID_btn_all_voices0p3').addEventListener("click", function(){
 for(let i= 0;i<qestion_const;i++){speech_type(english_qestion_part1[i].en.replace(`(<span style='color:red'>★</span>)`,english_qestion_part1[i].answer1) ,0.3);}
@@ -139,7 +159,6 @@ for(let i= 0;i<qestion_const;i++){speech_type(english_qestion_part1[i].en.replac
 for(let i= 0;i<qestion_const;i++){speech_type(english_qestion_part1[i].en.replace(`(<span style='color:red'>★</span>)`,english_qestion_part1[i].answer1),1.0);}
   },false);
 
-  
   document.getElementById('ID_btn_all_check_the_answer').addEventListener("click", function(){
     answerCount=0;
     answerTrueCount=0;
@@ -236,8 +255,9 @@ let shuffle = ([...array]) => {
 <input type="button" id="ID_btn_all_voices1p0" value="1.0全発音"> 
 
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答"> 
-<input type="button" id="ID_btn_all_shuffle" value="ｼｬｯﾌﾙ"> 
-<div id="ID_pre"></div>
+<input type="button" id="ID_btn_all_shuffle" value="シャッフル">
+<div id="ID_wake">a</div>
+<div id="ID_output"></div>
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答">　
 
 <span id="ID_span_all_answer"></span>

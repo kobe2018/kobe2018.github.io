@@ -18,24 +18,28 @@
 "use strict";
 //let engWordData = new Array(qestion_const);
 let engWordData=[
-{no:"1",en:"incident",jp:""},
+{no:"1",en:"incident",jp:"ínsədnt,事変"},
 {no:"3",en:"to blame ",jp:"責任を負わせる"},
 {no:"9",en:"There is no telling",jp:"有効な策はない"},
 {no:"9",en:"telling",jp:"ˈtɛlɪŋ,有効な、効果的な"},
-{no:"9",en:"severe",jp:"səvíɚ,容赦のない。×「シビア」→○「セヴィヤ」。語源はラテン語 severus（厳粛な）→「忍耐が必要とされる状況」"},
-{no:"9",en:"a severe earthquake",jp:"ˈɚːθkwèɪk,大地震"},
-{no:"9",en:"several",jp:"いろいろな。分ける。語源はラテン語の「分ける」より。語源はseveralやseparateと同じ"},
+{no:"9",en:"severe",jp:"<br>səvíɚ,容赦のない。<br>×「シビア」→○「セヴィヤ」<br>語源はラテン語 severus（厳粛な）→「忍耐が必要とされる状況」"},
+{no:"9",en:"a severe earthquake",jp:"<br>ˈɚːθkwèɪk,大地震"},
+{no:"9",en:"several",jp:"いろいろな。分ける。語源はラテン語の「分ける」より<br>語源はseveralやseparateと同じ"},
 {no:"11",en:"Nothing is more delightful",jp:"これほど嬉しいことはない"},
-{no:"11",en:"delightful",jp:"dɪlάɪtf(ə)l,喜び。愉快。light「光」とは関係ない。ラテン語のdelectare 「誘惑する、魅惑する」 > 英語では喜ばせるに意味が変化。"},
+{no:"11",en:"delightful",jp:"<br>dɪlάɪtf(ə)l,喜び。愉快。light「光」とは関係ない。<br>ラテン語のdelectare 「誘惑する、魅惑する」 > 英語では喜ばせるに意味が変化。"},
 {no:"19",en:"for his faults.",jp:"彼の過ちのために。"},
-{no:"19",en:"faults",jp:"faultの複数形。欠点"},
-{no:"19",en:"fault",jp:"欠点、短所、欠陥、過失"},
+{no:"19",en:"faults",jp:"fɔlts,faultの複数形。欠点"},
+{no:"19",en:"fault",jp:"fˈɔːlt,欠点、短所、欠陥、過失"},
+{no:"19",en:"fortissimo",jp:"fɔɚtísəmòʊ,きわめて強く"},
+{no:"19",en:"fork",jp:"fˈɔɚk,フォーク"},
+{no:"19",en:"foul",jp:"fάʊl(,野球のファール。悪い"},
 {no:"36",en:"It is worth while",jp:"それは価値がある"},
 {no:"36",en:"worth while",jp:"○○する価値がある"},
-{no:"36",en:"while",jp:"○○する間"},
-{no:"36",en:"worth",jp:"価値。語源：ゲルマン祖語 werthaz（価値のある）⇒ wert-（交換する）。worthip（崇拝する）と同じ語源。"},
-{no:"36",en:"wrong",jp:"間違い"},
-{no:"36",en:"worship",jp:"崇拝する。語源はworthip"},
+{no:"36",en:"while",jp:"(h)wάɪl,○○する間"},
+{no:"36",en:"white",jp:"(h)wάɪt,白"},
+{no:"36",en:"worth",jp:"wˈɚːθ,価値。語源：ゲルマン祖語 werthaz（価値のある）⇒ wert-（交換する）。worthip（崇拝する）と同じ語源。"},
+{no:"36",en:"worship",jp:"wˈɚːʃɪp,崇拝する。語源はworthip"},
+{no:"36",en:"wrong",jp:"rˈɔːŋ,間違い"},
 {no:"38",en:"illness",jp:""},
 {no:"39",en:"able to predict earthquakes.",jp:"地震予知が出来る"},
 {no:"39",en:"predict",jp:"予知"},
@@ -54,7 +58,11 @@ let engWordData=[
 {no:"71",en:"enabled",jp:""},
 {no:"71",en:"comfort.",jp:"快適"},
 {no:"74",en:"something noble ",jp:"なんとなく気品"},
-{no:"74",en:"noble",jp:"気品"},
+{no:"74",en:"noble",jp:"nóʊbl,気品"},
+{no:"74",en:"a noble family",jp:"貴族の"},
+{no:"74",en:"noble metals",jp:"貴金属"},
+{no:"74",en:"nobel",jp:"ノーベル"},
+{no:"74",en:"Nobel prize",jp:"ノーベル賞"},
 {no:"83",en:"to persuade him.",jp:"彼を説得する。"},
 {no:"83",en:"persuade",jp:"説得する"},
 
@@ -67,8 +75,6 @@ let qestion_string = "";
 
 for(let i= 0;i<qestion_const;i++){
   qestion_string += engWordData[i].en+"<br>";
-
-  qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.2">　`;
   qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3">　`;
   qestion_string += `<input type="button" id="ID_btn_voice1p0${i}" value="1.0発音">　`;
   qestion_string += `<input type="button" id="ID_btn_answer${i}" value="回答">　`;
@@ -80,8 +86,6 @@ document.addEventListener('DOMContentLoaded',function(){
 
   document.getElementById('ID_pre').innerHTML = qestion_string;
   for(let i= 0;i<qestion_const;i++){
-
-    document.getElementById(`ID_btn_voice0p1${i}`).addEventListener("click", function(){speech_type(engWordData[i].en,0.1);},false);
     document.getElementById(`ID_btn_voice0p3${i}`).addEventListener("click", function(){speech_type(engWordData[i].en,0.3);},false);
     document.getElementById(`ID_btn_voice1p0${i}`).addEventListener("click", function(){
       console.log(engWordData[i].no,engWordData[i].en,`(<span style='color:red'>${engWordData[i].jp}</span>)`);
@@ -110,9 +114,7 @@ document.addEventListener('DOMContentLoaded',function(){
     qestion_string="";
     for(let i= 0;i<qestion_const;i++){
       qestion_string += engWordData[i].en+"<br>";
- 
-      qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.2" onclick="speech_type(engWordData[${i}].en,0.2);">　`;
-      qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3" onclick="speech_type(engWordData[${i}].en,0.3);">　`;
+       qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3" onclick="speech_type(engWordData[${i}].en,0.3);">　`;
       qestion_string += `<input type="button" id="ID_btn_voice1p0${i}" value="1.0発音" onclick="speech_type(engWordData[${i}].en,1.0);">　`;
       qestion_string += `<input type="button" id="ID_btn_answer${i}" value="回答" onclick="document.getElementById('ID_answer${i}').innerHTML = '${engWordData[i].jp}'">　`;
       qestion_string += `<span id="ID_answer${i}"></span><br><br>`;
@@ -136,4 +138,4 @@ document.addEventListener('DOMContentLoaded',function(){
 <span id="ID_span_all_answer"></span>
 </body>
 </html>
-<!-- 177→171→→→→ -->
+<!-- 177→171→147→→→ -->

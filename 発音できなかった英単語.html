@@ -76,6 +76,8 @@ for(let i= 0;i<qestion_const;i++){
 }
 
 document.addEventListener('DOMContentLoaded',function(){
+  requestWakeLock();
+
   document.getElementById('ID_pre').innerHTML = qestion_string;
   for(let i= 0;i<qestion_const;i++){
 

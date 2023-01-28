@@ -58,7 +58,7 @@ let english_qestion_part1=[
 {no:"28",jp:`28. 外国人が日本の食物に慣れることはむずかしい。`,en:`(${Answer[1]}) is difficult (${Answer[2]}) foreigners to get used to Japanese food.`,answer1:`It,for`},
 {no:"29",jp:`29. 彼の言っていることを理解するのは困難だった。`,en:`I (${Answer[1]}) (${Answer[2]}) difficult to understand what he was say.`,answer1:`found it`},
 {no:"30",jp:`30. 勝敗は問題ではない。`,en:`It doesn't (${Answer[1]}) (${Answer[2]}) you win or not.`,answer1:`matter whether`},
-{no:"31",jp:`31. 彼が来るか来ないかは私にはどうでもよいことだ。`,en:`(${Answer[1]}) makes no (${Answer[2]}) to me whether he comes or not.`,answer1:`It, difference`},
+{no:"31",jp:`31. 彼が来るか来ないかは私にはどうでもよいことだ。`,en:`(${Answer[1]}) makes no (${Answer[2]}) to me whether he comes or not.`,answer1:`It,difference`},
 {no:"32",jp:`32. 私はふとその男が私をだまして金を奪い取ろうとしているのだと思った。`,en:`It (${Answer[1]}) (${Answer[2]}) me that the man was trying to cheat me out of my money.`,answer1:`occurred to`},
 {no:"33",jp:`33. 正直が最良の策であるということは言うまでもない。`,en:`It (${Answer[1]}) (${Answer[2]}) saying that honesty is the best policy.`,answer1:`goes without`},
 {no:"34",jp:`34. 彼は天才と言っても過言ではない。`,en:`It is not (${Answer[1]}) (${Answer[2]}) to say that he is a genius.`,answer1:`too much`},
@@ -75,7 +75,7 @@ let english_qestion_part1=[
 {no:"45",jp:`45. 彼はそのなぞを難なく解いた。`,en:`He had no (${Answer[1]}) (${Answer[2]}) explaining the mystery.`,answer1:`difficulty in`},
 {no:"46",jp:`46. 彼はクラスの他のどの少年よりも背が高い。`,en:`He is taller (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) boy in the class.`,answer1:`than any other`},
 {no:"47",jp:`47. 私たちの会社で彼女ほど高慢な女性はいない。`,en:`(${Answer[1]}) (${Answer[2]}) woman in our company is so proud as she.`,answer1:`No other`},
-{no:"48",jp:`48. 彼は興奮すればするほど口数が少なくなりました。`,en:`(${Answer[1]}) (${Answer[2]}) excited he got the (${Answer[3]}) talkative he became.`,answer1:`The more, less`},
+{no:"48",jp:`48. 彼は興奮すればするほど口数が少なくなりました。`,en:`(${Answer[1]}) (${Answer[2]}) excited he got the (${Answer[3]}) talkative he became.`,answer1:`The more,less`},
 {no:"49",jp:`49. 彼には欠点がありますが、それでも私は彼が好きです。`,en:`I love him (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) for his faults.`,answer1:`none the less`},
 {no:"50",jp:`50. 私はあなたがパーティーで彼女に会えるように取り計らいます。`,en:`I will (${Answer[1]}) (${Answer[2]}) that you meet her at the party.`,answer1:`see to it`},
 {no:"51",jp:`51. いつ彼に会っても、彼はにこにこしている。`,en:`(${Answer[1]}) (${Answer[2]}) I see him, he is smiling.`,answer1:`Every time`},
@@ -147,8 +147,9 @@ const requestWakeLock = async () => {
 function init_data(){//初期化
   qestion_string = english_qestion_part1_start+"<br><br>";
   for(let i= 0;i<qestion_const;i++){
-    qestion_string += english_qestion_part1[i].jp+"<br>";
-    qestion_string += english_qestion_part1[i].en+"<br>";
+    qestion_string += `<span id="ID_JP${i}">${english_qestion_part1[i].jp}</span>`+"<br>";
+    qestion_string += `<div id="ID_EN${i}">${english_qestion_part1[i].en}</div>`;
+    //qestion_string += english_qestion_part1[i].en+"<br>";
     qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
     qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3">　`;
     qestion_string += `<input type="button" id="ID_btn_voice_1.0_${i}" value="1.0発音">　`;
@@ -156,11 +157,11 @@ function init_data(){//初期化
     qestion_string += `<span id="ID_output_Yes_No${i}"></span>　`;
     qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
   }
-  document.getElementById('ID_pre').innerHTML = qestion_string;
+  document.getElementById('ID_output').innerHTML = qestion_string;
 }
 function init_btn(){
   for(let i= 0;i<qestion_const;i++){
-    document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){
+    document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){//答えボタンをおす
       answerCount ++;
       let color_type = "red";let answer_type = "×";      
       if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1[i].answer1){
@@ -168,9 +169,16 @@ function init_btn(){
         answer_type = "○";
         answerTrueCount++;
       }
+      document.getElementById(`ID_EN${i}`).innerHTML = english_qestion_part1[i].en
+      .replace(`(<span style='color:red'>★1</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[0]}</span>`)
+      .replace(`(<span style='color:red'>★2</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[1]}</span>`)
+      .replace(`(<span style='color:red'>★3</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[2]}</span>`)
+      .replace(`(<span style='color:red'>★4</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[3]}</span>`)
+      ;  
       document.getElementById(`ID_output_Yes_No${i}`).innerHTML = `<span style="color:${color_type}">${answer_type}</span>　`;
-      document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:${color_type}">${english_qestion_part1[i].answer1}</span>　`;
-    },false);
+      //document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:${color_type}">${english_qestion_part1[i].answer1}</span>　`;
+    },false);//答えボタンをおす
+
 
     let str = english_qestion_part1[i].en
     .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0])
@@ -262,7 +270,7 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
     qestion_string += `<span id="ID_answer${i}"></span><br><br>`;
   }
 
-  document.getElementById('ID_pre').innerHTML = qestion_string;
+  document.getElementById('ID_output').innerHTML = qestion_string;
     //小数第一位を基準とした方法:Math.round(123.456 * 10) / 10 // 出力：123.5
     let p = Math.round(answerTrueCount/answerCount *100*1000)/1000;
     let ans =`<span style='color:red'>${return_time()} ${answerCount}問中 ${answerTrueCount}点正解： ${p}%</span>`;
@@ -345,7 +353,7 @@ let shuffle = ([...array]) => {
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答"> 
 <input type="button" id="ID_btn_all_shuffle" value="シャッフル"> 
 <div id="ID_wake">a</div>
-<div id="ID_pre"></div>
+<div id="ID_output"></div>
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答">　
 
 <span id="ID_span_all_answer"></span>

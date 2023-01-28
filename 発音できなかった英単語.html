@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja-jp">
 <head>
-<title>英単語の発音講座</title>
+<title>英単語の発音</title>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
@@ -13,16 +13,18 @@
 	}
 }
 </style>
+<script src="english.js"></script>
 <script>
 "use strict";
-//let wordLevel1 = new Array(qestion_const);
-let wordLevel1=[
+//let engWordData = new Array(qestion_const);
+let engWordData=[
 {no:"1",en:"incident",jp:""},
 {no:"3",en:"to blame ",jp:"責任を負わせる"},
 {no:"9",en:"There is no telling",jp:"有効な策はない"},
 {no:"9",en:"telling",jp:"有効な、効果的な"},
-{no:"9",en:"severe",jp:"容赦のない。×「シビア」→○「セヴィヤ」"},
+{no:"9",en:"severe",jp:"容赦のない。×「シビア」→○「セヴィヤ」。語源はラテン語 severus（厳粛な）→「忍耐が必要とされる状況」"},
 {no:"9",en:"a severe earthquake",jp:"大地震"},
+{no:"9",en:"several",jp:"いろいろな。分ける。語源はラテン語の「分ける」より。語源はseveralやseparateと同じ"},
 {no:"11",en:"Nothing is more delightful",jp:"これほど嬉しいことはない"},
 {no:"11",en:"delightful",jp:"喜び。愉快。light「光」とは関係ない。ラテン語のdelectare 「誘惑する、魅惑する」 > 英語では喜ばせるに意味が変化。"},
 {no:"19",en:"for his faults.",jp:"彼の過ちのために。"},
@@ -31,12 +33,9 @@ let wordLevel1=[
 {no:"36",en:"It is worth while",jp:"それは価値がある"},
 {no:"36",en:"worth while",jp:"○○する価値がある"},
 {no:"36",en:"while",jp:"○○する間"},
-
 {no:"36",en:"worth",jp:"価値。語源：ゲルマン祖語 werthaz（価値のある）⇒ wert-（交換する）。worthip（崇拝する）と同じ語源。"},
 {no:"36",en:"wrong",jp:"間違い"},
 {no:"36",en:"worship",jp:"崇拝する。語源はworthip"},
-
-
 {no:"38",en:"illness",jp:""},
 {no:"39",en:"able to predict earthquakes.",jp:"地震予知が出来る"},
 {no:"39",en:"predict",jp:"予知"},
@@ -45,7 +44,6 @@ let wordLevel1=[
 {no:"48",en:"talkative",jp:"話し好き"},
 {no:"63",en:"There is no doubt ",jp:""},
 {no:"63",en:"no doubt",jp:""},
-{no:"64",en:"Even if you are not to blame, you should apologize.",jp:""},
 {no:"64",en:"you are not to blame",jp:"あなたのせいではない"},
 {no:"64",en:"blame",jp:"責任をとる"},
 {no:"64",en:"you should apologize.",jp:"謝るべきだ"},
@@ -64,17 +62,15 @@ let wordLevel1=[
 
 ];
 
-const qestion_const = wordLevel1.length;
+const qestion_const = engWordData.length;
 let qestion_string = "";
+
 for(let i= 0;i<qestion_const;i++){
-  //qestion_string += wordLevel1[i].en+"　";
-  if((wordLevel1[i].en).length>=13){
-    qestion_string += wordLevel1[i].en + "　";  
-  }else{
-    qestion_string += wordLevel1[i].en + " ".repeat(12-(wordLevel1[i].en).length);  
-  }
-  qestion_string += `<input type="button" id="ID_btn_voice0p3_${i}" value="0.3発音">　`;
-  qestion_string += `<input type="button" id="ID_btn_voice${i}" value="1.0発音">　`;
+  qestion_string += engWordData[i].en+"<br>";
+
+  qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.1">　`;
+  qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3">　`;
+  qestion_string += `<input type="button" id="ID_btn_voice1p0${i}" value="1.0発音">　`;
   qestion_string += `<input type="button" id="ID_btn_answer${i}" value="回答">　`;
   qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
 }
@@ -82,88 +78,54 @@ for(let i= 0;i<qestion_const;i++){
 document.addEventListener('DOMContentLoaded',function(){
   document.getElementById('ID_pre').innerHTML = qestion_string;
   for(let i= 0;i<qestion_const;i++){
-    document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){
-      document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:black">${wordLevel1[i].jp}</span>　`;
-    },false);
-  
 
-    document.getElementById(`ID_btn_voice${i}`).addEventListener("click", function(){
-      console.log(wordLevel1[i].no,wordLevel1[i].en,`(<span style='color:red'>${wordLevel1[i].jp}</span>)`);
-      speech_type(wordLevel1[i].en);
+    document.getElementById(`ID_btn_voice0p1${i}`).addEventListener("click", function(){speech_type(engWordData[i].en,0.1);},false);
+    document.getElementById(`ID_btn_voice0p3${i}`).addEventListener("click", function(){speech_type(engWordData[i].en,0.3);},false);
+    document.getElementById(`ID_btn_voice1p0${i}`).addEventListener("click", function(){
+      console.log(engWordData[i].no,engWordData[i].en,`(<span style='color:red'>${engWordData[i].jp}</span>)`);
+      speech_type(engWordData[i].en,1.0);
+    },false);
+
+    document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){
+      document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:black">${engWordData[i].jp}</span>　`;
     },false);
   }
 
-  document.getElementById('ID_btn_all_voices').addEventListener("click", function(){
-    for(let i= 0;i<qestion_const;i++){
-      speech_type(wordLevel1[i].en);
-    }
-  },false);
+  document.getElementById('ID_btn_all_voices0p3').addEventListener("click", function(){for(let i= 0;i<qestion_const;i++){speech_type(engWordData[i].en,0.3);}},false);
+  document.getElementById('ID_btn_all_voices1p0').addEventListener("click", function(){for(let i= 0;i<qestion_const;i++){speech_type(engWordData[i].en,1.0);}},false);
 
   document.getElementById('ID_btn_all_check_the_answer').addEventListener("click", function(){
     for(let i= 0;i<qestion_const;i++){
-      document.getElementById(`ID_answer${i}`).innerHTML = `${wordLevel1[i].jp}　`;
+      document.getElementById(`ID_answer${i}`).innerHTML = `${engWordData[i].jp}　`;
     }
   },false);
   
 
   document.getElementById('ID_btn_all_shuffle').addEventListener("click", function(){
     for(let i= 0;i<qestion_const;i++){
-      wordLevel1= shuffle(wordLevel1);
+      engWordData= shuffle(engWordData);
     }
     qestion_string="";
     for(let i= 0;i<qestion_const;i++){
-      if((wordLevel1[i].en).length>=13){
-        qestion_string += wordLevel1[i].en + "　";  
-      }else{
-        qestion_string += wordLevel1[i].en + " ".repeat(12-(wordLevel1[i].en).length);  
-      } 
-      qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3発音" onclick="speech_type(wordLevel1[${i}].en);">　`;
-      qestion_string += `<input type="button" id="ID_btn_voice${i}" value="発音" onclick="speech_type(wordLevel1[${i}].en);">　`;
-      qestion_string += `<input type="button" id="ID_btn_answer${i}" value="回答" onclick="document.getElementById('ID_answer${i}').innerHTML = '${wordLevel1[i].jp}'">　`;
+      qestion_string += engWordData[i].en+"<br>";
+ 
+      qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.1" onclick="speech_type(engWordData[${i}].en,0.1);">　`;
+      qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3" onclick="speech_type(engWordData[${i}].en,0.3);">　`;
+      qestion_string += `<input type="button" id="ID_btn_voice1p0${i}" value="1.0発音" onclick="speech_type(engWordData[${i}].en,1.0);">　`;
+      qestion_string += `<input type="button" id="ID_btn_answer${i}" value="回答" onclick="document.getElementById('ID_answer${i}').innerHTML = '${engWordData[i].jp}'">　`;
       qestion_string += `<span id="ID_answer${i}"></span><br><br>`;
     }
+    
   document.getElementById('ID_pre').innerHTML = qestion_string;
   },false);
   
 },false);//document.addEventListener('DOMContentLoaded',function(){
 
-
-
-function speech_type(speech){
-  const uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化
-  uttr.text = speech;
-  uttr.lang = "en-US"; 
-  uttr.rate = 1.0;// 速度 min 0 ~ max 10
-  /*
-  console.log(`Voices #: ${speechSynthesis.getVoices().length}`);
-  speechSynthesis.getVoices().forEach(voice => {
-    console.log(voice.name,"★", voice.lang)
-  })
-  */
-  //speechSynthesis.speak(uttr);
- 
-  // 英語に対応しているvoiceを設定
-  const voices = speechSynthesis.getVoices()
-    for (let i = 0; i < voices.length; i++) {
-      if (voices[i].lang === 'en-US') {
-        uttr.voice = voices[i]
-      }
-    }
-  window.speechSynthesis.speak(uttr)
-};
-
-let shuffle = ([...array]) => {
-  for (let i = array.length - 1; i >= 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
 </script>
 </head>
 <body>
-<input type="button" id="ID_btn_all_voices" value="全発音">　
+<input type="button" id="ID_btn_all_voices0p3" value="0.3発音">　
+<input type="button" id="ID_btn_all_voices1p0" value="全発音">　
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答">　
 <input type="button" id="ID_btn_all_shuffle" value="シャッフル">　
 <br><br>
@@ -171,4 +133,4 @@ let shuffle = ([...array]) => {
 <span id="ID_span_all_answer"></span>
 </body>
 </html>
-<!-- 177→→→→→ -->
+<!-- 177→171→→→→ -->

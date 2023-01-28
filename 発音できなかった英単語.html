@@ -21,12 +21,12 @@ let engWordData=[
 {no:"1",en:"incident",jp:""},
 {no:"3",en:"to blame ",jp:"責任を負わせる"},
 {no:"9",en:"There is no telling",jp:"有効な策はない"},
-{no:"9",en:"telling",jp:"有効な、効果的な"},
-{no:"9",en:"severe",jp:"容赦のない。×「シビア」→○「セヴィヤ」。語源はラテン語 severus（厳粛な）→「忍耐が必要とされる状況」"},
-{no:"9",en:"a severe earthquake",jp:"大地震"},
+{no:"9",en:"telling",jp:"ˈtɛlɪŋ,有効な、効果的な"},
+{no:"9",en:"severe",jp:"səvíɚ,容赦のない。×「シビア」→○「セヴィヤ」。語源はラテン語 severus（厳粛な）→「忍耐が必要とされる状況」"},
+{no:"9",en:"a severe earthquake",jp:"ˈɚːθkwèɪk,大地震"},
 {no:"9",en:"several",jp:"いろいろな。分ける。語源はラテン語の「分ける」より。語源はseveralやseparateと同じ"},
 {no:"11",en:"Nothing is more delightful",jp:"これほど嬉しいことはない"},
-{no:"11",en:"delightful",jp:"喜び。愉快。light「光」とは関係ない。ラテン語のdelectare 「誘惑する、魅惑する」 > 英語では喜ばせるに意味が変化。"},
+{no:"11",en:"delightful",jp:"dɪlάɪtf(ə)l,喜び。愉快。light「光」とは関係ない。ラテン語のdelectare 「誘惑する、魅惑する」 > 英語では喜ばせるに意味が変化。"},
 {no:"19",en:"for his faults.",jp:"彼の過ちのために。"},
 {no:"19",en:"faults",jp:"faultの複数形。欠点"},
 {no:"19",en:"fault",jp:"欠点、短所、欠陥、過失"},
@@ -68,7 +68,7 @@ let qestion_string = "";
 for(let i= 0;i<qestion_const;i++){
   qestion_string += engWordData[i].en+"<br>";
 
-  qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.1">　`;
+  qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.2">　`;
   qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3">　`;
   qestion_string += `<input type="button" id="ID_btn_voice1p0${i}" value="1.0発音">　`;
   qestion_string += `<input type="button" id="ID_btn_answer${i}" value="回答">　`;
@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded',function(){
     for(let i= 0;i<qestion_const;i++){
       qestion_string += engWordData[i].en+"<br>";
  
-      qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.1" onclick="speech_type(engWordData[${i}].en,0.1);">　`;
+      qestion_string += `<input type="button" id="ID_btn_voice0p1${i}" value="0.2" onclick="speech_type(engWordData[${i}].en,0.2);">　`;
       qestion_string += `<input type="button" id="ID_btn_voice0p3${i}" value="0.3" onclick="speech_type(engWordData[${i}].en,0.3);">　`;
       qestion_string += `<input type="button" id="ID_btn_voice1p0${i}" value="1.0発音" onclick="speech_type(engWordData[${i}].en,1.0);">　`;
       qestion_string += `<input type="button" id="ID_btn_answer${i}" value="回答" onclick="document.getElementById('ID_answer${i}').innerHTML = '${engWordData[i].jp}'">　`;
@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <input type="button" id="ID_btn_all_voices1p0" value="全発音">　
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答">　
 <input type="button" id="ID_btn_all_shuffle" value="シャッフル">　
+<div id="ID_wake"></div>
 <br><br>
 <pre id="ID_pre"></pre>
 <span id="ID_span_all_answer"></span>

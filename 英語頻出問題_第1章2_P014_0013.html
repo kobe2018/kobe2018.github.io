@@ -9,7 +9,7 @@
 @media screen and (max-width:600px) {
 	/*　この位置に記述する　*/
 	main {
-    font-size:22px;
+    font-size:30px;
 		width: 100%;
 	}
 }
@@ -26,7 +26,7 @@ Answer[4] =`<span style='color:red'>★4</span>`;
 Answer[5] =`<span style='color:red'>★5</span>`;
 
 let english_qestion_part1_start = `<h2>第１章　重要構文の問題</h2>
-<h3>2. 次の英文の空所に適語を1話ずつ入れて、日本文の意味と同じになるようにしなさい。P14</h3>`;
+2. 次の英文の空所に適語を1話ずつ入れて、日本文の意味と同じになるようにしなさい。P14`;
 
 let english_qestion_part1=[
 {no:"1",jp:`1. 私はその事件とはなんの関係もなかった。`,en:`I had nothing to (${Answer[1]}) (${Answer[2]}) that incident.`,answer1:`do with`},
@@ -136,7 +136,8 @@ function init_data(){//初期化
     qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
   }
   document.getElementById('ID_output').innerHTML = qestion_string;
-}
+}//init_data
+
 function init_btn(){
   for(let i= 0;i<qestion_const;i++){
     document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){//答えボタンをおす
@@ -230,7 +231,7 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
     qestion_string = english_qestion_part1_start+"<br><br>";
 
   for(let i= 0;i<qestion_const;i++){
-    qestion_string += english_qestion_part1[i].jp+"<br>";
+    //qestion_string += english_qestion_part1[i].jp+"<br>";
     //qestion_string += english_qestion_part1[i].en+"<br>";
     qestion_string += english_qestion_part1[i].en
     .replace(`(<span style='color:red'>★1</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[0]}</span>`)
@@ -240,12 +241,12 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
     
     +"<br>";
 
-    qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
-    qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3">　`;
-    qestion_string += `<input type="button" id="ID_btn_voice_1.0_${i}" value="1.0発音">　`;
-    qestion_string += `<input type="button" id="ID_btn_answer${i}" value="答え">　`;
-    qestion_string += `<span id="ID_output_Yes_No${i}"></span>　`;
-    qestion_string += `<span id="ID_answer${i}"></span><br><br>`;
+    //qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
+    //qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3">　`;
+    //qestion_string += `<input type="button" id="ID_btn_voice_1.0_${i}" value="1.0発音">　`;
+    //qestion_string += `<input type="button" id="ID_btn_answer${i}" value="答え">　`;
+    //qestion_string += `<span id="ID_output_Yes_No${i}"></span>　`;
+    //qestion_string += `<span id="ID_answer${i}"></span><br><br>`;
   }
 
   document.getElementById('ID_output').innerHTML = qestion_string;
@@ -265,6 +266,7 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
   },false);
 
 });
+//<input type="button" id="ID_btn_short" value="短"> 
 
 </script>
 </head>
@@ -274,7 +276,7 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
 
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答"> 
 <input type="button" id="ID_btn_all_shuffle" value="シャッフル"> 
-<div id="ID_wake">a</div>
+<div id="ID_wake"></div>
 <div id="ID_output"></div>
 <input type="button" id="ID_btn_all_check_the_answer" value="全回答">　
 

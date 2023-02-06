@@ -266,12 +266,65 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
   },false);
 
 });
-//<input type="button" id="ID_btn_short" value="短"> 
+
+
+function click_speeck_type(btn_id , speech , rate_num,i){
+document.getElementById(btn_id).addEventListener("click", function(){
+  speech_type(speech , rate_num,i);
+},false);
+}
+
+function speech_type(speech,rate_num,i){
+  const uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化
+  //let uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化  
+uttr.text = speech;
+uttr.lang = "en-US"; 
+//uttr.rate = 1.0;// 速度 min 0 ~ max 10
+uttr.rate = rate_num;// 速度 min 0 ~ max 10
+/*
+console.log(`Voices #: ${speechSynthesis.getVoices().length}`);
+speechSynthesis.getVoices().forEach(voice => {
+  console.log(voice.name,"★", voice.lang)
+})
+*/
+
+  uttr.onstart = function(event) {
+  //uttr.addEventListener("start", function(){
+    document.getElementById(`ID_now${i}`).innerText = `🟡`;
+    document.getElementById(`ID_output2`).innerText = `${i}`;
+
+    //document.getElementById(`ID_EN${num}`).innerHTML = "★" + num;
+    //console.log('Finished in ' + event.elapsedTime + ' seconds.');
+    //console.log(speech);
+  //},true);
+  };
+  // endイベントのコールバックを設定
+  uttr.onend = function(event) {
+  //uttr.addEventListener("end", function(event){
+    document.getElementById(`ID_now${i}`).innerText = `🟢`+event+":";
+  //},true);
+  };
+
+// 英語に対応しているvoiceを設定
+const voices = speechSynthesis.getVoices()
+  for (let i = 0; i < voices.length; i++) {
+    if (voices[i].lang === 'en-US') {
+      uttr.voice = voices[i]
+    }
+  }
+  speechSynthesis.speak(uttr);
+  //window.speechSynthesis.speak(uttr);
+ 
+ //https://www.codegrid.net/articles/2016-web-speech-api-1/
+  // startイベントのコールバックを設定
+
+};
+
 
 </script>
 </head>
 <body>
- <div id="ID_output2">555</div>
+ <div id="ID_output2">666</div>
 
 <input type="button" id="ID_btn_all_voices0p3" value="0.3全発音"> 
 <input type="button" id="ID_btn_all_voices1p0" value="1.0全発音"> 

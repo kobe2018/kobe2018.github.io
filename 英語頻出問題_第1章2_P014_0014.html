@@ -233,7 +233,7 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
   for(let i= 0;i<qestion_const;i++){
     //qestion_string += english_qestion_part1[i].jp+"<br>";
     //qestion_string += english_qestion_part1[i].en+"<br>";
-    qestion_string += `<span id="ID_now${i}" style='color:green'></span>`+(i+1)+"."+english_qestion_part1[i].en
+    qestion_string += `<span id="ID_now${i}" >🔴</span>`+english_qestion_part1[i].en
     .replace(`(<span style='color:red'>★1</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[0]}</span>`)
     .replace(`(<span style='color:red'>★2</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[1]}</span>`)
     .replace(`(<span style='color:red'>★3</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[2]}</span>`)

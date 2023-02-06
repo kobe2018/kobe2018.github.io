@@ -284,13 +284,14 @@ speechSynthesis.getVoices().forEach(voice => {
 })
 */
 
+//https://www.codegrid.net/articles/2016-web-speech-api-1/
+  // startイベントのコールバックを設定
   uttr.onstart = function(event) {
   //uttr.addEventListener("start", function(){
     document.getElementById(`ID_now${i}`).innerText = `🟡`;
     
     //document.getElementById(`ID_EN${num}`).innerHTML = "★" + num;
     //console.log('Finished in ' + event.elapsedTime + ' seconds.');
-    //console.log(speech);
   //},true);
   };
   // endイベントのコールバックを設定
@@ -310,16 +311,13 @@ const voices = speechSynthesis.getVoices()
   speechSynthesis.speak(uttr);
   //window.speechSynthesis.speak(uttr);
  
- //https://www.codegrid.net/articles/2016-web-speech-api-1/
-  // startイベントのコールバックを設定
-
+ 
 };
 
 
 </script>
 </head>
 <body>
-<div id="ID_output2">v007</div>
 <input type="button" id="ID_btn_all_voices0p3" value="0.3全発音"> 
 <input type="button" id="ID_btn_all_voices1p0" value="1.0全発音"> 
 

@@ -166,8 +166,8 @@ function init_btn(){
     .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])   
     ;
 
-    click_speeck_type(`ID_btn_voice_0.3_${i}`,str,"0.3");
-    click_speeck_type(`ID_btn_voice_1.0_${i}`,str,"1.0");
+    click_speeck_type(`ID_btn_voice_0.3_${i}`,str,"0.3",i);
+    click_speeck_type(`ID_btn_voice_1.0_${i}`,str,"1.0",i);
   }
 }
 
@@ -271,7 +271,7 @@ document.getElementById('ID_btn_all_voices1p0').addEventListener("click", functi
 </script>
 </head>
 <body>
- <div id="ID_output2">ABBCC</div>
+ <div id="ID_output2">33333</div>
 
 <input type="button" id="ID_btn_all_voices0p3" value="0.3全発音"> 
 <input type="button" id="ID_btn_all_voices1p0" value="1.0全発音"> 

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+<title>TOEIC</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+ /*　画面サイズが480px以下の場合ここの記述が適用される　*/
+@media screen and (max-width:600px) {
+	/*　この位置に記述する　*/
+	main {
+    font-size:22px;
+		width: 100%;
+	}
+}
+</style>
+<script>
+"use strict";
+let Answer = new Array(6);
+Answer[0] =`<span style='color:red'>★0</span>`;
+Answer[1] =`<span style='color:red'>★1</span>`;
+Answer[2] =`<span style='color:red'>★2</span>`;
+Answer[3] =`<span style='color:red'>★3</span>`;
+Answer[4] =`<span style='color:red'>★4</span>`;
+Answer[5] =`<span style='color:red'>★5</span>`;
+
+let english_qestion_part1_start = `<h2>第１章　重要構文の問題</h2>
+<h3>2. 次の英文の空所に適語を1話ずつ入れて、日本文の意味と同じになるようにしなさい。P14</h3>`;
+
+let english_qestion_part1=[
+{no:"1",jp:`1. 私はその事件とはなんの関係もなかった。`,en:`I had nothing to (${Answer[1]}) (${Answer[2]}) that incident.`,answer1:`do with`},
+{no:"2",jp:`2. 我々の成功は彼が手伝ってくれるかどうかにかかっている。`,en:`Our success depends (${Answer[1]}) (${Answer[2]}) he helps us or not.`,answer1:`on whether`},
+{no:"3",jp:`3. きみだけでなく僕も悪かったのだ。`,en:`Not (${Answer[1]}) you (${Answer[2]}) I (${Answer[3]}) (${Answer[4]}) blame.`,answer1:`only,but,was to`,answer2:`but`},
+{no:"4",jp:`4. 今晩、 外出したいとは思わない。`,en:`I don't (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) out tonight.`,answer1:`feel like going`},
+{no:"5",jp:`5. あなたは医者に診てもらった方がよい。`,en:`You (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) a doctor.`,answer1:`had better see`},
+{no:"6",jp:`6. 君は一所懸命勉強しさえすればよい、そうすれば試験に合格するだろう。`,en:`You have (${Answer[1]}) (${Answer[2]}) study hard, and you will pass the test.`,answer1:`only to`},
+{no:"7",jp:`7. 鯨が魚でないのは馬が魚でないのと同じだ。`,en:`A whale is (${Answer[1]}) (${Answer[2]}) a fish than a horse is.`,answer1:`no more`},
+{no:"8",jp:`8. 山田君がその後どうなったか、 誰も知らない。`,en:`Nobody knows (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) of Yamada.`,answer1:`what has become`},
+{no:"9",jp:`9. 東京にいつ大地震があるか誰にもわからない。`,en:`There is (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) a severe earthquake will strike Tokyo.`,answer1:`no telling when`},
+{no:"10",jp:`10. 病気になってはじめて健康の価値がわかる。`,en:`It is (${Answer[1]}) (${Answer[2]}) you get sick that you realize the value of good health.`,answer1:`not until`},
+{no:"11",jp:`11. 旅ほど楽しいものはありません。`,en:`Nothing (${Answer[1]}) (${Answer[2]}) delightful to me than travelling.`,answer1:`is more`},
+{no:"12",jp:`12. この子は泣いてばかりいる。`,en:`This child does (${Answer[1]}) (${Answer[2]}) cry.`,answer1:`nothing but`},
+{no:"13",jp:`13. 彼はそんなことを信じるほどばかではない。`,en:`He knows (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) believe such a thing.`,answer1:`better than to`},
+{no:"14",jp:`14. 健康を害さないように早寝早起きをしなければならない。`,en:`You must keep early hours so as (${Answer[1]}) (${Answer[2]}) damage your health.`,answer1:`not to`},
+{no:"15",jp:`15. 彼は親切にも私に駅への道を教えてくれた。`,en:`He was so kind (${Answer[1]}) (${Answer[2]}) show me the way to the station.`,answer1:`as to`},
+{no:"16",jp:`16. 彼女は何よりも読書が好きだ。`,en:`She likes reading (${Answer[1]}) than anything (${Answer[2]}).`,answer1:`better,else`},
+{no:"17",jp:`17. 彼らは男女が平等なのは当然のことと思っている。`,en:`They take it (${Answer[1]}) (${Answer[2]}) that men and women are equal.`,answer1:`for granted`},
+{no:"18",jp:`18. あなたは彼女に会いさえすればよい。`,en:`All you (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) is to meet her.`,answer1:`have to do`},
+{no:"19",jp:`19. 彼には欠点があるからなおさら彼が好きだ。`,en:`I like him (${Answer[1]}) (${Answer[2]}) better for his faults.`,answer1:`all the`},
+{no:"20",jp:`20. 彼はまるで何でも知っているかのように話す。`,en:`He talks (${Answer[1]}) if he (${Answer[2]}) everything.`,answer1:`as,knew`},
+{no:"21",jp:`21. もっと時間があったら、もっとうまくやることができたのだが。`,en:`I could have done better if I (${Answer[1]}) (${Answer[2]}) more time.`,answer1:`had had`},
+{no:"22",jp:`22. もう少しお金を持っていたら、それを買っただろう。`,en:`(${Answer[1]}) (${Answer[2]}) had a little more money, I would have bought it.`,answer1:`Had I`},
+{no:"23",jp:`23. あなたの忠告を聞いておけばよかったのだが。`,en:`I wish I (${Answer[1]}) (${Answer[2]}) to your advice.`,answer1:`had listened`},
+{no:"24",jp:`24. 外出するよりはむしろ家にいたい。`,en:`I would (${Answer[1]}) stay home (${Answer[2]}) go out.`,answer1:`rather than`},
+{no:"25",jp:`25. 私は彼がその問題を解くことは不可能だと思う。`,en:`I think (${Answer[1]}) impossible (${Answer[2]}) (${Answer[3]}) to solve the problem.`,answer1:`it,for him`},
+{no:"26",jp:`26. また同じ失敗をするなんて、われながら愚かだと思う。`,en:`It is silly (${Answer[1]}) (${Answer[2]}) to have made the same mistake twice.`,answer1:`of me`},
+{no:"27",jp:`27. 私が大学を卒業できたのは兄のおかげです。`,en:`I owe (${Answer[1]}) (${Answer[2]}) my brother that I was able to finish college.`,answer1:`it to`},
+{no:"28",jp:`28. 外国人が日本の食物に慣れることはむずかしい。`,en:`(${Answer[1]}) is difficult (${Answer[2]}) foreigners to get used to Japanese food.`,answer1:`It,for`},
+{no:"29",jp:`29. 彼の言っていることを理解するのは困難だった。`,en:`I (${Answer[1]}) (${Answer[2]}) difficult to understand what he was say.`,answer1:`found it`},
+{no:"30",jp:`30. 勝敗は問題ではない。`,en:`It doesn't (${Answer[1]}) (${Answer[2]}) you win or not.`,answer1:`matter whether`},
+{no:"31",jp:`31. 彼が来るか来ないかは私にはどうでもよいことだ。`,en:`(${Answer[1]}) makes no (${Answer[2]}) to me whether he comes or not.`,answer1:`It, difference`},
+{no:"32",jp:`32. 私はふとその男が私をだまして金を奪い取ろうとしているのだと思った。`,en:`It (${Answer[1]}) (${Answer[2]}) me that the man was trying to cheat me out of my money.`,answer1:`occurred to`},
+{no:"33",jp:`33. 正直が最良の策であるということは言うまでもない。`,en:`It (${Answer[1]}) (${Answer[2]}) saying that honesty is the best policy.`,answer1:`goes without`},
+{no:"34",jp:`34. 彼は天才と言っても過言ではない。`,en:`It is not (${Answer[1]}) (${Answer[2]}) to say that he is a genius.`,answer1:`too much`},
+{no:"35",jp:`35. 彼は毎日、日記をつけることにしている。`,en:`He makes (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) to keep a diary every day.`,answer1:`it a rule`},
+{no:"36",jp:`36. この本は読む価値がある。`,en:`It is (${Answer[1]}) (${Answer[2]}) to read this book.`,answer1:`worth while`},
+{no:"37",jp:`37. この問題はとてもむずかしくて私には解けない。`,en:`This problem is (${Answer[1]}) difficult (${Answer[2]}) me to solve.`,answer1:`too,for`},
+{no:"38",jp:`38. 彼はまもなく病気から回復するだろう。`,en:`It will not be (${Answer[1]}) (${Answer[2]}) he recovers from his illness.`,answer1:`long before`},
+{no:"39",jp:`39. 地震の予知ができる日が遠からずやってくるだろう。`,en:`(${Answer[1]}) (${Answer[2]}) will soon come (${Answer[3]}) we will be able to predict earthquakes.`,answer1:`The day,when`},
+{no:"40",jp:`40. 駅から学校まで歩いて20分かかります。`,en:`(${Answer[1]}) (${Answer[2]}) twenty minutes to walk from the station to school.`,answer1:`It takes`},
+{no:"41",jp:`41. 車を修理するのに300ドルかかった。`,en:`(${Answer[1]}) (${Answer[2]}) me three hundred dollars to have my car repaired.`,answer1:`It cost`},
+{no:"42",jp:`42. 私は人前で演説するのに慣れていない。`,en:`I am not used (${Answer[1]}) (${Answer[2]}) speeches in public.`,answer1:`to making`},
+{no:"43",jp:`43. 私はあなたに会えば必ず父を思いだす。`,en:`I never see you (${Answer[1]}) (${Answer[2]}) of my father.`,answer1:`without thinking`},
+{no:"44",jp:`44. 彼はさよならも言わずにその家を出た。`,en:`He left the house (${Answer[1]}) (${Answer[2]}) much as saying goodbye.`,answer1:`without so`},
+{no:"45",jp:`45. 彼はそのなぞを難なく解いた。`,en:`He had no (${Answer[1]}) (${Answer[2]}) explaining the mystery.`,answer1:`difficulty in`},
+{no:"46",jp:`46. 彼はクラスの他のどの少年よりも背が高い。`,en:`He is taller (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) boy in the class.`,answer1:`than any other`},
+{no:"47",jp:`47. 私たちの会社で彼女ほど高慢な女性はいない。`,en:`(${Answer[1]}) (${Answer[2]}) woman in our company is so proud as she.`,answer1:`No other`},
+{no:"48",jp:`48. 彼は興奮すればするほど口数が少なくなりました。`,en:`(${Answer[1]}) (${Answer[2]}) excited he got the (${Answer[3]}) talkative he became.`,answer1:`The more, less`},
+{no:"49",jp:`49. 彼には欠点がありますが、それでも私は彼が好きです。`,en:`I love him (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) for his faults.`,answer1:`none the less`},
+{no:"50",jp:`50. 私はあなたがパーティーで彼女に会えるように取り計らいます。`,en:`I will (${Answer[1]}) (${Answer[2]}) that you meet her at the party.`,answer1:`see to it`},
+{no:"51",jp:`51. いつ彼に会っても、彼はにこにこしている。`,en:`(${Answer[1]}) (${Answer[2]}) I see him, he is smiling.`,answer1:`Every time`},
+{no:"52",jp:`52. ほんとに申し訳ないのですが、私はあなたの傘をなくしたらしいのです。`,en:`I'm very sorry, but I seem (${Answer[1]}) (${Answer[2]}) lost your umbrella.`,answer1:`to have`},
+{no:"53",jp:`53. 彼は侮辱されたが､どうにか怒りをおさえた。`,en:`In spite of being insulted, he (${Answer[1]}) (${Answer[2]}) keep his temper.`,answer1:`managed to`},
+{no:"54",jp:`54. 彼は母親の誕生日にはかならず電話をかける。`,en:`He never (${Answer[1]}) (${Answer[2]}) call his mother on her birthday.`,answer1:`fails to`},
+{no:"55",jp:`55. 君はもう少し注意すべきだったのに。`,en:`You should (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) careful.`,answer1:`have been more `},
+{no:"56",jp:`56. こんなものを買わなければよかった。`,en:`I (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) bought such a thing.`,answer1:`should not have`},
+{no:"57",jp:`57. 目がさめてみると私は床に寝ていた。`,en:`I awoke (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) lying on the floor.`,answer1:`to find myself`},
+{no:"58",jp:`58. 彼女は次に何をしたらよいのか途方にくれました。`,en:`She was at a (${Answer[1]}) (${Answer[2]}) to do next.`,answer1:`loss what`},
+{no:"59",jp:`59. 雨が降るといけないから傘を持って行きなさい。`,en:`Take your umbrella with you (${Answer[1]}) (${Answer[2]}) it rains.`,answer1:`in case`},
+{no:"60",jp:`60. 私が生きている限り君に何も不自由はさせない。`,en:`You shall want for nothing (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) I live.`,answer1:`as long as`},
+{no:"61",jp:`61. おもしろくさえあればどんな本でもよろしい。`,en:`(${Answer[1]}) book will (${Answer[2]}) as (${Answer[3]}) (${Answer[4]}) it is interesting.`,answer1:`Any,do,long as`},
+{no:"62",jp:`62. あなたはもう仕事を終えたのだから、 家に帰るのは自由だ。`,en:`(${Answer[1]}) (${Answer[2]}) you have finished your work, you are free to go home.`,answer1:`Now that`},
+{no:"63",jp:`63. 彼の息子たちが良い子であるのはまちがいない。`,en:`(${Answer[1]}) (${Answer[2]}) no doubt that his sons are good boys.`,answer1:`There is`},
+{no:"64",jp:`64. たとえ君が悪くなくても、謝るべきだ。`,en:`(${Answer[1]}) (${Answer[2]}) you are not to blame, you should apologize.`,answer1:`Even if`},
+{no:"65",jp:`65. 彼はずいぶん遅いので、途中で事故に遭ったのかもしれない。`,en:`Since he is very late, he may (${Answer[1]}) (${Answer[2]}) with an accident on his way.`,answer1:`have met`},
+{no:"66",jp:`66. あなたはあのような場所で先生に会っておどろいたにちがいない。`,en:`You (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) surprised to meet your teacher in such a place.`,answer1:`must have been`},
+{no:"67",jp:`67. 父を見送りに空港へ行ってきたところだ。`,en:`I (${Answer[1]}) (${Answer[2]}) (${Answer[3]}) the airport to see my father off.`,answer1:`have been to`},
+{no:"68",jp:`68. 金持ちが必ずしも幸福であるとは限らない。`,en:`The rich are (${Answer[1]}) (${Answer[2]}) happy.`,answer1:`not always`},
+{no:"69",jp:`69. 10年ぶりで、彼は家にもどった。`,en:`He returned home (${Answer[1]}) the first time (${Answer[2]}) ten years.`,answer1:`for,in`},
+{no:"70",jp:`70. 私は5年ぶりで故郷へもどった。`,en:`I returned to my home town after (${Answer[1]}) (${Answer[2]}) (${Answer[3]}).`,answer1:`five years' absence`},
+{no:"71",jp:`71. 収入が多いおかげで彼は安楽に暮らせた。`,en:`His large income (${Answer[1]}) him (${Answer[2]}) live in comfort.`,answer1:`enabled,to`},
+{no:"72",jp:`72. 計画を立てることと, それを実行することとは別問題です。`,en:`It is (${Answer[1]}) thing to make a plan and quite (${Answer[2]}) to carry it out.`,answer1:`one,another`},
+{no:"73",jp:`73. 中国の人口は日本の約8倍です。`,en:`The population of China is about (${Answer[1]}) (${Answer[2]}) as large as that of Japan.`,answer1:`eight times`},
+{no:"74",jp:`74. あの女の人にはなんとなく気品がある。`,en:`There is (${Answer[1]}) noble (${Answer[2]}) that lady.`,answer1:`something,about`},
+{no:"75",jp:`75. 私は昨日学校からの帰り道でにわか雨にあった。`,en:`Yesterday I was caught in a shower (${Answer[1]}) my (${Answer[2]}) home from school.`,answer1:`on,way`},
+{no:"76",jp:`76. 彼は昔の彼ではない。`,en:`He is not what he (${Answer[1]}) (${Answer[2]}) (${Answer[3]}).`,answer1:`used to be`},
+{no:"77",jp:`77. 私もそうなのです。`,en:`77. 僕は水泳が下手です。`,en:`I'm not very good at swimming. (${Answer[1]}) (${Answer[2]}) I.`,answer1:`Nor am`},
+{no:"78",jp:`78. ポケットに手を入れたままで発言してはいけません。`,en:`Don't speak (${Answer[1]}) your hands (${Answer[2]}) your pockets.`,answer1:`with,in`},
+{no:"79",jp:`79. 彼はそう言ったとたんに後悔した。`,en:`No (${Answer[1]}) (${Answer[2]}) he said it than he was sorry.`,answer1:`sooner had`},
+{no:"80",jp:`80. 彼は在宅かしら。`,en:`I (${Answer[1]}) (${Answer[2]}) he is at home.`,answer1:`wonder if`},
+{no:"81",jp:`81. ごく身近な人を本当にあるがままに見ることは、めったに出来るものではない。`,en:`We are rarely able to see those who are very close to us (${Answer[1]}) (${Answer[2]}) really (${Answer[3]}).`,answer1:`as they,are`},
+{no:"82",jp:`82. あの人はアメリカへ立ったまま消息がない。`,en:`Nothing (${Answer[1]}) (${Answer[2]}) heard from him (${Answer[3]}) he left for America.`,answer1:`has been,since`},
+{no:"83",jp:`83. 彼を説得することは不可能ではないにしても、困難だ。`,en:`It is difficult, (${Answer[1]}) (${Answer[2]}) impossible, to persuade him.`,answer1:`if not`},
+{no:"84",jp:`84. 彼はその手紙を読むどころか、 封も切らなかった。`,en:`(${Answer[1]}) (${Answer[2]}) reading the letter, he didn't open it.`,answer1:`Far from`},
+{no:"85",jp:`85. ぼくには自転車を買う余裕がなかった。まして車なんて。`,en:`I could not afford to buy a bicycle, (${Answer[1]}) (${Answer[2]}) a car.`,answer1:`much less`},
+{no:"86",jp:`86. 私の父は退職する頃までには、ほとんど30年間働いたことになる。`,en:`(${Answer[1]}) the time my father retires he (${Answer[2]}) (${Answer[3]}) (${Answer[4]}) for almost thirty years.`,answer1:`By,will have worked`},
+{no:"87",jp:`87. おどろいたことには彼女はその質問に答えることができなかった。`,en:`(${Answer[1]}) my (${Answer[2]}), she could not answer the question.`,answer1:`To,surprise`},
+];
+const qestion_const = english_qestion_part1.length;
+let qestion_string = "";
+let answerCount=0;
+let answerTrueCount=0;
+
+function init_data(){//初期化
+  qestion_string = english_qestion_part1_start+"<br><br>";
+  for(let i= 0;i<qestion_const;i++){
+    qestion_string += english_qestion_part1[i].jp+"<br>";
+    qestion_string += english_qestion_part1[i].en+"<br>";
+    qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
+    qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3">　`;
+    qestion_string += `<input type="button" id="ID_btn_voice_1.0_${i}" value="1.0発音">　`;
+    qestion_string += `<input type="button" id="ID_btn_answer${i}" value="答え">　`;
+    qestion_string += `<span id="ID_output_Yes_No${i}"></span>　`;
+    qestion_string += `<span id="ID_answer${i}"></span><br><br>`;    
+  }
+  document.getElementById('ID_pre').innerHTML = qestion_string;
+}
+function init_btn(){
+  for(let i= 0;i<qestion_const;i++){
+    document.getElementById(`ID_btn_answer${i}`).addEventListener("click", function(){
+      answerCount ++;
+      let color_type = "red";let answer_type = "×";      
+      if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1[i].answer1){
+        color_type = "green"
+        answer_type = "○";
+        answerTrueCount++;
+      }
+      document.getElementById(`ID_output_Yes_No${i}`).innerHTML = `<span style="color:${color_type}">${answer_type}</span>　`;
+      document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:${color_type}">${english_qestion_part1[i].answer1}</span>　`;
+    },false);
+
+    let str = english_qestion_part1[i].en
+    .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0])
+    .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1])
+    .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2])
+    .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])   
+    ;
+
+    click_speeck_type(`ID_btn_voice_0.3_${i}`,str,"0.3");
+    click_speeck_type(`ID_btn_voice_1.0_${i}`,str,"1.0");
+  }
+}
+
+document.addEventListener('DOMContentLoaded',function(){
+  init_data();
+  init_btn();
+
+  document.getElementById('ID_btn_all_voices0p3').addEventListener("click", function(){
+
+for(let i= 0;i<qestion_const;i++){
+  console.log(english_qestion_part1[i].en
+  .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0]) 
+  .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1]) 
+  .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2]) 
+  .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])
+  );
+
+  speech_type(english_qestion_part1[i].en
+  .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0]) 
+  .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1]) 
+  .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2]) 
+  .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3]) 
+  ,0.3);
+}
+  },false);
+
+document.getElementById('ID_btn_all_voices1p0').addEventListener("click", function(){
+  for(let i= 0;i<qestion_const;i++){
+    console.log(english_qestion_part1[i].en
+    .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0]) 
+    .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1]) 
+    .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2]) 
+    .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])
+    );
+    speech_type(english_qestion_part1[i].en
+    .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0])
+    .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1])
+    .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2])
+    .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])
+  ,1.0);}
+},false);
+
+  
+  document.getElementById('ID_btn_all_check_the_answer').addEventListener("click", function(){
+    answerCount=0;
+    answerTrueCount=0;
+    for(let i= 0;i<qestion_const;i++){
+      answerCount ++;
+      let color_type = "red";let answer_type = "×";      
+      if(document.getElementById(`ID_input_text${i}`).value == english_qestion_part1[i].answer1){
+        color_type = "green"
+        answer_type = "○";
+        answerTrueCount++;
+      }
+      document.getElementById(`ID_output_Yes_No${i}`).innerHTML = `<span style="color:${color_type}">${answer_type}</span>　`;
+      document.getElementById(`ID_answer${i}`).innerHTML = `<span style="color:${color_type}">${english_qestion_part1[i].answer1}</span>　`;
+    }
+    
+    qestion_string = english_qestion_part1_start+"<br><br>";
+
+  for(let i= 0;i<qestion_const;i++){
+    qestion_string += english_qestion_part1[i].jp+"<br>";
+    //qestion_string += english_qestion_part1[i].en+"<br>";
+    qestion_string += english_qestion_part1[i].en
+    .replace(`(<span style='color:red'>★1</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[0]}</span>`)
+    .replace(`(<span style='color:red'>★2</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[1]}</span>`)
+    .replace(`(<span style='color:red'>★3</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[2]}</span>`)
+    .replace(`(<span style='color:red'>★4</span>)`,`<span style='color:red'>${english_qestion_part1[i].answer1.split(/[, ]/)[3]}</span>`)
+    +"<br>";
+
+    qestion_string += `<input type="text" id="ID_input_text${i}" style="width: 120px;" value="">　`;
+    qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3">　`;
+    qestion_string += `<input type="button" id="ID_btn_voice_1.0_${i}" value="1.0発音">　`;
+    qestion_string += `<input type="button" id="ID_btn_answer${i}" value="答え">　`;
+    qestion_string += `<span id="ID_output_Yes_No${i}"></span>　`;
+    qestion_string += `<span id="ID_answer${i}"></span><br><br>`;
+  }    
+  document.getElementById('ID_pre').innerHTML = qestion_string;
+
+    //小数第一位を基準とした方法:Math.round(123.456 * 10) / 10 // 出力：123.5
+    let p = Math.round(answerTrueCount/answerCount *100*1000)/1000;
+    let ans =`<span style='color:red'>${return_time()} ${answerCount}問中 ${answerTrueCount}点正解： ${p}%</span>`;
+    document.getElementById('ID_span_all_answer').innerHTML = ans;  
+  },false);
+  
+
+
+  document.getElementById('ID_btn_all_shuffle').addEventListener("click", function(){
+    for(let i= 0;i<qestion_const;i++){
+      english_qestion_part1= shuffle(english_qestion_part1);
+    }
+    qestion_string="";
+    init_data();//初期化表示
+    init_btn();
+  },false);
+
+});
+
+function return_time(){
+    let timer=new Date(); 
+    //年・月・日・曜日を取得する
+    let year = timer.getFullYear();
+    let month = timer.getMonth()+1;
+    let week = timer.getDay();
+    let day = timer.getDate();
+    //時・分・秒を取得する
+    let hour = timer.getHours();
+    let minute = timer.getMinutes();
+    let second = timer.getSeconds();
+    let yobi= new Array("日","月","火","水","木","金","土");
+    let t = year+"年"+month+"月"+day+"日("+yobi[week] +")  "+ hour+"時" +minute+"分"+second+"秒：";
+    return t;
+}
+
+function click_speeck_type(btn_id , speech , rate_num){
+  document.getElementById(btn_id).addEventListener("click", function(){
+    speech_type(speech , rate_num);
+  },false);
+}
+
+function speech_type(speech,rate_num){
+  const uttr = new SpeechSynthesisUtterance();// 発話機能をインスタンス化
+  uttr.text = speech;
+  uttr.lang = "en-US"; 
+  //uttr.rate = 1.0;// 速度 min 0 ~ max 10
+  uttr.rate = rate_num;// 速度 min 0 ~ max 10
+  /*
+  console.log(`Voices #: ${speechSynthesis.getVoices().length}`);
+  speechSynthesis.getVoices().forEach(voice => {
+    console.log(voice.name,"★", voice.lang)
+  })
+  */
+  //speechSynthesis.speak(uttr);
+ 
+  // 英語に対応しているvoiceを設定
+  const voices = speechSynthesis.getVoices()
+    for (let i = 0; i < voices.length; i++) {
+      if (voices[i].lang === 'en-US') {
+        uttr.voice = voices[i]
+      }
+    }
+
+  window.speechSynthesis.speak(uttr)
+};
+
+
+let shuffle = ([...array]) => {
+  for (let i = array.length - 1; i >= 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+</script>
+</head>
+<body>
+<input type="button" id="ID_btn_all_voices0p3" value="0.3全発音"> 
+<input type="button" id="ID_btn_all_voices1p0" value="1.0全発音"> 
+
+<input type="button" id="ID_btn_all_check_the_answer" value="全回答"> 
+<input type="button" id="ID_btn_all_shuffle" value="シャッフル"> 
+
+<div id="ID_pre"></div>
+<input type="button" id="ID_btn_all_check_the_answer" value="全回答">　
+
+<span id="ID_span_all_answer"></span>
+
+</body>
+</html>
+<!-- 148→106→156→235→298→243→248→→ -->

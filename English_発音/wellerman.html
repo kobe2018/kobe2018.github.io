@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja-jp">
+<head>
+<title>wellerman</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+ /*　画面サイズが480px以下の場合ここの記述が適用される　*/
+@media screen and (max-width:600px) {
+	/*　この位置に記述する　*/
+	main {
+    font-size:30px;
+		width: 100%;
+	}
+}
+</style>
+<script src="english.js"></script>
+<script>
+"use strict";
+let Answer = new Array(6);
+Answer[0] =`<span style='color:red'>★0</span>`;
+Answer[1] =`<span style='color:red'>★1</span>`;
+Answer[2] =`<span style='color:red'>★2</span>`;
+Answer[3] =`<span style='color:red'>★3</span>`;
+Answer[4] =`<span style='color:red'>★4</span>`;
+Answer[5] =`<span style='color:red'>★5</span>`;
+
+let english_qestion_part1_start = `<h2>wellerman</h2>`;
+
+let english_qestion_part1=[
+{no:"1",jp:`1`,en:`There once was a ship that put to sea`,answer1:``},
+{no:"2",jp:`2`,en:`The name of the ship was the Billy of Tea`,answer1:``},
+{no:"3",jp:`3`,en:`The winds blew up, her bow dipped down`,answer1:``},
+{no:"4",jp:`4`,en:`Oh blow, my bully boys, blow (huh)`,answer1:``},
+{no:"5",jp:`5`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"6",jp:`6`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"7",jp:`7`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"8",jp:`8`,en:`We'll take our leave and go`,answer1:``},
+{no:"9",jp:`9`,en:`She'd not been two weeks from shore`,answer1:``},
+{no:"10",jp:`10`,en:`When down on her a right whale bore`,answer1:``},
+{no:"11",jp:`11`,en:`The captain called all hands and swore`,answer1:``},
+{no:"12",jp:`12`,en:`He'd take that whale in tow (huh)`,answer1:``},
+{no:"13",jp:`13`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"14",jp:`14`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"15",jp:`15`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"16",jp:`16`,en:`We'll take our leave and go`,answer1:``},
+{no:"17",jp:`17`,en:`Da-da,da-da-da`,answer1:``},
+{no:"18",jp:`18`,en:`Da-da-da-da-da-da-da`,answer1:``},
+{no:"19",jp:`19`,en:`Da-da-da-da-da-da-da-da-da-da-da`,answer1:``},
+{no:"20",jp:`20`,en:`Before the boat had hit the water`,answer1:``},
+{no:"21",jp:`21`,en:`The whale's tail came up and caught her`,answer1:``},
+{no:"22",jp:`22`,en:`All hands to the side, harpooned and fought her`,answer1:``},
+{no:"23",jp:`23`,en:`When she dived down low (huh)`,answer1:``},
+{no:"24",jp:`24`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"25",jp:`25`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"26",jp:`26`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"27",jp:`27`,en:`We'll take our leave and go`,answer1:``},
+{no:"28",jp:`28`,en:`No line was cut, no whale was freed`,answer1:``},
+{no:"29",jp:`29`,en:`The captain's mind was not of greed`,answer1:``},
+{no:"30",jp:`30`,en:`And he belonged to the Whaleman's creed`,answer1:``},
+{no:"31",jp:`31`,en:`She took that ship in tow (huh)`,answer1:``},
+{no:"32",jp:`32`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"33",jp:`33`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"34",jp:`34`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"35",jp:`35`,en:`We'll take our leave and go`,answer1:``},
+{no:"36",jp:`36`,en:`Da-da-da-da-da`,answer1:``},
+{no:"37",jp:`37`,en:`Da-da-da-da-da-da-da`,answer1:``},
+{no:"38",jp:`38`,en:`Da-da-da-da-da-da-da-da-da-da-da`,answer1:``},
+{no:"39",jp:`39`,en:`For forty days or even more`,answer1:``},
+{no:"40",jp:`40`,en:`The line went slack then tight once more`,answer1:``},
+{no:"41",jp:`41`,en:`All boats were lost, there were only four`,answer1:``},
+{no:"42",jp:`42`,en:`But still that whale did go (huh)`,answer1:``},
+{no:"43",jp:`43`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"44",jp:`44`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"45",jp:`45`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"46",jp:`46`,en:`We'll take our leave and go`,answer1:``},
+{no:"47",jp:`47`,en:`As far as I've heard, the fight's still on`,answer1:``},
+{no:"48",jp:`48`,en:`The line's not cut, and the whale's not gone`,answer1:``},
+{no:"49",jp:`49`,en:`The Wellerman makes his regular call`,answer1:``},
+{no:"50",jp:`50`,en:`To encourage the captain, crew and all (huh)`,answer1:``},
+{no:"51",jp:`51`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"52",jp:`52`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"53",jp:`53`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"54",jp:`54`,en:`We'll take our leave and go`,answer1:``},
+{no:"55",jp:`55`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"56",jp:`56`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"57",jp:`57`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"58",jp:`58`,en:`We'll take our leave and go`,answer1:``},
+{no:"59",jp:`59`,en:`Soon may the Wellerman come`,answer1:``},
+{no:"60",jp:`60`,en:`To bring us sugar and tea and rum`,answer1:``},
+{no:"61",jp:`61`,en:`One day, when the tonguing is done`,answer1:``},
+{no:"62",jp:`62`,en:`We'll take our leave and go`,answer1:``},
+
+];
+const qestion_const = english_qestion_part1.length;
+let qestion_string = "";
+let answerCount=0;
+let answerTrueCount=0;
+
+function init_data(){//初期化
+  qestion_string = english_qestion_part1_start+"";
+  for(let i= 0;i<qestion_const;i++){
+    qestion_string += `<div id="ID_EN${i}">${english_qestion_part1[i].jp}　${english_qestion_part1[i].en}</div>`;
+    //qestion_string += english_qestion_part1[i].en+"<br>";
+    //qestion_string += `<span id="ID_JP${i}">${english_qestion_part1[i].jp}</span>　`;
+    qestion_string += `<input type="button" id="ID_btn_voice_0.3_${i}" value="0.3発音">　`;
+    qestion_string += `<input type="button" id="ID_btn_voice_1.0_${i}" value="1.0発音">　`;
+  }
+  document.getElementById('ID_output').innerHTML = qestion_string;
+}
+function init_btn(){
+  for(let i= 0;i<qestion_const;i++){
+
+
+
+    let str = english_qestion_part1[i].en
+    .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0])
+    .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1])
+    .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2])
+    .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])   
+    ;
+
+    click_speeck_type(`ID_btn_voice_0.3_${i}`,str,"0.3");
+    click_speeck_type(`ID_btn_voice_1.0_${i}`,str,"1.0");
+  }
+}
+
+
+document.addEventListener('DOMContentLoaded',function(){
+  init_data();
+  init_btn();
+  requestWakeLock();
+
+  document.getElementById('ID_btn_all_voices0p3').addEventListener("click", function(){
+
+for(let i= 0;i<qestion_const;i++){
+  speech_type(english_qestion_part1[i].en
+  .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0]) 
+  .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1]) 
+  .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2]) 
+  .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3]) 
+  ,0.3);
+}
+  },false);
+
+document.getElementById('ID_btn_all_voices1p0').addEventListener("click", function(){
+  for(let i= 0;i<qestion_const;i++){
+    speech_type(english_qestion_part1[i].en
+    .replace(`(<span style='color:red'>★1</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[0])
+    .replace(`(<span style='color:red'>★2</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[1])
+    .replace(`(<span style='color:red'>★3</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[2])
+    .replace(`(<span style='color:red'>★4</span>)`,english_qestion_part1[i].answer1.split(/[, ]/)[3])
+  ,1.0);}
+},false);
+
+  
+  
+  document.getElementById('ID_btn_all_shuffle').addEventListener("click", function(){
+    for(let i= 0;i<qestion_const;i++){
+      english_qestion_part1= shuffle(english_qestion_part1);
+    }
+    qestion_string="";
+    init_data();//初期化表示
+    init_btn();
+  },false);
+
+});
+
+</script>
+</head>
+<body>
+<input type="button" id="ID_btn_all_voices0p3" value="0.3全発音"> 
+<input type="button" id="ID_btn_all_voices1p0" value="1.0全発音"> 
+<input type="button" id="ID_btn_all_shuffle" value="シャッフル"> 
+<div id="ID_wake"></div>
+<div id="ID_output"></div>
+
+<span id="ID_span_all_answer"></span>
+
+</body>
+</html>
+<!-- 148→106→156→235→298→243→248→354→285→→→-->

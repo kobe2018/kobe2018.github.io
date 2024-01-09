@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>対話エディタ</title>
+<meta charset="utf-8" />
+<script src="./function_company.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css_text_editor.css"><style></style>
+
+<script src="./return/function_return_change_textarea_to_svg.js"></script>
+<script src="./return/function_return_safeEval.js"></script>
+<script src="./return/function_return_split_textarea_on_newLine.js"></script>
+<script src="./return/function_return_string_width.js"></script>
+
+<script src="./function_output_time.js"></script>
+<script src="./function_save_scroll.js"></script>
+
+<script src="./function_create_block_shape.js"></script>
+<script src="./function_create_box_drawing.js"></script>
+
+<script src="./function_create_help.js"></script>
+
+<script src="./function_create_math_graph_bar.js"></script>
+<script src="./function_create_math_graph_plot.js"></script>
+
+<script src="./function_create_math_calc.js"></script>
+<script src="./function_create_math_log.js"></script>
+
+<script src="./function_create_math_polynomial_expansion.js"></script>  <!--多項式の展開-->
+<script src="./function_create_math_prime_factorization.js"></script>   <!--素因数分解-->
+<script src="./function_create_math_Quadratic_formula.js"></script>
+
+<script src="./function_create_math_sum.js"></script>
+<script src="./function_create_math_zeta.js"></script>
+
+
+<script src="./function_create_speech.js"></script>
+<script src="./function_create_voxel_map.js"></script>
+<script src="./function_create_voxel_map_data.js"></script>
+
+<script src="./function_create_Paintings_of_map.js"></script>
+<script src="./function_create_Paintings_of_Dot.js"></script>
+
+<script src="./function_touch_event.js"></script>
+
+<script src="./function_keydown.js"></script>
+<script src="./function_keyup.js"></script>
+
+<script src="./zlib.min.js"></script>
+
+
+<script >
+"use strict";
+let [esc_flag,clear_flag]=[true,false];
+
+
+
+window.addEventListener("DOMContentLoaded",function(){
+    let element = document.querySelector('#ID_textarea01');
+
+    //let ID_span_svg = document.querySelector('#ID_span_svg');
+    let ID_svg = document.querySelector('#ID_svg');
+
+    document.querySelector('body').style.backgroundColor = 'white';
+    
+    //keydown(element,element2);
+    keydown(element);
+    keyup(element);
+    function_touch_event();
+
+    document.querySelector('body').addEventListener('keydown', function(eve) {
+      if(eve.ctrlKey){
+        element.style.pointerEvents = "none";
+      } 
+    }, false);
+
+    document.querySelector('body').addEventListener('keyup', function(eve) {
+      if(!eve.ctrlKey){
+        element.style.pointerEvents = "auto";
+      } 
+    }, false);
+
+
+
+    
+/*
+    document.getElementById("ID_textarea01").addEventListener("dragover", function(e){
+        e.preventDefault();//ブラウザーでファイルを開かないようにする
+        document.getElementById("ID_textarea01").style.backgroundColor = "yellow";
+    },false);
+
+    document.getElementById("ID_textarea01").addEventListener("dragleave", function(e){
+        e.preventDefault();//ブラウザーでファイルを開かないようにする
+        document.getElementById("ID_textarea01").style.backgroundColor = "white";
+    },false);
+
+    document.getElementById("ID_textarea01").addEventListener("drop", function(e){
+        //event.preventDefault();//ブラウザーでファイルを開かないようにする
+        document.getElementById("ID_textarea01").style.backgroundColor = "white";
+        let f = e.dataTransfer.files;
+        console.log(f);
+        //alert("name: "+f[0].name +"\nsize: " + f[0].size +"\ntype:"+ f[0].type );
+
+        let str1 = e.dataTransfer.types;
+        console.log(str1);
+
+        //let str2 = event.dataTransfer.types[0].getData();
+        //console.log(str2);
+
+        var data_transfer = event.dataTransfer;
+    },false);
+
+
+document.getElementById("ID_textarea01").addEventListener("drop", onDrop, false);
+
+function onDrop(event){
+    event.preventDefault();//ブラウザーでファイルを開かないようにする
+         var files = event.dataTransfer.files;
+         var encode_type = document.getElementById("ID_textarea01").value;
+             // 複数のファイルから1つずつファイルを選択
+         for(var i=0; i< files.length; i++){
+            var f = files[i];
+        // ①FileReaderオブジェクトの生成
+        var reader = new FileReader();
+        // ②画像ファイルかテキストファイルかを判定
+        if(!f.type.match('image.*') && !f.type.match('text.plain') && !f.name.match(/csv$/m)){
+           alert("画像ファイルとテキストファイル以外は表示できません。");
+           continue;
+        }
+                // ③エラー発生時の処理
+        reader.onerror = function (evt) {
+            }
+                // ④画像ファイルの場合の処理
+
+                // ⑤テキストファイルの場合の処理
+        if (f.type.match('text.*') ) {
+           // ファイル読取が完了した際に呼ばれる処理
+           reader.onload = function (evt) {
+           // FileReaderが取得したテキストをそのままdivタグに出力
+              //disp.innerHTML ="[ "+ f.name+"]<br/>"+reader.result;
+           }
+           // readAsTextメソッドでファイルの内容を取得
+           reader.readAsText(f, encode_type);    // 'utf-8' 'shift-jis' ･････
+        }
+    }
+}
+>speech[english]
+    */
+   
+    //window.onbeforeunload = function(e){
+      //  e.returnValue = "saveしましたか？";
+    //}
+/*
+>(x+1)²
+>(ax+b)^2
+>(x+1)³
+>calc[
+v=PL²/6EI 
+
+P:23[N]
+E:34
+I:22[W]
+L:200
+日本＝山＋川
+山：14山
+川：20川
+>]
+
+  PL²
+v=‒‒‒
+  6EI
+  
+  3x²+4x+1=0
+　　　┌───
+　-b ±⎷b²-4ac
+x=──────
+　     2a
+  */
+ //wrap : off
+ //wrap : soft
+
+//document.querySelector('#ID_textarea01').addEventListener("change",function(){}, true);
+  element.addEventListener('scroll', function(e) {
+    let y = element.scrollTop;
+    //console.log("scrollTop",element.scrollTop);//取得したイベント情報
+    //https://www.javadrive.jp/javascript/webpage/index6.html
+    //console.log("svg_width ",document.getElementById("ID_svg").width.animVal.value);
+    //console.log("svg_height ",document.getElementById("ID_svg").height.animVal.value);
+
+    let w = document.getElementById("ID_svg").width.animVal.value;//svg要素の幅＝
+    //let w = window.outerWidth;//
+    //let w = window.innerWidth;//スクロールバーも含めた幅
+    //let w = element.innerWidth;//スクロールバーを除く幅
+    //let w = element.clientWidth;//スクロールバーを除く幅
+    console.log("window.outerWidth",window.outerWidth,element.style.width,"window.innerWidth",window.innerWidth,"element.innerWidth",element.innerWidth,"clientWidth",element.clientWidth);
+    
+    
+    let h = document.getElementById("ID_svg").height.animVal.value;//
+    //let h = window.innerHeight;//スクロールバーも含めた幅 ✖らしい
+    //let h = element.clientHeight;//スクロールバーを除く幅
+    //console.log("window.innerHeight",window.innerHeight,"clientHeight",element.clientHeight);
+
+    document.getElementById("ID_svg").setAttribute("viewBox",`0 ${y} ${w},${h} `);
+  }, true);
+
+
+}, true);
+
+</script>
+</head>
+<body>
+<!--
+    //https://triple-underscore.github.io/css-text-ja.html#propdef-white-space
+
+	改行文字	スペースとタブ	テキストの折り返し	行末にあるスペース	行末にあるその他のスペース分離子
+✖normal	縮約する	縮約する	折り返し可	除去する	ぶら下げる
+〇pre	保全する	保全する	折り返し不可	保全する	折り返さない
+✖nowrap	縮約する	縮約する	折り返し不可	除去する	ぶら下げる
+〇pre-wrap	保全する	保全する	折り返し可	ぶら下げる	ぶら下げる
+〇break-spaces	保全する	保全する	折り返し可	折り返す	折り返す
+✖pre-line	保全する	縮約する	折り返し可	除去する	ぶら下げる
+
+<svg id="ID_svg" width ="99.0%" height="96vh" viewBox="0 0 1000 300" style="font-size:24px;white-Space:pre;fill:red">
+<svg id="ID_svg" width ="1200" height="800" viewBox="0 0 1200 800" style="white-Space:pre;fill:black">
+-->
+<svg id="ID_svg" width ="calc(100%)" height="800" viewBox="0 0 calc(100%) 800" style="white-Space:pre;fill:black"><!--
+
+<text x="11" y="32">style<a style="fill:blue;" href="https://www.google.com/">googleAAAAAAAAA</a><tspan style ="background-color:#cccccc;fill:red;"><a href="https://news.yahoo.co.jp/">yahoo</a></tspan></text>
+  
+            
+            <text x="11" y="32" >対話</text><text x="59" y="32" >エディタ</text>
+            <text x="11" y="56" >使い方は、</text>     
+            <text x="11" y="80" style="white-Space:pre">
+            a 
+            b b
+            c  c        
+            <tspan fill="red">赤字</tspan><tspan fill="blue">青字a b  c       d</tspan>はsvgです。</text>
+     --></svg>
+<textarea spellcheck="false" id="ID_textarea01" wrap="off" width="" placeholder =
+"対話エディタ
+使い方は、
+「help」の後にリターンを押してください。
+">
+</textarea>
+<body>
+</html>

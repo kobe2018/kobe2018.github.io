@@ -3,12 +3,12 @@ id = #
 class = 
 */
 
-
+/*
 @font-face {
     src: url('https://github.com/kobe2018/GeoMathDotMono/blob/main/m17.ttf') format('truetype');
     font-family: 'GeoMathMono';
 }
-/*
+
 @font-face {
     src: url(https://github.com/kobe2018/GeoMathMonospace/blob/master/GeoMathMono0062.ttf?raw=true) format('truetype');
     font-family: 'GeoMathMono';

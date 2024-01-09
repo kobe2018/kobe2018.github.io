@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>ドット絵作成エディタ002</title>
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="css_text_editor_canvas_pre.css"><style></style>
+<script >
+"use strict";
+
+let [esc_flag,clear_flag]=[true,false];
+let x_down=0;let y_down=0;
+let mouse_down_flag = false;
+let sele_start_x, sele_start_y;
+let sele_width, sele_height;
+let dot_table=[
+  ["　","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","⑪","⑫","⑬","⑭","⑮","⑯","⑰","⑱","⑲","⑳","㉑","㉒","㉓","㉔","㉕","㉖","㉗","㉘","㉙","㉚","㉛","㉜"],
+  ["①","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["②","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["③","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["④","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑤","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑥","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑦","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑧","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑨","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑩","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑪","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑫","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑬","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑭","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑮","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑯","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+  ["⑰","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻","◻"],
+   
+  
+];
+let str_dot_table="";
+
+let code = "🟥";
+window.addEventListener("DOMContentLoaded",function(){
+    //keydown(element,element2);
+    //keydown(element);
+    //keyup(element);
+    //function_touch_event();
+    const ID_canvas01 = document.getElementById("ID_canvas01");
+    const ctx        = ID_canvas01.getContext('2d');
+
+    for(let i=0;i<dot_table.length;i++){
+      str_dot_table  += dot_table[i].join("")+"\n";
+    }
+    document.querySelector('#ID_main01').innerText = str_dot_table;
+/*
+    document.querySelector('body').addEventListener('keydown', function(eve) {
+      if(eve.ctrlKey){
+        element.style.pointerEvents = "none";
+      } 
+    }, false);
+
+    document.querySelector('body').addEventListener('keyup', function(eve) {
+      //code=eve.keyCode
+      //console.log(code);
+      if(!eve.ctrlKey){
+        element.style.pointerEvents = "auto";
+      } 
+    }, false);
+    */
+    document.querySelector('#ID_canvas01').addEventListener('mousedown', function(eve) {
+      x_down = eve.offsetX;
+      y_down = eve.offsetY;
+      mouse_down_flag = true;
+      
+    //   let len      = [...ID_canvas01.value].length;//utf-8用表現→1056と出る。
+    //   let pos_start    = ID_canvas01.selectionStart;
+    //   let pos_end      = ID_canvas01.selectionEnd;
+
+    //   console.log("len ",len);
+    //  // console.log("sentence ",sentence.value,pos_start,pos_end,code);
+    //   console.log("pos_start ",pos_start,pos_end,code);
+
+
+    //   let before   = sentence.value.substring(0, pos_start);//substrは使わない。
+    //   //console.log("before ",before);
+    //   let insert_word =  code;//insert_word;挿入したい文字列;
+    //   //let after    = sentence.value.substring(pos_start+1, len);
+    //   //let after    = sentence.value.substring(pos_start+1);
+      
+    //   //alert( sentence.value.substring(pos_start,pos_end+1));
+    //   console.log("sentence.value.substring(pos_start,pos_end+1) ",sentence.value.substring(pos_start,pos_end+1));
+    //   console.log("sentence.value.substring(pos_start,pos_end+1).split( /[\uD800-\uDBFF][\uDC00-\uDFFF]/g ) ",sentence.value.substring(pos_start,pos_end+2).split( /[\uD800-\uDBFF][\uDC00-\uDFFF]/g ).length);
+      
+      
+    //   let after ="";
+    //   if(sentence.value.substring(pos_start,pos_end+2).split( /[\uD800-\uDBFF][\uDC00-\uDFFF]/g ).length >=2){
+    //     console.log( "サロゲートです");
+    //     after    = sentence.value.substring(pos_end+2);//サロゲートベアの場合
+    //   }else{
+    //     after    = sentence.value.substring(pos_end+1);//通常の場合
+    //   }
+      // console.log("after ",after);
+        
+      // sentence = before + insert_word + after;
+      // ID_canvas01.value = sentence;
+
+      //console.log(len,pos,word,code);
+       
+    }, false);
+    document.querySelector('#ID_canvas01').addEventListener('mousemove', function(eve) {
+      if(mouse_down_flag){
+        if (ctx) {
+          //const context001 = ID_canvas01.getContext("2d");//2次元描画
+          ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'red';
+          //ctx.strokeRect(x_down,y_down,eve.offsetX-x_down, eve.offsetY-y_down);//塗りつぶされた四角形
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'blue';
+          let fs =24;//fontsize
+          let fx = Math.floor(x_down/fs)*fs;
+          let fy = Math.floor(y_down/fs)*fs;
+          //ctx.strokeRect(Math.floor(x_down/24)*24,Math.floor(y_down/24)*24,(Math.floor((eve.offsetX-x_down)/24)+1)*24, (Math.floor((eve.offsetY-y_down)/24)+1)*24);//塗りつぶされた四角形
+          //ctx.strokeRect(Math.floor(x_down/fs)*fs,Math.floor(y_down/fs)*fs,(Math.ceil((eve.offsetX+0-x_down)/fs+0)+0)*fs, (Math.ceil((eve.offsetY-y_down)/fs))*fs);//塗りつぶされた四角形          
+          //ctx.strokeRect(Math.floor(x_down/fs)*fs,Math.floor(y_down/fs)*fs,(Math.ceil((eve.offsetX+0-Math.floor(x_down/fs)*fs)/fs+0)+0)*fs, (Math.ceil((eve.offsetY-Math.floor(y_down/fs)*fs)/fs))*fs);//塗りつぶされた四角形
+          ctx.strokeRect(fx,fy,(Math.ceil((eve.offsetX-fx)/fs))*fs, (Math.ceil((eve.offsetY-fy)/fs))*fs);//塗りつぶされた四角形
+          
+          //ceil 切り上げ(負の数に注意)
+    
+          ctx.font = '600 20px "GeoMathDotMono",serif';
+          ctx.fillText(x_down+" "+y_down, 24, 40);
+          ctx.fillText(Math.floor(x_down/fs)+" "+Math.floor(y_down/fs), 24,60 );
+          ctx.fillText(Math.ceil((eve.offsetX-fx)/fs)+" "+Math.ceil((eve.offsetY-fy)/fs), 24, 80);
+
+          sele_start_x = Math.floor(x_down/fs);
+          sele_start_y = Math.floor(y_down/fs);
+          sele_width = Math.ceil((eve.offsetX-fx)/fs);
+          sele_height = Math.ceil((eve.offsetY-fy)/fs);
+
+          ctx.fillText(sele_start_x+" "+sele_start_y, 24,100 );
+          ctx.fillText(sele_width+" "+sele_height, 24, 120);
+        }
+    }
+    }, false);
+
+    document.querySelector('#ID_canvas01').addEventListener('mouseup', function(eve) {
+      mouse_down_flag = false;
+      //alert([...document.querySelector('#ID_main01').innerText]);
+      //document.querySelector('#ID_main01').innerText=document.querySelector('#ID_main01').innerText.slice(0, sele_start_x) + code.repeat(sele_width) + document.querySelector('#ID_main01').innerText.slice(sele_start_x);
+      //str_dot_table ="";
+      
+      for(let i=0;i<dot_table.length;i++){
+        for(let j=0;j<dot_table[i].length;j++){
+          if(i==sele_start_x && j== sele_start_y){
+            dot_table[j+1][i+1] = code;            
+            //str_dot_table  += dot_table[i][j];
+          }
+          //str_dot_table  += "\n";
+        }
+      }
+      //console.log(str_dot_table);
+      str_dot_table ="";
+      for(let i=0;i<dot_table.length;i++){
+        str_dot_table  += dot_table[i].join("")+"\n";
+      }
+      document.querySelector('#ID_main01').innerText = str_dot_table;
+
+      ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+   }, false);
+
+    document.querySelector('#ID_1F7E5').addEventListener('click', function(e) {code="🟥";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E7').addEventListener('click', function(e) {code="🟧";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E8').addEventListener('click', function(e) {code="🟨";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E9').addEventListener('click', function(e) {code="🟩";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E6').addEventListener('click', function(e) {code="🟦";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7EA').addEventListener('click', function(e) {code="🟪";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7EB').addEventListener('click', function(e) {code="🟫";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID__2B1B').addEventListener('click', function(e) {code="⬛";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID__2B1C').addEventListener('click', function(e) {code="⬜";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_1F3FB').addEventListener('click', function(e) {code="🏻";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FC').addEventListener('click', function(e) {code="🏼";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FD').addEventListener('click', function(e) {code="🏾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FE').addEventListener('click', function(e) {code="🏾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FF').addEventListener('click', function(e) {code="🏿";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_1F332').addEventListener('click', function(e) {code="🌲";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F333').addEventListener('click', function(e) {code="🌳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F333').addEventListener('click', function(e) {code="🌳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FABE').addEventListener('click', function(e) {code="🪾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FAB5').addEventListener('click', function(e) {code="🪵";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F335').addEventListener('click', function(e) {code="🌵";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID__26F0').addEventListener('click', function(e) {code="⛰";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3D4').addEventListener('click', function(e) {code="🏔";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FAA8').addEventListener('click', function(e) {code="🪨";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F9F1').addEventListener('click', function(e) {code="🧱";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+
+  }, true);
+
+</script>
+</head>
+<body>
+モード：<span id="ID_mode00"></span><br>
+選択文字：<span id="ID_mode01"></span><br>
+<span id="ID_selection">
+<br>
+<input type ="button" value ="クリック">
+<input type ="button" value ="矩形選択">
+<input type ="button" value ="罫線表示"><br>
+<input type ="button" value ="全塗">
+<input type ="button" value ="レイヤー">
+<input type ="button" value ="元に戻す">
+</span>
+
+<span id="ID_span01">
+<div class="button-group">
+  <input type ="button" value ="🟥" id="ID_1F7E5">
+  <input type ="button" value ="🟧" id="ID_1F7E7">
+  <input type ="button" value ="🟨" id="ID_1F7E8">
+  <input type ="button" value ="🟩" id="ID_1F7E9">
+  <input type ="button" value ="🟦" id="ID_1F7E6">
+  <input type ="button" value ="🟪" id="ID_1F7EA">
+  <input type ="button" value ="🟫" id="ID_1F7EB">
+  <input type ="button" value ="⬛" id="ID__2B1B">
+  <input type ="button" value ="⬜" id="ID__2B1C">
+  <input type ="button" value ="░" id="">
+  <input type ="button" value ="▒" id="">
+  <input type ="button" value ="▓" id="">
+</div>
+<div class="button-group">
+  <input type ="button" value ="🏻" id="ID_1F3FB">
+  <input type ="button" value ="🏼" id="ID_1F3FC">
+  <input type ="button" value ="🏾" id="ID_1F3FD">
+  <input type ="button" value ="🏾" id="ID_1F3FE">
+  <input type ="button" value ="🏿" id="ID_1F3FF">
+  
+  <input type ="button" value ="🔴" id="">
+  <input type ="button" value ="🟠" id="">
+  <input type ="button" value ="🟡" id="">
+  <input type ="button" value ="🟢" id="">
+</div>
+<div class="button-group">
+  <input type ="button" value ="🌲" id="ID_1F332">
+  <input type ="button" value ="🌳" id="ID_1F333">
+  <input type ="button" value ="🪾" id="ID_1FABE">
+  <input type ="button" value ="🪵" id="ID_1FAB5">
+  <input type ="button" value ="🌵" id="ID_1F335">&nbsp;
+  <input type ="button" value ="⛰" id="ID__26F0">
+  <input type ="button" value ="🏔" id="ID_1F3D4">
+  <input type ="button" value ="🪨" id="ID_1FAA8">
+  <input type ="button" value ="🧱" id="ID_1F9F1">
+</div>
+<input type ="button" value ="🐺" id=""><input type ="button" value ="🐖">
+<input type ="button" value ="💣" id="">
+<input type ="button" value ="🏢" id=""><br>
+<input type ="button" value ="⭱" id=""><input type ="button" value ="⭰"><input type ="button" value ="⭲"><input type ="button" value ="⭳">
+<input type ="button" value ="⤒"><input type ="button" value ="⤓">
+<input type ="button" value ="⍏"><input type ="button" value ="⍅"><input type ="button" value ="⍆"><input type ="button" value ="⍖"><br>
+<input type ="button" value ="⇦"><input type ="button" value ="⇧"><input type ="button" value ="⇨"><input type ="button" value ="⇩"><input type ="button" value ="⇳"><input type ="button" value ="⬀"><input type ="button" value ="⬁"><input type ="button" value ="⬂"><input type ="button" value ="⬃"><input type ="button" value ="⬄"><br>
+<input type ="button" value ="⬅"><input type ="button" value ="⬆"><input type ="button" value ="⬇"><input type ="button" value ="⮕"><input type ="button" value ="⬈"><input type ="button" value ="⬉"><input type ="button" value ="⬊"><input type ="button" value ="⬋"><input type ="button" value ="⬌"><input type ="button" value ="⬍">
+</span>
+
+<canvas id="ID_canvas01" width="600" height="500">
+  canvas要素をサポートしていません。
+</canvas>
+<pre id="ID_main01"></pre>
+<body>
+</html>

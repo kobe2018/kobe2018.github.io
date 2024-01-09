@@ -1,0 +1,542 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>ドット絵作成エディタ002</title>
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="css_text_editor_canvas_pre.css"><style></style>
+<script >
+"use strict";
+
+let [esc_flag,clear_flag]=[true,false];
+let x_down=0;let y_down=0;
+let mouse_down_flag = false;
+let sele_start_x, sele_start_y;
+let sele_width, sele_height;
+let dot_table=[
+["　","①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","⑪","⑫","⑬","⑭","⑮","⑯","⑰","⑱","⑲","⑳","㉑","㉒","㉓","㉔","㉕","㉖","㉗","㉘","㉙","㉚","㉛","㉜"],
+["①","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["②","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["③","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["④","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑤","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑥","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑦","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑧","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑨","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑩","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑪","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑫","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑬","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑭","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑮","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑯","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑰","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑱","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑲","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["⑳","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉑","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉒","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉓","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉔","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉕","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉖","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉗","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉘","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉙","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉚","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉛","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+["㉜","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　","　"],
+
+];
+
+let str_dot_table="";
+let code = "🟥";
+let fs =24;//fontsize
+let keisen_show =true;
+
+function keisen(ctx,type_show){
+  if (type_show) {
+      //ctx.lineTo(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = 'black';
+      for(let i=0;i<33;i++){
+          ctx.beginPath(); // 新しいパスを開始
+          ctx.moveTo(fs*0, fs*i); // ペンを (30, 50) へ移動
+          ctx.lineTo(fs*32, fs*i); // 直線を (150, 100) へ描く
+          ctx.stroke(); // パスを描画
+      }
+      for(let j=0;j<33;j++){
+          ctx.beginPath(); // 新しいパスを開始
+          ctx.moveTo(fs*j, fs*0); // ペンを (30, 50) へ移動
+          ctx.lineTo(fs*j, fs*32); // 直線を (150, 100) へ描く
+          ctx.stroke(); // パスを描画
+      }
+    }
+}
+
+
+window.addEventListener("DOMContentLoaded",function(){
+    const ID_canvas01 = document.getElementById("ID_canvas01");
+    const ctx        = ID_canvas01.getContext('2d');
+    for(let i=0;i<dot_table.length;i++){
+      str_dot_table  += dot_table[i].join("")+"\n";
+    }
+    keisen(ctx,keisen_show);
+    
+
+    document.querySelector('#ID_main01').innerText = str_dot_table;
+    document.querySelector('#ID_canvas01').addEventListener('mousedown', function(eve) {
+      x_down = eve.offsetX;
+      y_down = eve.offsetY;
+      mouse_down_flag = true;
+      if (ctx) {
+          ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+          keisen(ctx,keisen_show);
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'red';
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'blue';
+          let fx = Math.floor(x_down/fs)*fs;
+          let fy = Math.floor(y_down/fs)*fs;
+          ctx.strokeRect(fx,fy,(Math.ceil((eve.offsetX-fx)/fs))*fs, (Math.ceil((eve.offsetY-fy)/fs))*fs);//塗りつぶされた四角形
+          ctx.font = '600 20px "GeoMathDotMono",serif';
+          ctx.fillText(x_down+" "+y_down, 24, 40);
+          ctx.fillText(Math.floor(x_down/fs)+" "+Math.floor(y_down/fs), 24,60 );
+          ctx.fillText(Math.ceil((eve.offsetX-fx)/fs)+" "+Math.ceil((eve.offsetY-fy)/fs), 24, 80);
+
+          sele_start_x = Math.floor(x_down/fs);
+          sele_start_y = Math.floor(y_down/fs);
+          sele_width = Math.ceil((eve.offsetX-fx)/fs);
+          sele_height = Math.ceil((eve.offsetY-fy)/fs);
+
+          ctx.fillText(sele_start_x+" "+sele_start_y, 24,100 );
+          ctx.fillText(sele_width+" "+sele_height, 24, 120);
+        }
+    }, false);
+    document.querySelector('#ID_canvas01').addEventListener('mousemove', function(eve) {
+      if(mouse_down_flag){
+        if (ctx) {
+          ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+          keisen(ctx,keisen_show);
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'red';
+          ctx.lineWidth = 3;
+          ctx.strokeStyle = 'blue';
+          let fx = Math.floor(x_down/fs)*fs;
+          let fy = Math.floor(y_down/fs)*fs;
+          ctx.strokeRect(fx,fy,(Math.ceil((eve.offsetX-fx)/fs))*fs, (Math.ceil((eve.offsetY-fy)/fs))*fs);//塗りつぶされた四角形
+          ctx.font = '600 20px "GeoMathDotMono",serif';
+          ctx.fillText(x_down+" "+y_down, 24, 40);
+          ctx.fillText(Math.floor(x_down/fs)+" "+Math.floor(y_down/fs), 24,60 );
+          ctx.fillText(Math.ceil((eve.offsetX-fx)/fs)+" "+Math.ceil((eve.offsetY-fy)/fs), 24, 80);
+
+          sele_start_x = Math.floor(x_down/fs);
+          sele_start_y = Math.floor(y_down/fs);
+          sele_width = Math.ceil((eve.offsetX-fx)/fs);
+          sele_height = Math.ceil((eve.offsetY-fy)/fs);
+
+          ctx.fillText(sele_start_x+" "+sele_start_y, 24,100 );
+          ctx.fillText(sele_width+" "+sele_height, 24, 120);
+        }
+    }
+    }, false);
+
+    document.querySelector('#ID_canvas01').addEventListener('mouseup', function(eve) {
+      mouse_down_flag = false;
+
+      for(let i=0;i<dot_table.length;i++){
+        for(let j=0;j<dot_table[i].length;j++){
+          if(i>=sele_start_x && i< sele_start_x + sele_width && j>= sele_start_y && j < sele_start_y + sele_height){
+            dot_table[j+1][i+1] = code;            
+          }
+        }
+      }
+      str_dot_table ="";
+      for(let i=0;i<dot_table.length;i++){
+        str_dot_table  += dot_table[i].join("")+"\n";
+      }
+      document.querySelector('#ID_main01').innerText = str_dot_table;
+      ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+      keisen(ctx,keisen_show);
+
+   }, false);
+
+   
+    document.querySelector('#button_save').addEventListener('click', function(eve) {save("txt",str_dot_table);}, false);
+    document.querySelector('#button_keisen').addEventListener('click', function(eve) {
+      keisen_show =!keisen_show;
+      ctx.clearRect(0, 0, ctx.canvas.clientWidth, ctx.canvas.clientHeight);
+      keisen(ctx,keisen_show);
+
+      console.log(keisen_show);
+    }, false);
+
+    document.querySelector('#ID_00020').addEventListener('click', function(e) {code="　";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_025FB').addEventListener('click', function(e) {code="◻";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E5').addEventListener('click', function(e) {code="🟥";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E7').addEventListener('click', function(e) {code="🟧";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E8').addEventListener('click', function(e) {code="🟨";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E9').addEventListener('click', function(e) {code="🟩";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E6').addEventListener('click', function(e) {code="🟦";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7EA').addEventListener('click', function(e) {code="🟪";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7EB').addEventListener('click', function(e) {code="🟫";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B1B').addEventListener('click', function(e) {code="⬛";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B1C').addEventListener('click', function(e) {code="⬜";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_02591').addEventListener('click', function(e) {code="░";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02592').addEventListener('click', function(e) {code="▒";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02593').addEventListener('click', function(e) {code="▓";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_1F3FB').addEventListener('click', function(e) {code="🏻";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FC').addEventListener('click', function(e) {code="🏼";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FD').addEventListener('click', function(e) {code="🏾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FE').addEventListener('click', function(e) {code="🏾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FF').addEventListener('click', function(e) {code="🏿";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_0E7D2').addEventListener('click', function(e) {code="";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0E7B9').addEventListener('click', function(e) {code="";document.querySelector('#ID_mode01').innerHTML =code}, false);
+  
+    document.querySelector('#ID_0E72B').addEventListener('click', function(e) {code="";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0E756').addEventListener('click', function(e) {code="";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0E781').addEventListener('click', function(e) {code="";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0E7AC').addEventListener('click', function(e) {code="";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    
+    document.querySelector('#ID_1F332').addEventListener('click', function(e) {code="🌲";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_u1F7E9_uni200D_u1F332').addEventListener('click', function(e) {code="🟩‍🌲";document.querySelector('#ID_mode01').innerHTML =code}, false);    
+    
+    document.querySelector('#ID_1F333').addEventListener('click', function(e) {code="🌳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FABE').addEventListener('click', function(e) {code="🪾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FAB5').addEventListener('click', function(e) {code="🪵";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F335').addEventListener('click', function(e) {code="🌵";document.querySelector('#ID_mode01').innerHTML =code}, false);
+   
+    document.querySelector('#ID__26F0').addEventListener('click', function(e) {code="⛰";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3D4').addEventListener('click', function(e) {code="🏔";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FAA8').addEventListener('click', function(e) {code="🪨";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F9F1').addEventListener('click', function(e) {code="🧱";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+
+    document.querySelector('#ID_1F3E0').addEventListener('click', function(e) {code="🏠";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3D8').addEventListener('click', function(e) {code="🏘️";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3E2').addEventListener('click', function(e) {code="🏢";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3D9').addEventListener('click', function(e) {code="🏙️";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3DB').addEventListener('click', function(e) {code="🏛️";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3D7').addEventListener('click', function(e) {code="🏗️";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_026E9').addEventListener('click', function(e) {code="⛩️";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3ED').addEventListener('click', function(e) {code="🏭";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3EF').addEventListener('click', function(e) {code="🏯";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3F0').addEventListener('click', function(e) {code="🏰";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F6E3').addEventListener('click', function(e) {code="🛣";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F6E4').addEventListener('click', function(e) {code="🛤";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_1F697').addEventListener('click', function(e) {code="🚗";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F6DE').addEventListener('click', function(e) {code="🛞";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F9F1').addEventListener('click', function(e) {code="🧱";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FA9C').addEventListener('click', function(e) {code="🪜";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FA9F').addEventListener('click', function(e) {code="🪟";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F416').addEventListener('click', function(e) {code="🐖";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F43A').addEventListener('click', function(e) {code="🐺";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F4A3').addEventListener('click', function(e) {code="💣";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F525').addEventListener('click', function(e) {code="🔥";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_1F4C1').addEventListener('click', function(e) {code="📁";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F4C2').addEventListener('click', function(e) {code="📂";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F5CB').addEventListener('click', function(e) {code="🗋";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F5CD').addEventListener('click', function(e) {code="🗍";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F5CE').addEventListener('click', function(e) {code="🗎";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F5D0').addEventListener('click', function(e) {code="🗐";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F4BB').addEventListener('click', function(e) {code="💻";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3F0').addEventListener('click', function(e) {code="🖥️";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_02500').addEventListener('click', function(e) {code="─";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02502').addEventListener('click', function(e) {code="│";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02504').addEventListener('click', function(e) {code="┄";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02506').addEventListener('click', function(e) {code="┊";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02508').addEventListener('click', function(e) {code="┄";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0250A').addEventListener('click', function(e) {code="┆";document.querySelector('#ID_mode01').innerHTML =code}, false);   
+    document.querySelector('#ID_0250C').addEventListener('click', function(e) {code="┌";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02510').addEventListener('click', function(e) {code="┐";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02514').addEventListener('click', function(e) {code="└";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02518').addEventListener('click', function(e) {code="┘";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0251C').addEventListener('click', function(e) {code="├";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02524').addEventListener('click', function(e) {code="┤";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0252C').addEventListener('click', function(e) {code="┬";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02534').addEventListener('click', function(e) {code="┴";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0253C').addEventListener('click', function(e) {code="┼";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_02501').addEventListener('click', function(e) {code="━";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02503').addEventListener('click', function(e) {code="┃";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02505').addEventListener('click', function(e) {code="┅";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02507').addEventListener('click', function(e) {code="┇";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02509').addEventListener('click', function(e) {code="┉";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0250B').addEventListener('click', function(e) {code="┋";document.querySelector('#ID_mode01').innerHTML =code}, false);   
+    document.querySelector('#ID_0250D').addEventListener('click', function(e) {code="┏";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02511').addEventListener('click', function(e) {code="┓";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02515').addEventListener('click', function(e) {code="┗";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02519').addEventListener('click', function(e) {code="┛";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0251D').addEventListener('click', function(e) {code="┣";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02525').addEventListener('click', function(e) {code="┫";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0252D').addEventListener('click', function(e) {code="┳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02535').addEventListener('click', function(e) {code="┻";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0253D').addEventListener('click', function(e) {code="╋";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+
+
+    document.querySelector('#ID_02550').addEventListener('click', function(e) {code="═";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02551').addEventListener('click', function(e) {code="║";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02554').addEventListener('click', function(e) {code="╔";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02557').addEventListener('click', function(e) {code="╗";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0255A').addEventListener('click', function(e) {code="╚";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0255D').addEventListener('click', function(e) {code="╝";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02560').addEventListener('click', function(e) {code="╠";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02563').addEventListener('click', function(e) {code="╣";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02566').addEventListener('click', function(e) {code="╦";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02569').addEventListener('click', function(e) {code="╩";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0256C').addEventListener('click', function(e) {code="╬";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    
+    document.querySelector('#ID_02B71').addEventListener('click', function(e) {code="⭱";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B70').addEventListener('click', function(e) {code="⭰";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B72').addEventListener('click', function(e) {code="⭲";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B73').addEventListener('click', function(e) {code="⭳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02912').addEventListener('click', function(e) {code="⤒";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02913').addEventListener('click', function(e) {code="⤓";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_0234F').addEventListener('click', function(e) {code="⍏";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02345').addEventListener('click', function(e) {code="⍅";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02346').addEventListener('click', function(e) {code="⍆";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02356').addEventListener('click', function(e) {code="⍖";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    
+
+    document.querySelector('#ID_021E6').addEventListener('click', function(e) {code="⇦";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_021E7').addEventListener('click', function(e) {code="⇧";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_021E8').addEventListener('click', function(e) {code="⇨";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_021E9').addEventListener('click', function(e) {code="⇩";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B00').addEventListener('click', function(e) {code="⬀";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B01').addEventListener('click', function(e) {code="⬁";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B02').addEventListener('click', function(e) {code="⬂";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B03').addEventListener('click', function(e) {code="⬃";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B04').addEventListener('click', function(e) {code="⬄";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_021F3').addEventListener('click', function(e) {code="⇳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B05').addEventListener('click', function(e) {code="⬅";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B06').addEventListener('click', function(e) {code="⬆";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B07').addEventListener('click', function(e) {code="⬇";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B95').addEventListener('click', function(e) {code="⮕";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B08').addEventListener('click', function(e) {code="⬈";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B09').addEventListener('click', function(e) {code="⬉";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B0A').addEventListener('click', function(e) {code="⬊";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B0B').addEventListener('click', function(e) {code="⬋";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B0C').addEventListener('click', function(e) {code="⬌";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_02B0D').addEventListener('click', function(e) {code="⬍";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+  }, true);
+
+  function save(save_type,text){
+    let blob = new Blob([text], {type: "text/plain"}); // バイナリデータを作ります。
+    let today = new Date();
+    let month =  today.getMonth()  +1;
+    let month2 =  ('00' + month ).slice( -2 );
+    let dd =  ('00' + today.getDate()).slice(-2);
+    let hh = ( '00' + today.getHours() ).slice(-2);
+    let mm = ( '00' + today.getMinutes() ).slice(-2);
+    let ss = ( '00' + today.getSeconds() ).slice(-2);
+
+// aタグを利用してイベントを発火させます
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.target = '_blank';
+    a.download = today.getFullYear() +"_"+ month2 + "_"+ dd +"_"+ hh + "h" +  mm  + "m" + ss + "s"+ '_FileName.'+save_type;
+    a.click();
+}
+
+</script>
+</head>
+<body>
+モード：<span id="ID_mode00"></span><br>
+選択文字：<span id="ID_mode01"></span><br>
+<span id="ID_selection">
+<br>
+<input type ="button" value ="保存" id="button_save">
+<input type ="button" value ="罫線切替" id="button_keisen"><br>
+<input type ="button" value ="全塗">
+<input type ="button" value ="レイヤー">
+<input type ="button" value ="元に戻す">
+</span>
+
+<span id="ID_span01">
+<div class="button-group">
+  <input type ="button" value ="消" id="ID_00020">
+  <input type ="button" value ="◻" id="ID_025FB">
+  <input type ="button" value ="🟥" id="ID_1F7E5">
+  <input type ="button" value ="🟧" id="ID_1F7E7">
+  <input type ="button" value ="🟨" id="ID_1F7E8">
+  <input type ="button" value ="🟩" id="ID_1F7E9">
+  <input type ="button" value ="🟦" id="ID_1F7E6">
+  <input type ="button" value ="🟪" id="ID_1F7EA">
+  <input type ="button" value ="🟫" id="ID_1F7EB">
+  <input type ="button" value ="⬛" id="ID_02B1B">
+  <input type ="button" value ="⬜" id="ID_02B1C">
+  <input type ="button" value ="░" id="ID_02591">
+  <input type ="button" value ="▒" id="ID_02592">
+  <input type ="button" value ="▓" id="ID_02593">
+</div>
+<div class="button-group">
+  <input type ="button" value ="🏻" id="ID_1F3FB">
+  <input type ="button" value ="🏼" id="ID_1F3FC">
+  <input type ="button" value ="🏾" id="ID_1F3FD">
+  <input type ="button" value ="🏾" id="ID_1F3FE">
+  <input type ="button" value ="🏿" id="ID_1F3FF">&nbsp;
+  <input type ="button" value ="🔴" id="ID_1F534">
+  <input type ="button" value ="🟠" id="ID_1F7E0">
+  <input type ="button" value ="🟡" id="ID_1F7E1">
+  <input type ="button" value ="🟢" id="ID_1F7E2">
+</div>
+<div class="button-group">
+  <input type ="button" value ="" id="ID_0E7D2">
+  <input type ="button" value ="" id="ID_0E7B9">&nbsp;
+  <input type ="button" value ="" id="ID_0E72B">
+  <input type ="button" value ="" id="ID_0E756">
+  <input type ="button" value ="" id="ID_0E781">
+  <input type ="button" value ="" id="ID_0E7AC">
+</div>
+<br>
+<div class="button-group">
+  <input type ="button" value ="🌲" id="ID_1F332">
+  <input type ="button" value ="🟩‍🌲" id="ID_u1F7E9_uni200D_u1F332">
+  <input type ="button" value ="🌳" id="ID_1F333">
+  <input type ="button" value ="🪾" id="ID_1FABE">
+  <input type ="button" value ="🪵" id="ID_1FAB5">
+  <input type ="button" value ="🌵" id="ID_1F335">&nbsp;
+  <input type ="button" value ="⛰" id="ID__26F0">
+  <input type ="button" value ="🏔" id="ID_1F3D4">
+  <input type ="button" value ="🪨" id="ID_1FAA8">
+  <input type ="button" value ="🌊" id="ID_1FAA8">
+</div>
+<div class="button-group">
+<input type ="button" value ="🏠" id="ID_1F3E0">
+<input type ="button" value ="🏘️" id="ID_1F3D8"><!--住宅街-->
+<input type ="button" value ="🏢" id="ID_1F3E2"><!--オフィスビル-->
+<input type ="button" value ="🏙️" id="ID_1F3D9"><!--都市の景観-->
+<input type ="button" value ="🏛️" id="ID_1F3DB"><!--歴史的な建物-->
+<input type ="button" value ="🏗️" id="ID_1F3D7"><!--建築中-->
+<input type ="button" value ="⛩️" id="ID_026E9"><!--神社-->
+<input type ="button" value ="🏭" id="ID_1F3ED"><!--工場-->
+<input type ="button" value ="🏯" id="ID_1F3EF">
+<input type ="button" value ="🏰" id="ID_1F3F0">
+<input type ="button" value ="🛣" id="ID_1F6E3"><!--高速道路-->
+<input type ="button" value ="🛤" id="ID_1F6E4"><!--線路-->
+</div>
+<div class="button-group">
+<input type ="button" value ="🚗" id="ID_1F697">
+<input type ="button" value ="🛞" id="ID_1F6DE">
+<input type ="button" value ="🧱" id="ID_1F9F1">
+<input type ="button" value ="🪜" id="ID_1FA9C">
+<input type ="button" value ="🪟" id="ID_1FA9F">
+<input type ="button" value ="🐖" id="ID_1F416">
+<input type ="button" value ="🐺" id="ID_1F43A">
+<input type ="button" value ="💣" id="ID_1F4A3">
+<input type ="button" value ="🔥" id="ID_1F525">
+</div>
+<div class="button-group">
+  <input type ="button" value ="📁" id="ID_1F4C1">
+  <input type ="button" value ="📂" id="ID_1F4C2">
+  <input type ="button" value ="🗋" id="ID_1F5CB">
+  <input type ="button" value ="🗍" id="ID_1F5CD">
+  <input type ="button" value ="🗎" id="ID_1F5CE">
+  <input type ="button" value ="🗐" id="ID_1F5D0">
+  <input type ="button" value ="💻" id="ID_1F4BB">
+  <input type ="button" value ="🖥️" id="ID_1F3F0">
+</div>  
+<br>
+<div class="button-group">
+  <input type ="button" value ="─" id="ID_02500">
+  <input type ="button" value ="│" id="ID_02502">
+  <input type ="button" value ="┄" id="ID_02504">
+  <input type ="button" value ="┊" id="ID_02506">
+  <input type ="button" value ="┄" id="ID_02508">
+  <input type ="button" value ="┆" id="ID_0250A">
+  <input type ="button" value ="┌" id="ID_0250C">
+  <input type ="button" value ="┐" id="ID_02510">
+  <input type ="button" value ="└" id="ID_02514">
+  <input type ="button" value ="┘" id="ID_02518">
+  <input type ="button" value ="├" id="ID_0251C">
+  <input type ="button" value ="┤" id="ID_02524">
+  <input type ="button" value ="┬" id="ID_0252C">
+  <input type ="button" value ="┴" id="ID_02534">
+  <input type ="button" value ="┼" id="ID_0253C">
+</div>
+<div class="button-group">  
+  <input type ="button" value ="━" id="ID_02501">
+  <input type ="button" value ="┃" id="ID_02503">
+  <input type ="button" value ="┅" id="ID_02505">
+  <input type ="button" value ="┇" id="ID_02507">
+  <input type ="button" value ="┉" id="ID_02509">
+  <input type ="button" value ="┋" id="ID_0250B">
+  <input type ="button" value ="┏" id="ID_0250D">
+  <input type ="button" value ="┓" id="ID_02511">
+  <input type ="button" value ="┗" id="ID_02515">
+  <input type ="button" value ="┛" id="ID_02519">
+  <input type ="button" value ="┣" id="ID_0251D">
+  <input type ="button" value ="┫" id="ID_02525">
+  <input type ="button" value ="┳" id="ID_0252D">
+  <input type ="button" value ="┻" id="ID_02535">
+  <input type ="button" value ="╋" id="ID_0253D">
+</div>
+<div class="button-group">
+  <input type ="button" value ="═" id="ID_02550">
+  <input type ="button" value ="║" id="ID_02551">
+  <input type ="button" value ="╔" id="ID_02554">
+  <input type ="button" value ="╗" id="ID_02557">
+  <input type ="button" value ="╚" id="ID_0255A">
+  <input type ="button" value ="╝" id="ID_0255D">
+  <input type ="button" value ="╠" id="ID_02560">
+  <input type ="button" value ="╣" id="ID_02563">
+  <input type ="button" value ="╦" id="ID_02566">
+  <input type ="button" value ="╩" id="ID_02569">
+  <input type ="button" value ="╬" id="ID_0256C">
+</div>
+<div class="button-group">
+<input type ="button" value ="⭱" id="ID_02B71">
+<input type ="button" value ="⭰" id="ID_02B70">
+<input type ="button" value ="⭲" id="ID_02B72">
+<input type ="button" value ="⭳" id="ID_02B73">
+<input type ="button" value ="⤒" id="ID_02912">
+<input type ="button" value ="⤓" id="ID_02913">
+<input type ="button" value ="⍏" id="ID_0234F">
+<input type ="button" value ="⍅" id="ID_02345">
+<input type ="button" value ="⍆" id="ID_02346">
+<input type ="button" value ="⍖" id="ID_02356">
+</div>
+<div class="button-group">
+<input type ="button" value ="⇦" id="ID_021E6">
+<input type ="button" value ="⇧" id="ID_021E7">
+<input type ="button" value ="⇨" id="ID_021E8">
+<input type ="button" value ="⇩" id="ID_021E9">
+<input type ="button" value ="⬀" id="ID_02B00">
+<input type ="button" value ="⬁" id="ID_02B01">
+<input type ="button" value ="⬂" id="ID_02B02">
+<input type ="button" value ="⬃" id="ID_02B03">
+<input type ="button" value ="⬄" id="ID_02B04">
+<input type ="button" value ="⇳" id="ID_021F3">
+</div>
+<div class="button-group">
+<input type ="button" value ="⬅" id="ID_02B05">
+<input type ="button" value ="⬆" id="ID_02B06">
+<input type ="button" value ="⬇" id="ID_02B07">
+<input type ="button" value ="⮕" id="ID_02B95">
+<input type ="button" value ="⬈" id="ID_02B08">
+<input type ="button" value ="⬉" id="ID_02B09">
+<input type ="button" value ="⬊" id="ID_02B0A">
+<input type ="button" value ="⬋" id="ID_02B0B">
+<input type ="button" value ="⬌" id="ID_02B0C">
+<input type ="button" value ="⬍" id="ID_02B0D">
+</div>
+</span>
+
+<canvas id="ID_canvas01" width="800" height="800">
+  canvas要素をサポートしていません。
+</canvas>
+<pre id="ID_main01" ></pre>
+<body>
+</html>
+<!--
+267->198->220->235->270->386->391(26027)
+-->

@@ -1,0 +1,661 @@
+SplineFontDB: 3.2
+FontName: GeoMathDotMono
+FullName: GeoMathDotMono
+FamilyName: GeoMathDotMono
+Weight: Regular
+Copyright: Fumitaka Mikami
+Version: 2023.06.24
+ItalicAngle: 0
+UnderlinePosition: -246
+UnderlineWidth: 104
+Ascent: 1802
+Descent: 246
+InvalidEm: 0
+sfntRevision: 0x07e6999a
+LayerCount: 2
+Layer: 0 1 "+gMyXYgAA" 1
+Layer: 1 1 "+Uk2XYgAA" 0
+HasVMetrics: 1
+XUID: [1021 873 21699142 16780]
+StyleMap: 0x0040
+FSType: 0
+OS2Version: 3
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 0
+CreationTime: 1255068000
+ModificationTime: 1688221830
+PfmFamily: 17
+TTFWeight: 400
+TTFWidth: 5
+LineGap: 0
+VLineGap: 0
+Panose: 2 11 1 9 0 0 0 2 0 0
+OS2TypoAscent: 1802
+OS2TypoAOffset: 0
+OS2TypoDescent: -246
+OS2TypoDOffset: 0
+OS2TypoLinegap: 0
+OS2WinAscent: 1802
+OS2WinAOffset: 0
+OS2WinDescent: 246
+OS2WinDOffset: 0
+HheadAscent: 1802
+HheadAOffset: 0
+HheadDescent: -246
+HheadDOffset: 0
+OS2SubXSize: 1024
+OS2SubYSize: 1579
+OS2SubXOff: 0
+OS2SubYOff: 307
+OS2SupXSize: 1024
+OS2SupYSize: 1579
+OS2SupXOff: 0
+OS2SupYOff: 0
+OS2StrikeYSize: 160
+OS2StrikeYPos: 858
+OS2FamilyClass: 2049
+OS2Vendor: 'IPA '
+OS2CodePages: 00020001.00000000
+OS2UnicodeRanges: e00002ff.2ac7edfa.00000012.00000000
+Lookup: 1 0 0 "'vert' Vertical Alternates lookup 0" { "'vert' Vertical Alternates lookup 0 +MLUw1jDGMPww1jDr"  } ['vert' ('hani' <'dflt' > 'kana' <'JAN ' 'dflt' > 'latn' <'dflt' > ) ]
+Lookup: 4 0 0 "'ccmp' +MLAw6jDVVAhiEAAA-/+UgaJ4wAA lookup 1" { "'ccmp' +MLAw6jDVVAhiEAAA-/+UgaJ4wAA lookup 1 +MLUw1jDGMPww1jDr"  } ['ccmp' ('hani' <'dflt' > 'kana' <'JAN ' 'dflt' > 'latn' <'dflt' > ) ]
+MarkAttachClasses: 1
+DEI: 91125
+TtTable: prep
+PUSHB_2
+ 48
+ 1
+PUSHW_1
+ 292
+RTG
+SCANCTRL
+SCANTYPE
+SCVTCI
+EndTTInstrs
+TtTable: fpgm
+NPUSHB
+ 15
+ 14
+ 13
+ 12
+ 11
+ 10
+ 9
+ 8
+ 7
+ 6
+ 5
+ 4
+ 3
+ 2
+ 1
+ 0
+FDEF
+SLOOP
+MDAP[rnd]
+ALIGNRP
+ENDF
+FDEF
+MDAP[rnd]
+ALIGNRP
+ENDF
+FDEF
+SRP1
+SRP2
+IP
+ENDF
+FDEF
+SRP1
+SRP2
+SLOOP
+IP
+ENDF
+FDEF
+SRP0
+SLOOP
+MIRP[rp0,min,rnd,black]
+ALIGNRP
+ENDF
+FDEF
+SRP0
+SLOOP
+MIRP[rp0,rnd,grey]
+ALIGNRP
+ENDF
+FDEF
+SRP0
+SLOOP
+MDRP[rp0,min,rnd,black]
+ALIGNRP
+ENDF
+FDEF
+SRP0
+SLOOP
+MDRP[rp0,rnd,grey]
+ALIGNRP
+ENDF
+FDEF
+SRP0
+MIRP[rp0,min,rnd,black]
+ENDF
+FDEF
+SRP0
+MIRP[rp0,rnd,grey]
+ENDF
+FDEF
+SRP0
+MDRP[rp0,min,rnd,black]
+ENDF
+FDEF
+SRP0
+MDRP[rp0,rnd,grey]
+ENDF
+FDEF
+MDRP[rnd,grey]
+ENDF
+FDEF
+MDRP[grey]
+ENDF
+FDEF
+SVTCA[y-axis]
+NPUSHB
+ 16
+ 1
+ 0
+ 0
+ 1
+ 1
+ 2
+ 2
+ 3
+ 3
+ 4
+ 4
+ 5
+ 5
+ 6
+ 6
+ 0
+SZPS
+MIAP[rnd]
+MIAP[rnd]
+MIAP[rnd]
+MIAP[rnd]
+MIAP[rnd]
+MIAP[rnd]
+MIAP[rnd]
+SZPS
+ENDF
+EndTTInstrs
+ShortTable: cvt  81
+  2048
+  2048
+  0
+  -246
+  111
+  1536
+  1073
+  179
+  212
+  206
+  160
+  150
+  205
+  118
+  183
+  142
+  131
+  176
+  87
+  80
+  97
+  96
+  145
+  128
+  82
+  138
+  149
+  125
+  84
+  246
+  94
+  232
+  152
+  193
+  89
+  90
+  60
+  121
+  137
+  203
+  237
+  159
+  108
+  230
+  114
+  118
+  142
+  87
+  206
+  210
+  102
+  121
+  183
+  119
+  155
+  169
+  137
+  152
+  114
+  224
+  222
+  140
+  143
+  176
+  196
+  164
+  162
+  145
+  130
+  102
+  104
+  188
+  191
+  85
+  70
+  73
+  106
+  79
+  118
+  142
+  87
+EndShort
+ShortTable: maxp 16
+  1
+  0
+  12728
+  256
+  26
+  0
+  0
+  2
+  7
+  0
+  15
+  0
+  2048
+  684
+  0
+  0
+EndShort
+LangName: 1033 "" "" "" "" "" "Version 2023.06.24" "" "" "" "" "" "" "" "http://ipafont.ipa.go.jp/ipa_font_license_v1.html" "http://ipafont.ipa.go.jp/ipa_font_license_v1.html"
+LangName: 1041 "Fumitaka Mikami"
+GaspTable: 3 8 2 16 1 65535 3 0
+Encoding: Custom
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -48
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 0 38 14
+BeginPrivate: 0
+EndPrivate
+TeXData: 1 0 0 346030 173015 115343 551424 -1048576 115343 783286 444596 497025 792723 393216 433062 380633 303038 157286 324010 404750 52429 2506097 1059062 262144
+BeginChars: 1115620 15
+
+StartChar: space
+Encoding: 32 32 0
+Width: 1024
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u_test
+Encoding: 33 33 1
+Width: 1024
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+393 1626 m 5,0,-1
+ 631 1626 l 5,1,-1
+ 594 393 l 5,2,-1
+ 430 393 l 5,3,-1
+ 393 1626 l 5,0,-1
+393 207 m 5,4,-1
+ 631 207 l 5,5,-1
+ 631 -31 l 5,6,-1
+ 393 -31 l 5,7,-1
+ 393 207 l 5,4,-1
+EndSplineSet
+EndChar
+
+
+StartChar: u100_1
+Encoding: 34 -1 2
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+1536 1802 m 1
+ 1664 1802 l 1
+ 1792 1802 l 1
+ 1920 1802 l 1
+ 2048 1802 l 1
+ 2176 1802 l 1
+ 2304 1802 l 1
+ 2432 1802 l 1
+ 2560 1802 l 1
+ 2560 1674 l 1
+ 2688 1674 l 1
+ 2688 1546 l 1
+ 2816 1546 l 1
+ 2816 1418 l 1
+ 2944 1418 l 1
+ 2944 1290 l 1
+ 3072 1290 l 1
+ 3072 1162 l 1
+ 3200 1162 l 1
+ 3200 1034 l 1
+ 3328 1034 l 1
+ 3328 906 l 1
+ 3456 906 l 1
+ 3456 778 l 1
+ 3584 778 l 1
+ 3584 650 l 1
+ 3712 650 l 1
+ 3712 522 l 1
+ 3840 522 l 1
+ 3840 394 l 1
+ 3840 266 l 1
+ 3840 138 l 1
+ 3840 10 l 1
+ 3840 -118 l 1
+ 3840 -246 l 1
+ 3840 -374 l 1
+ 3840 -502 l 1
+ 3840 -630 l 1
+ 3840 -758 l 1
+ 3840 -886 l 1
+ 3840 -1014 l 1
+ 3840 -1142 l 1
+ 3840 -1270 l 1
+ 3840 -1398 l 1
+ 3712 -1398 l 1
+ 3712 -1526 l 1
+ 3584 -1526 l 1
+ 3456 -1526 l 1
+ 3328 -1526 l 1
+ 3200 -1526 l 1
+ 3072 -1526 l 1
+ 2944 -1526 l 1
+ 2816 -1526 l 1
+ 2688 -1526 l 1
+ 2560 -1526 l 1
+ 2432 -1526 l 1
+ 2304 -1526 l 1
+ 2176 -1526 l 1
+ 2048 -1526 l 1
+ 1920 -1526 l 1
+ 1792 -1526 l 1
+ 1664 -1526 l 1
+ 1536 -1526 l 1
+ 1408 -1526 l 1
+ 1280 -1526 l 1
+ 1152 -1526 l 1
+ 1024 -1526 l 1
+ 896 -1526 l 1
+ 768 -1526 l 1
+ 640 -1526 l 1
+ 512 -1526 l 1
+ 384 -1526 l 1
+ 384 -1398 l 1
+ 256 -1398 l 1
+ 256 -1270 l 1
+ 256 -1142 l 1
+ 256 -1014 l 1
+ 256 -886 l 1
+ 256 -758 l 1
+ 256 -630 l 1
+ 256 -502 l 1
+ 256 -374 l 1
+ 256 -246 l 1
+ 256 -118 l 1
+ 256 10 l 1
+ 256 138 l 1
+ 256 266 l 1
+ 256 394 l 1
+ 256 522 l 1
+ 384 522 l 1
+ 384 650 l 1
+ 512 650 l 1
+ 512 778 l 1
+ 640 778 l 1
+ 640 906 l 1
+ 768 906 l 1
+ 768 1034 l 1
+ 896 1034 l 1
+ 896 1162 l 1
+ 1024 1162 l 1
+ 1024 1290 l 1
+ 1152 1290 l 1
+ 1152 1418 l 1
+ 1280 1418 l 1
+ 1280 1546 l 1
+ 1408 1546 l 1
+ 1408 1674 l 1
+ 1536 1674 l 1
+ 1536 1802 l 1
+2432 1546 m 1
+ 2304 1546 l 1
+ 2176 1546 l 1
+ 2048 1546 l 1
+ 1920 1546 l 1
+ 1792 1546 l 1
+ 1664 1546 l 1
+ 1664 1418 l 1
+ 1536 1418 l 1
+ 1536 1290 l 1
+ 1408 1290 l 1
+ 1408 1162 l 1
+ 1280 1162 l 1
+ 1280 1034 l 1
+ 1152 1034 l 1
+ 1152 906 l 1
+ 1024 906 l 1
+ 1024 778 l 1
+ 896 778 l 1
+ 896 650 l 1
+ 768 650 l 1
+ 768 522 l 1
+ 640 522 l 1
+ 640 394 l 1
+ 512 394 l 1
+ 512 266 l 1
+ 512 138 l 1
+ 512 10 l 1
+ 512 -118 l 1
+ 512 -246 l 1
+ 512 -374 l 1
+ 512 -502 l 1
+ 512 -630 l 1
+ 512 -758 l 1
+ 512 -886 l 1
+ 512 -1014 l 1
+ 512 -1142 l 1
+ 640 -1142 l 1
+ 640 -1270 l 1
+ 768 -1270 l 1
+ 896 -1270 l 1
+ 1024 -1270 l 1
+ 1152 -1270 l 1
+ 1280 -1270 l 1
+ 1280 -1142 l 1
+ 1280 -1014 l 1
+ 1280 -886 l 1
+ 1280 -758 l 1
+ 1280 -630 l 1
+ 1280 -502 l 1
+ 1280 -374 l 1
+ 1280 -246 l 1
+ 1280 -118 l 1
+ 1280 10 l 1
+ 1280 138 l 1
+ 1280 266 l 1
+ 1408 266 l 1
+ 1536 266 l 1
+ 1664 266 l 1
+ 1792 266 l 1
+ 1920 266 l 1
+ 2048 266 l 1
+ 2176 266 l 1
+ 2304 266 l 1
+ 2432 266 l 1
+ 2560 266 l 1
+ 2688 266 l 1
+ 2816 266 l 1
+ 2816 138 l 1
+ 2816 10 l 1
+ 2816 -118 l 1
+ 2816 -246 l 1
+ 2816 -374 l 1
+ 2816 -502 l 1
+ 2816 -630 l 1
+ 2816 -758 l 1
+ 2816 -886 l 1
+ 2816 -1014 l 1
+ 2816 -1142 l 1
+ 2816 -1270 l 1
+ 2944 -1270 l 1
+ 3072 -1270 l 1
+ 3200 -1270 l 1
+ 3328 -1270 l 1
+ 3456 -1270 l 1
+ 3456 -1142 l 1
+ 3584 -1142 l 1
+ 3584 -1014 l 1
+ 3584 -886 l 1
+ 3584 -758 l 1
+ 3584 -630 l 1
+ 3584 -502 l 1
+ 3584 -374 l 1
+ 3584 -246 l 1
+ 3584 -118 l 1
+ 3584 10 l 1
+ 3584 138 l 1
+ 3584 266 l 1
+ 3584 394 l 1
+ 3456 394 l 1
+ 3456 522 l 1
+ 3328 522 l 1
+ 3328 650 l 1
+ 3200 650 l 1
+ 3200 778 l 1
+ 3072 778 l 1
+ 3072 906 l 1
+ 2944 906 l 1
+ 2944 1034 l 1
+ 2816 1034 l 1
+ 2816 1162 l 1
+ 2688 1162 l 1
+ 2688 1290 l 1
+ 2560 1290 l 1
+ 2560 1418 l 1
+ 2432 1418 l 1
+ 2432 1546 l 1
+EndSplineSet
+EndChar
+
+StartChar: u100_2
+Encoding: 35 -1 3
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_3
+Encoding: 36 -1 4
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_4
+Encoding: 37 -1 5
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_5
+Encoding: 38 -1 6
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_6
+Encoding: 39 -1 7
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_7
+Encoding: 40 -1 8
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_8
+Encoding: 41 -1 9
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_9
+Encoding: 42 -1 10
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_10
+Encoding: 43 -1 11
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_11
+Encoding: 44 -1 12
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: u100_12
+Encoding: 45 -1 13
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+EndChar
+EndChars
+EndSplineFont

@@ -1,0 +1,66 @@
+/* ココがコメント
+id = #
+class = 
+*/
+
+
+@font-face {
+    src: url('C:/Users/goodm/Documents/font/MigMix_GeoMath/GeoMathDotMono/m17.ttf') format('truetype');
+    font-family: 'GeoMathMono';
+}
+/*
+@font-face {
+    src: url(https://github.com/kobe2018/GeoMathMonospace/blob/master/GeoMathMono0062.ttf?raw=true) format('truetype');
+    font-family: 'GeoMathMono';
+}
+*/
+
+body,pre,span,input{
+    font-size:24px;
+    font-family:GeoMathMono;
+}
+input,span,pre{
+    margin: 0;
+    padding: 0;
+}
+.button-group{
+    /* 複数の button タグの間に謎の余白が作られる
+    https://zenn.dev/kkeeth/articles/margins-between-buttons */
+    display:flex;
+}
+/* input{
+    display:flex;
+} */
+/* body,textarea{
+ height:96vh;
+ font-family:GeoMathMono;
+}
+body, textarea{
+ margin: 1;
+ padding: 1;
+} */
+
+#ID_span01{
+    position:absolute;
+    top:144px;
+    left:0px;
+    background-color: #ffffcc;
+}
+
+ #ID_main01{
+    position:absolute;	
+    top:0px;
+    left:450px;
+    background-color: #eeffffcc;
+    z-index: 10;
+}
+
+ 
+#ID_canvas01{
+    position:absolute;	
+    top:24px;
+    left:474px;
+    /* background-color: #eeffff33; */
+    z-index: 12;
+} 
+

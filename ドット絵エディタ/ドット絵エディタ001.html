@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>ドット絵作成エディタ001</title>
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="css_text_editor.css"><style></style>
+<script >
+"use strict";
+let [esc_flag,clear_flag]=[true,false];
+
+window.addEventListener("DOMContentLoaded",function(){
+    let element = document.querySelector('#ID_textarea01');
+
+    //let ID_span_svg = document.querySelector('#ID_span_svg');
+    let ID_svg = document.querySelector('#ID_svg');
+
+    document.querySelector('body').style.backgroundColor = 'white';
+    
+    //keydown(element,element2);
+    keydown(element);
+    keyup(element);
+    function_touch_event();
+
+    document.querySelector('body').addEventListener('keydown', function(eve) {
+      if(eve.ctrlKey){
+        element.style.pointerEvents = "none";
+      } 
+    }, false);
+
+    document.querySelector('body').addEventListener('keyup', function(eve) {
+      if(!eve.ctrlKey){
+        element.style.pointerEvents = "auto";
+      } 
+    }, false);
+
+
+
+//document.querySelector('#ID_textarea01').addEventListener("change",function(){}, true);
+  element.addEventListener('scroll', function(e) {
+    let y = element.scrollTop;
+    //console.log("scrollTop",element.scrollTop);//取得したイベント情報
+    //https://www.javadrive.jp/javascript/webpage/index6.html
+    //console.log("svg_width ",document.getElementById("ID_svg").width.animVal.value);
+    //console.log("svg_height ",document.getElementById("ID_svg").height.animVal.value);
+
+    let w = document.getElementById("ID_svg").width.animVal.value;//svg要素の幅＝
+    //let w = window.outerWidth;//
+    //let w = window.innerWidth;//スクロールバーも含めた幅
+    //let w = element.innerWidth;//スクロールバーを除く幅
+    //let w = element.clientWidth;//スクロールバーを除く幅
+    console.log("window.outerWidth",window.outerWidth,element.style.width,"window.innerWidth",window.innerWidth,"element.innerWidth",element.innerWidth,"clientWidth",element.clientWidth);
+    
+    
+    let h = document.getElementById("ID_svg").height.animVal.value;//
+    //let h = window.innerHeight;//スクロールバーも含めた幅 ✖らしい
+    //let h = element.clientHeight;//スクロールバーを除く幅
+    //console.log("window.innerHeight",window.innerHeight,"clientHeight",element.clientHeight);
+
+    document.getElementById("ID_svg").setAttribute("viewBox",`0 ${y} ${w},${h} `);
+  }, true);
+
+
+}, true);
+
+</script>
+</head>
+<body>
+
+<svg id="ID_svg" width ="calc(100%)" height="800" viewBox="0 0 calc(100%) 800" style="white-Space:pre;fill:black"></svg>
+
+<textarea spellcheck="false" id="ID_textarea01" wrap="off" width="" placeholder ="
+対話エディタ
+使い方は、
+「help」の後にリターンを押してください。
+🟥🟧🟨🟩🟦🟪🟫⬛⬜░▒▓
+">
+</textarea>
+<body>
+</html>

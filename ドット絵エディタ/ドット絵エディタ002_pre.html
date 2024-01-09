@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title>ドット絵作成エディタ002</title>
+<meta charset="utf-8" />
+
+<link rel="stylesheet" type="text/css" href="css_text_editor_pre.css"><style></style>
+<script >
+"use strict";
+let [esc_flag,clear_flag]=[true,false];
+let code = "🟥";
+
+window.addEventListener("DOMContentLoaded",function(){
+    let element = document.querySelector('#ID_main01');
+    let ID_svg = document.querySelector('#ID_svg');
+
+    document.querySelector('body').style.backgroundColor = 'white';
+    
+    //keydown(element,element2);
+    //keydown(element);
+    //keyup(element);
+    //function_touch_event();
+
+
+    document.querySelector('body').addEventListener('keydown', function(eve) {
+      if(eve.ctrlKey){
+        element.style.pointerEvents = "none";
+      } 
+    }, false);
+
+    document.querySelector('body').addEventListener('keyup', function(eve) {
+      if(!eve.ctrlKey){
+        element.style.pointerEvents = "auto";
+      } 
+    }, false);
+
+    document.querySelector('#ID_main01').addEventListener('mouseup', function(eve) {
+
+      let sentence = document.querySelector('#ID_main01');
+
+      //console.log(sentence,sentence.innerHTML.getSelection());
+      console.log(sentence,window.getSelection().getRangeAt(0).getBoundingClientRect());
+      let g = window.getSelection().getRangeAt(0).getBoundingClientRect();
+      console.log(g.x/24 -18,g.height/24,g.top/24);
+      
+      console.log(window.getSelection());
+
+
+let len      = [...ID_main01.innerHTML].length;//utf-8用表現→1056と出る。
+//let pos_start    = ID_main01.selectionStart;
+let pos_start    = g.x/24 -18;
+console.log("pos_start ",pos_start,code);
+
+//let pos_end      = ID_main01.selectionEnd;
+let pos_end      = g.botton/24;;
+
+console.log("len ",len);
+//console.log("pos_start ",pos_start,pos_end,code);
+
+let before   = sentence.innerHTML.substring(0, pos_start);//substrは使わない。
+let insert_word =  code;//insert_word;挿入したい文字列;
+console.log("sentence.innerHTML.substring(pos_start,pos_end+1) ",sentence.innerHTML.substring(pos_start,pos_end+1));
+console.log("sentence.innerHTML.substring(pos_start,pos_end+1).split( /[\uD800-\uDBFF][\uDC00-\uDFFF]/g ) ",sentence.innerHTML.substring(pos_start,pos_end+2).split( /[\uD800-\uDBFF][\uDC00-\uDFFF]/g ).length);
+
+let after ="";
+if(sentence.innerHTML.substring(pos_start,pos_end+2).split( /[\uD800-\uDBFF][\uDC00-\uDFFF]/g ).length >=2){
+  console.log( "サロゲートです");
+  after    = sentence.innerHTML.substring(pos_end+2);//サロゲートベアの場合
+}else{
+  after    = sentence.innerHTML.substring(pos_end+1);//通常の場合
+}
+  
+sentence = before + insert_word + after;
+ID_main01.innerHTML = sentence;
+
+      
+      
+      //let len      = sentence.length;
+      //let pos      = ID_pre01.selectionStart;
+      //console.log(sentence,len,pos,code);
+      
+      //let before   = sentence.substr(0, pos);
+      //let word     = code;//挿入したい文字列;
+      //let after    = sentence.substr(pos, len);
+      //sentence = before + word + after;
+      //ID_pre01.innerText = sentence;
+
+      //console.log(len,pos,word,code);
+       
+    }, false);
+
+
+    document.querySelector('#ID_1F7E5').addEventListener('click', function(e) {code="🟥";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E7').addEventListener('click', function(e) {code="🟧";document.querySelector('#ID_mode01').innerHTML =code}, false);  
+    document.querySelector('#ID_1F7E8').addEventListener('click', function(e) {code="🟨";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E9').addEventListener('click', function(e) {code="🟩";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7E6').addEventListener('click', function(e) {code="🟦";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7EA').addEventListener('click', function(e) {code="🟪";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F7EB').addEventListener('click', function(e) {code="🟫";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID__2B1B').addEventListener('click', function(e) {code="⬛";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID__2B1C').addEventListener('click', function(e) {code="⬜";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_1F3FB').addEventListener('click', function(e) {code="🏻";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FC').addEventListener('click', function(e) {code="🏼";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FD').addEventListener('click', function(e) {code="🏾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FE').addEventListener('click', function(e) {code="🏾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3FF').addEventListener('click', function(e) {code="🏿";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+    document.querySelector('#ID_1F332').addEventListener('click', function(e) {code="🌲";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F333').addEventListener('click', function(e) {code="🌳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F333').addEventListener('click', function(e) {code="🌳";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FABE').addEventListener('click', function(e) {code="🪾";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FAB5').addEventListener('click', function(e) {code="🪵";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F335').addEventListener('click', function(e) {code="🌵";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID__26F0').addEventListener('click', function(e) {code="⛰";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F3D4').addEventListener('click', function(e) {code="🏔";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1FAA8').addEventListener('click', function(e) {code="🪨";document.querySelector('#ID_mode01').innerHTML =code}, false);
+    document.querySelector('#ID_1F9F1').addEventListener('click', function(e) {code="🧱";document.querySelector('#ID_mode01').innerHTML =code}, false);
+
+  
+  
+  }, true);
+
+</script>
+</head>
+<body>
+モード：<span id="ID_mode00"></span><br>
+選択文字：<span id="ID_mode01"></span><br>
+<span id="ID_selection">
+<br>
+<input type ="button" value ="クリック">
+<input type ="button" value ="矩形選択">
+<input type ="button" value ="罫線表示"><br>
+<input type ="button" value ="塗りこみ">
+<input type ="button" value ="レイヤー">
+</span>
+
+<span id="ID_span01">
+<div class="button-group">
+  <input type ="button" value ="🟥" id="ID_1F7E5">
+  <input type ="button" value ="🟧" id="ID_1F7E7">
+  <input type ="button" value ="🟨" id="ID_1F7E8">
+  <input type ="button" value ="🟩" id="ID_1F7E9">
+  <input type ="button" value ="🟦" id="ID_1F7E6">
+  <input type ="button" value ="🟪" id="ID_1F7EA">
+  <input type ="button" value ="🟫" id="ID_1F7EB">
+  <input type ="button" value ="⬛" id="ID__2B1B">
+  <input type ="button" value ="⬜" id="ID__2B1C">
+  <input type ="button" value ="░" id="">
+  <input type ="button" value ="▒" id="">
+  <input type ="button" value ="▓" id="">
+</div>
+<div class="button-group">
+  <input type ="button" value ="🏻" id="ID_1F3FB">
+  <input type ="button" value ="🏼" id="ID_1F3FC">
+  <input type ="button" value ="🏾" id="ID_1F3FD">
+  <input type ="button" value ="🏾" id="ID_1F3FE">
+  <input type ="button" value ="🏿" id="ID_1F3FF">
+  
+  <input type ="button" value ="🔴">
+  <input type ="button" value ="🟠">
+  <input type ="button" value ="🟡">
+  <input type ="button" value ="🟢">
+</div>
+<div class="button-group">
+  <input type ="button" value ="🌲" id="ID_1F332">
+  <input type ="button" value ="🌳" id="ID_1F333">
+  <input type ="button" value ="🪾" id="ID_1FABE">
+  <input type ="button" value ="🪵" id="ID_1FAB5">
+  <input type ="button" value ="🌵" id="ID_1F335">&nbsp;
+  <input type ="button" value ="⛰" id="ID__26F0">
+  <input type ="button" value ="🏔" id="ID_1F3D4">
+  <input type ="button" value ="🪨" id="ID_1FAA8">
+  <input type ="button" value ="🧱" id="ID_1F9F1">
+</div>
+<input type ="button" value ="🐺"><input type ="button" value ="🐖">
+<input type ="button" value ="💣">
+<input type ="button" value ="🏢"><br>
+<input type ="button" value ="⭱"><input type ="button" value ="⭰"><input type ="button" value ="⭲"><input type ="button" value ="⭳">
+<input type ="button" value ="⤒"><input type ="button" value ="⤓">
+<input type ="button" value ="⍏"><input type ="button" value ="⍅"><input type ="button" value ="⍆"><input type ="button" value ="⍖"><br>
+<input type ="button" value ="⇦"><input type ="button" value ="⇧"><input type ="button" value ="⇨"><input type ="button" value ="⇩"><input type ="button" value ="⇳"><input type ="button" value ="⬀"><input type ="button" value ="⬁"><input type ="button" value ="⬂"><input type ="button" value ="⬃"><input type ="button" value ="⬄"><br>
+<input type ="button" value ="⬅"><input type ="button" value ="⬆"><input type ="button" value ="⬇"><input type ="button" value ="⮕"><input type ="button" value ="⬈"><input type ="button" value ="⬉"><input type ="button" value ="⬊"><input type ="button" value ="⬋"><input type ="button" value ="⬌"><input type ="button" value ="⬍">
+</span>
+
+<pre id="ID_main01" contenteditable="true">
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　
+</pre>
+<pre id="ID_main02">
+　①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳㉑㉒㉓㉔㉕㉖㉗㉘㉙㉚㉛㉜
+①◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+②◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+③◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+④◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑤◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑥◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑦◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑧◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑨◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑩◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑪◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑫◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑬◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑭◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑮◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑯◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑰◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑱◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑲◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+⑳◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉑◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉒◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉓◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉔◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉕◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉖◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉗◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉘◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉙◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉚◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉛◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+㉜◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻◻
+</pre>
+
+<!-- <svg id="ID_svg" width ="calc(100%)" height="400" viewBox="0 0 calc(100%) 400" style="white-Space:pre;fill:black">SVG</svg> -->
+
+<body>
+</html>

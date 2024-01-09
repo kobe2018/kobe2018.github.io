@@ -1,0 +1,639 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<title></title>
+<meta charset="utf-8" />
+<style>
+ @font-face {
+  src: url('C:/Users/goodm/Documents/font/MigMix_GeoMath/GeoMathDotMono/m17.ttf') format('truetype');
+  font-family: 'GeoMathDotMono';
+}
+body,textarea,input{
+ font-family:GeoMathDotMono;
+}
+</style>
+<script src="sfd_file.js"></script>
+<script>
+"use strict";
+window.addEventListener("DOMContentLoaded",function(){ 
+  Dot2sfd_file_data("A_32dot_Font");
+  Dot2sfd_file_data("A_64dot_Font");
+  A_Dot_data_to_sfd_file("A_Dot_data_to_sfd_file");
+  A_Dot_data_to_3D_Obj_file("A_Dot_data_to_3D_Obj_file");
+  Dell_support("Dell_support");  
+}, false);
+
+function Dot2sfd_file_data(ID){
+  document.getElementById(ID).addEventListener("click",function(){
+    let input_data = (document.getElementById("ID_input01").value+"\n").split(/\n/);
+    console.log("input_data",input_data);
+
+    let data_string = new Array(input_data.length);
+    let data_num = new Array(input_data.length);
+    let data_color_num = new Array(input_data.length);
+    
+    let split_string = Array.from(document.getElementById("ID_input01").value
+    .replace(/\n/g, "")
+    .replace(/ /g, "")
+    .replace(/　/g, "")
+    )
+//https://qiita.com/netebakari/items/7c1db0b0cea14a3d4419
+    //console.log("split_string",split_string);
+    //let remove_duplicates =[...new Set( split_string)];
+    //console.log("remove_duplicates",remove_duplicates);
+  const square_array = [...new Set( split_string)];
+  console.log("square_array",square_array);
+  
+  //const square_array = ["🟥","🟧","🟨","🟩","🟦","🟪","🟫","⬛","⬜","▓","","","","🩵","🩷"];
+  //const COLOR_NUM = square_array.indexOf("🟨");
+  const COLOR_NUM_MAX = square_array.length ;
+  //console.log("color_num：カラーナンバーを出力する。🟨黄→2",COLOR_NUM,"色目　最大",COLOR_NUM_MAX,"色");
+
+//**********************************************************************
+//*******************************************配列の範囲の宣言***********
+//**********************************************************************
+  
+for(let i=0; i<input_data.length;i++){
+    data_string[i] = Array.from(input_data[i]);
+    data_num[i] = Array.from(input_data[i]);
+}
+
+let data_max_element = 0;
+for(let i=0; i<input_data.length;i++){
+  if(data_max_element < data_string[i].length){
+    data_max_element = data_string[i].length;
+  }
+}
+
+  const UNICODE_NUM = 110592;
+  const COUNT_NUM = 110592;
+  const DOT_COUNT = 49932;
+  const SDF_OF_START = `Fore\nSplineSet\n`;
+  let first_top,first_left;
+    //i = top;j=left
+  let move_top,move_left;
+  let square_position;
+
+//初期化
+for(let i=0;i<15;i++){
+  document.getElementById(`ID_output_text${i+1}`).innerText = "";
+  document.getElementById(`ID_output${i+1}`).value = "";
+}
+//**********************************************************************
+//***************************************配列データセット***************
+//**********************************************************************
+for(let color_count=0;color_count<COLOR_NUM_MAX;color_count++){
+    console.log(color_count,COLOR_NUM_MAX);
+    if(color_count  < 15){
+      document.getElementById(`ID_output_text${color_count+1}`).innerText
+       = square_array[color_count]+","+
+      square_array[color_count].codePointAt(0)+","+
+      square_array[color_count].codePointAt(0).toString(16);
+    }
+
+    //console.log("あ".codePointAt(0)); // => 12354
+    //onsole.log(String.fromCodePoint(12354)); // => "あ"
+    
+  let output ="";  
+  let sdf_of_body ="";
+
+  for(let i=0; i<input_data.length;i++){
+    for(let j=0; j<data_max_element+1;j++){
+      if(data_string[i][j] !="　"){
+        if(data_string[i][j] !=undefined){
+          if(data_string[i][j] == square_array[color_count]){
+          
+          //data_num[i][j] = 1;
+          data_num[i][j] = 1;
+          //data_color_num[i][j] = data_string[i][j].codePointAt(0);//🟥128997。
+          }else{
+            data_num[i][j] = 0;
+          }
+        }
+      }else{
+        data_num[i][j] = 0;
+      }
+      if(data_string[i][j] == undefined ){
+        data_num[i][j] = 0;
+      }
+    }//for
+  }//for
+  console.log("output_data_string",data_string);
+  console.log("output_data_num",data_num);  
+    
+  for(let top=0; top<data_num.length-1;top++){
+    for(let left=0; left<data_num[top].length-1;left++){
+      if(data_num[top][left] ==1){
+        first_top = top;
+        first_left = left;
+        data_num[first_top][first_left] =2;
+        move_top = top;
+        move_left = left;
+        square_position = 10;
+        let cyclicNum = 0;
+
+        
+        if(move_top >= 1 && square_position ==10 && data_num[move_top-1][move_left-1] >=1  && data_num[move_top+0][move_left-1] >=1 && data_num[move_top-1][move_left+0] >=1){
+          data_num[move_top][move_left] =4; 
+          console.log("🧡🧡🧡🧡continue4;",move_top,move_left);continue;
+        }else if(move_top >= 1 && square_position ==10 && data_num[move_top-1][move_left-1] ==0  && data_num[move_top+0][move_left-1] ==2 && data_num[move_top-1][move_left+0] ==2){
+          data_num[move_top][move_left] =5;
+          console.log("🧡🧡🧡🧡🧡continue5;",move_top,move_left);continue;
+        }else{
+            sdf_of_body += `${128*(move_left+0)} ${1802-128*(move_top+0)} m 1\n`;//原点
+        }
+        
+        do{
+        console.log("🌀循環回数number of cycles",cyclicNum,"回目");
+        cyclicNum ++;
+        if(cyclicNum>150){
+          break;//抜け出す
+        }
+
+        if(move_top==0 && square_position ==10){
+          data_num[move_top][move_left] =2;//data_numへの2の書き込みは、
+          move_top = move_top;
+          move_left = move_left;
+          let before_type= square_position;
+          square_position = 20;
+          sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+0)} l 1   🔴→ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+        }
+
+        if(move_top >= 1 && move_left >=1 && square_position ==10){
+          if(data_num[move_top-1][move_left-1] >=1  && data_num[move_top+0][move_left-1] >=1 && data_num[move_top-1][move_left+0] >=1){
+            data_num[move_top][move_left] =3;  
+            console.log("🧡🧡🧡continue3;",move_top,move_left);continue;}
+        }
+
+        if(move_top >= 1 && move_left == 0 && square_position ==10){
+          if(data_num[move_top-1][move_left] ==0 ){
+            data_num[move_top][move_left] =2;
+            move_top = move_top;
+            move_left = move_left;
+            let before_type= square_position;
+            square_position = 20;
+            sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+0)} l 1   💛→ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+          }
+        }
+
+        if(move_top >= 1 && move_left == 0 && square_position ==10){
+          if(data_num[move_top-1][move_left] >=1 ){
+            data_num[move_top][move_left] =2;
+            move_top = move_top -1;
+            move_left = move_left;
+            let before_type= square_position;
+            square_position = 10;
+            sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+0)} l 1   🩷↑ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+          }
+        }
+
+        if(move_top >= 1 && move_left >= 1 && square_position ==10){
+          if(data_num[move_top-1][move_left] ==0 ){
+            data_num[move_top][move_left] =2;
+            move_top = move_top;
+            move_left = move_left;
+            let before_type= square_position;
+            square_position = 20;
+            sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+0)} l 1   💛→ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+          }
+        }
+
+
+        if(move_top >= 1 && move_left >= 1 && square_position ==10){
+          if(data_num[move_top-1][move_left-1] >=1 && data_num[move_top-1][move_left] >=1){
+            data_num[move_top][move_left] =2;
+            move_top = move_top-1;
+            move_left = move_left-1;
+            let before_type= square_position;
+            square_position = 40;
+            sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+1)} l 1   💜← c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+          }          
+        }
+
+
+
+        if(move_top >= 1 && move_left >= 1 && square_position ==10){
+          if(data_num[move_top-1][move_left-1] ==0 && data_num[move_top-1][move_left] >=1){
+            data_num[move_top][move_left] =2;
+            move_top = move_top-1;
+            move_left = move_left;
+            let before_type= square_position;
+            square_position = 10;
+            sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+0)} l 1   💙↑ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+          }          
+        }
+
+
+//20************************************************************************************************************
+
+          if(move_top==0 && square_position ==20){//一番上の行
+            if(data_num[move_top][move_left+1] ==0){
+              data_num[move_top][move_left] =2;
+              move_top = move_top;
+              move_left = move_left;
+              let before_type= square_position;
+              square_position = 30;
+              sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+1)} l 1   🟠↓ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//↓方向に線を引く
+            }
+          }
+
+          if(move_top==0 && square_position ==20){//一番上の行
+            if(data_num[move_top][move_left+1] >=1){
+              data_num[move_top][move_left] =2;
+              move_top = move_top;
+              move_left = move_left +1;
+              let before_type= square_position;
+              square_position = 20;
+              sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+0)} l 1   🟢→ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+              
+            }
+          }
+
+
+          if(move_top>=1 && square_position ==20){
+            if(data_num[move_top][move_left+1] ==0){
+              data_num[move_top][move_left] =2;
+              move_top = move_top;
+              move_left = move_left;
+              let before_type= square_position;
+              square_position = 30;
+              sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+1)} l 1   🟡↓ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//↓方向に線を引く
+            }
+          }
+
+
+          if(move_top>=1 && square_position ==20){
+            if(data_num[move_top][move_left+1] >=1 && data_num[move_top-1][move_left+1] ==0){
+              data_num[move_top][move_left] =2;
+              move_top = move_top;
+              move_left = move_left+1;
+              let before_type= square_position;
+              square_position = 20;
+              sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+0)} l 1   ⚫→ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//↓方向に線を引く
+            }
+          }
+
+
+          if(move_top>=1 && square_position ==20){
+            if(data_num[move_top][move_left+1] >=1 && data_num[move_top-1][move_left+1] >=1){
+              data_num[move_top][move_left] =2;
+              move_top = move_top-1;
+              move_left = move_left+1;
+              let before_type= square_position;
+              square_position = 10;
+              sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+0)} l 1   🔴🟠↑ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//↓方向に線を引く
+            }
+          }
+
+          if(move_top>=1 && square_position ==20){
+            if(data_num[move_top-1][move_left] >=1  && data_num[move_top][move_left+1] >=1 && data_num[move_top-1][move_left+1] >=1){console.log("💚break;");break;}
+          }
+
+
+//30************************************************************************************************************
+          if(square_position == 30){
+            if(data_num[move_top+1][move_left] ==0){
+              data_num[move_top][move_left] =2;
+              move_top = move_top;
+              move_left = move_left;
+              let before_type= square_position;
+              square_position = 40;
+              sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+1)} l 1   🔵← c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//←方向に線を引く
+            }
+          }
+
+
+          if(square_position == 30){
+            if(data_num[move_top+1][move_left] >=1 && data_num[move_top+1][move_left+1] ==0){
+              data_num[move_top][move_left] =2;
+              move_top = move_top +1;
+              move_left = move_left;
+              let before_type= square_position;
+              square_position = 30;
+              sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+1)} l 1   🟣↓ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//→方向に線を引く
+            }
+          }
+
+
+            
+          if(square_position == 30){
+            if(data_num[move_top+1][move_left] >=1 && data_num[move_top+1][move_left+1] >=1 ){
+              data_num[move_top][move_left] =2;
+              move_top = move_top +1;
+              move_left = move_left +1;
+              let before_type= square_position;
+              square_position = 20;
+              sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+0)} l 1   🟤→ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//←方向に線を引く
+            }
+          }            
+
+
+//40************************************************************************************************************
+          if(move_left >=1 && square_position == 40){
+            if(data_num[move_top][move_left-1] >=1 && data_num[move_top+1][move_left-1] == 0){
+              data_num[move_top][move_left] =2;
+              move_top = move_top;
+              move_left = move_left -1;
+              let before_type= square_position;
+              square_position = 40;
+              sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+1)} l 1   🟥← c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//←方向に線を引く
+            }
+          }
+
+          if(move_left==0 && square_position == 40){
+            data_num[move_top][move_left] =2;
+            move_top = move_top;
+            move_left = move_left;
+            let before_type= square_position;
+            square_position = 10;
+            sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+0)} l 1   🟧↑ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//↑方向に線を引く
+          }
+
+          if(move_left>=1 &&  square_position == 40){
+            if(data_num[move_top][move_left-1] ==0){
+              data_num[move_top][move_left] =2;
+              move_top = move_top;
+              move_left = move_left;
+              let before_type= square_position;
+              square_position = 10;
+              sdf_of_body += ` ${128*(move_left+0)} ${1802-128*(move_top+0)} l 1   🟩↑ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//↑方向に線を引く
+            }
+          }
+
+
+          if(move_left>=1 &&  square_position == 40){
+            if(data_num[move_top][move_left-1] >=1 && data_num[move_top+1][move_left-1] >= 1){
+              data_num[move_top][move_left] =2;
+              move_top = move_top +1;
+              move_left = move_left -1;
+              let before_type= square_position;
+              square_position = 30;
+              sdf_of_body += ` ${128*(move_left+1)} ${1802-128*(move_top+1)} l 1   🟨↓ c:${cyclicNum} move_top:${move_top} move_left:${move_left} Type:${before_type}→${square_position}\n`;//↓方向に線を引く
+            }
+          }
+
+          if(first_top == move_top && first_left == move_left && square_position == 10){
+            console.log("🐶一周して最初と最後が一致したので終了：位置10　top,left=",move_top,move_left);break;
+          }
+          
+          if(first_top == move_top && first_left == move_left && square_position == 20){
+            console.log("🐶🐶一周して最初と最後が一致したので終了：位置20　top,left=",move_top,move_left);break;
+          }
+          
+          if(first_top == move_top && first_left == move_left && square_position == 30){
+            console.log("🐶🐶🐶一周して最初と最後が一致したので終了：位置30　top,left=",move_top,move_left);break;
+          }
+          if(first_top == move_top && first_left == move_left && square_position == 40){
+            console.log("🐶🐶🐶🐶一周して最初と最後が一致したので終了：位置40　top,left=",move_top,move_left);break;
+          }
+          } while (true);
+        }
+      }
+    }
+
+  
+    let sdf_of_End = `EndSplineSet\n`;
+    //let sdf_of_End = `EndChar`;
+    output += SDF_OF_START +sdf_of_body +sdf_of_End;
+    //document.getElementById("ID_output1").value =output;
+    document.getElementById(`ID_output${color_count+1}`).value =output;
+    console.log(`ID_output${color_count+1}`);
+
+    }//for(let color_count=0;color_count<COLOR_NUM_MAX){
+  }, false);
+}
+
+function Dell_support(ID){
+  let change_output;
+  document.getElementById(ID).addEventListener("click",function(){
+    for(let color_count=0;color_count<15;color_count++){
+      change_output = document.getElementById(`ID_output${color_count+1}`).value;
+      change_output = change_output.replace(/ l 1   (.*)/g, ' l 1');
+      document.getElementById(`ID_output${color_count+1}`).value =change_output;
+    }
+  }, false);
+}
+
+function A_Dot_data_to_sfd_file(ID){
+  document.getElementById(ID).addEventListener("click",function(){
+    const first_num = 15;
+    let str="",select_unicode;
+    if(document.getElementById(`text_unicode`).value != ""){
+      select_unicode = document.getElementById(`text_unicode`).value;
+    }else{
+      select_unicode ="🐖"
+    }
+
+    for(let color_count=0;color_count<first_num -3;color_count++){
+      str += `
+StartChar: u${select_unicode.codePointAt(0).toString(16)}_${color_count+1}
+Encoding: ${33+color_count+1} -1 ${2+color_count}
+Width: 2048
+VWidth: 2088
+Flags: W
+LayerCount: 2
+`
++document.getElementById(`ID_output${color_count+1}`).value
++`EndChar
+`;
+}  
+  document.getElementById(`ID_output_sfd`).value =sfd_file_a1 + first_num + sfd_file_a2
+    + str    
+    + sfd_file_a3;
+
+  let ttx_str ="";
+  for(let color_count=0;color_count<first_num -3;color_count++){
+    let txt_str = document.getElementById(`ID_output_text${color_count+1}`).value;
+    ttx_str +=`<layer colorID="4" name="u${select_unicode.codePointAt(0).toString(16)}_${color_count}"/><!-- ${ txt_str}-->\n`;
+    document.getElementById(`ID_output_ttx`).value =`<!-- ↓'${select_unicode}'(u${select_unicode.codePointAt(0).toString(16)}) -->
+    <ColorGlyph name="u${select_unicode.codePointAt(0).toString(16)}">
+    ${ttx_str}
+    </ColorGlyph>  
+  `
+  ;
+  }
+// <layer colorID="4" name="u${select_unicode.codePointAt(0).toString(16)}"/><!-- 🟦　-->
+//<layer colorID="2" name="u${select_unicode.codePointAt(0).toString(16)}_01"/><!-- ⬜　-->
+  
+  
+  }, false);//document.getElementById(ID).addEventListener("click",function(){
+}//function A_Dot_data_to_sfd_file(ID){
+
+
+function A_Dot_data_to_3D_Obj_file(ID){
+  document.getElementById(ID).addEventListener("click",function(){
+
+    let input_data = document.getElementById("ID_input01").value.split(/\n/);
+    let data_string = new Array(input_data.length);
+    let data_num = new Array(input_data.length);
+    for(let i=0; i<input_data.length;i++){
+      data_string[i] = Array.from(input_data[i]);
+      data_num[i] = Array.from(input_data[i]);
+    }
+    let data_max_element = 0;
+    for(let i=0; i<input_data.length;i++){
+      if(data_max_element < data_string[i].length){
+        data_max_element = data_string[i].length;
+      }
+    }
+    let obj_data ="# 立方体\nmtllib material04.mtl\n";
+    let v8 =0;//cube_v_count
+    let vn6 =0;//cube_vn_count
+
+    for(let i=0; i<data_string.length;i++){
+      for(let j=0; j<data_string[i].length;j++){
+        if(data_string[i][j] !="　"){
+          obj_data += `g cube${i}${j}
+v ${i*10   } ${j*10   } 0
+v ${i*10+10} ${j*10   } 0
+v ${i*10   } ${j*10+10} 0
+v ${i*10+10} ${j*10+10} 0
+v ${i*10   } ${j*10   } 10
+v ${i*10+10} ${j*10   } 10
+v ${i*10   } ${j*10+10} 10
+v ${i*10+10} ${j*10+10} 10
+vn 0 0 -1
+vn -1 0 0
+vn 1 0 0
+vn 0 -1 0
+vn 0 1 0
+vn 0 0 1`;
+//🟥🟧🟨🟩🟦🟪🟫⬛⬜░▒▓
+if(data_string[i][j] =="🟥"){
+  obj_data += `\nusemtl red`;
+}else if(data_string[i][j] =="🟧"){
+  obj_data += `\nusemtl orange`;
+}else if(data_string[i][j] =="🟨"){
+  obj_data += `\nusemtl yellow`;
+}else if(data_string[i][j] =="🟩"){
+  obj_data += `\nusemtl green`;
+}else if(data_string[i][j] =="🟦"){
+  obj_data += `\nusemtl blue`;
+}else if(data_string[i][j] =="🟪"){
+  obj_data += `\nusemtl purple`;
+}else if(data_string[i][j] =="🟫"){
+  obj_data += `\nusemtl brown`;
+}else if(data_string[i][j] =="⬛"){
+  obj_data += `\nusemtl black`;
+}else if(data_string[i][j] =="⬜"){
+  obj_data += `\nusemtl white`;
+}else{
+  obj_data += `\nusemtl gray`;
+}
+obj_data += `
+f ${1 +v8}//${1 +vn6} ${3 +v8}//${1 +vn6} ${4 +v8}//${1 +vn6} ${2 +v8}//${1 +vn6}
+f ${1 +v8}//${2 +vn6} ${5 +v8}//${2 +vn6} ${7 +v8}//${2 +vn6} ${3 +v8}//${2 +vn6}
+f ${2 +v8}//${3 +vn6} ${4 +v8}//${3 +vn6} ${8 +v8}//${3 +vn6} ${6 +v8}//${3 +vn6}
+f ${1 +v8}//${4 +vn6} ${2 +v8}//${4 +vn6} ${6 +v8}//${4 +vn6} ${5 +v8}//${4 +vn6}
+f ${3 +v8}//${5 +vn6} ${7 +v8}//${5 +vn6} ${8 +v8}//${5 +vn6} ${4 +v8}//${5 +vn6}
+f ${5 +v8}//${6 +vn6} ${6 +v8}//${6 +vn6} ${8 +v8}//${6 +vn6} ${7 +v8}//${6 +vn6}
+`;
+          v8 = v8 +8;
+          vn6= vn6 +6;
+          
+        }
+      }
+    }
+
+    document.getElementById("ID_output1").value =obj_data;
+  
+  }, false);
+}
+
+</script>
+</head>
+<body>
+<textarea id="ID_input01" cols="65s" rows="16" wrap="off" style="font-size:14px">
+🟥🟧🟨🟩🟦🟪🟫⬛⬜▓
+　　　　　　⬛⬛⬛
+　　　　　⬛🟥🟥🟥⬛
+　　　　⬛⬛🟥🟥🟥⬛⬛
+　　　　⬛🟥🟥🟥🟥🟥⬛
+　　　⬛🟥🟥🟥🟥🟥🟥🟥⬛
+　　　⬛🟥🟥🟥🟥🟥🟥🟥⬛
+　　　⬛🟥🟧🟧🟧🟧🟧🟥⬛
+　　⬛🟥🟥🟧🟧🟧🟧🟧🟥🟥⬛
+　　⬛🟥🟥🟨🟨🟨🟨🟨🟥🟥⬛
+　　⬛🟥🟧🟨🟨🟨🟨🟨🟧🟥⬛
+　　⬛🟥🟧🟨🟨🟨🟨🟨🟧🟥⬛
+　⬛🟥🟥🟧🟨🟨🟨🟨🟨🟧🟥🟥⬛
+　⬛🟥🟥🟧🟨🟨🟨🟨🟨🟧🟥🟥⬛
+　⬛🟥🟥🟧🟨🟨🟨🟨🟨🟧🟥🟥⬛
+　　⬛🟥🟥🟨🟨🟨🟨🟨🟥🟥⬛
+</textarea>
+<input type="text" id="text_unicode" placeholder="出力するUnicode" value="🐖"  style="font-size:72px;width:120px">　
+<br>
+上限：<input type="text" id="ID_input02" value="1802" style="width:60px">　
+下限：<input type="text" id="ID_input03" value="-246" style="width:60px">　
+<input type="button" id="A_32dot_Font" value="32Dot絵をsfdファイルに">　
+<input type="button" id="A_64dot_Font" value="64Dot絵をsfdファイルに">　
+<input type="button" id="Dell_support" value="補助文消し">　
+<input type="button" id="A_Dot_data_to_sfd_file" value="sfd出力">　
+<input type="button" id="A_Dot_data_to_3D_Obj_file" value="絵文字をobjファイルに"><br>
+<textarea id="ID_output_text1" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text2" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text3" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text4" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text5" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text6" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text7" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text8" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text9" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text10" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text11" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text12" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text13" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text14" style="width: 8em;height:1.1em" wrap="off"></textarea>
+<textarea id="ID_output_text15" style="width: 8em;height:1.1em" wrap="off"></textarea>
+
+
+<br>
+<textarea id="ID_output1" style="width: 8em"  rows="40" wrap="off"></textarea>
+<textarea id="ID_output2" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output3" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output4" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output5" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output6" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output7" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output8" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output9" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output10" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output11" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output12" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output13" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output14" style="width: 8em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output15" style="width: 8em" rows="40" wrap="off"></textarea>
+
+<br>
+
+</span>
+FontForgeのショートカット<br>
+　①マージ　点を選択して「CTRL+M」<br>
+　②反時計回り：[エレメント]→「反時計回り」<br>
+<textarea id="ID_output_sfd" style="width: 40em" rows="40" wrap="off"></textarea>
+<textarea id="ID_output_ttx" style="width: 40em" rows="40" wrap="off" >
+     <!-- ↓情報の'ℹ️'(u2139) -->
+     <ColorGlyph name="u2139">
+      <layer colorID="4" name="SLOTuniE200"/><!-- 🟦　-->
+      <layer colorID="2" name="u2139_01"/><!-- ⬜　-->
+    </ColorGlyph>
+</textarea>
+</body>
+</html>
+<!--491→488→546→621
+
+if (voxel_map[y][f][x] == "🟥"){code_num = 0;
+                            }else if (voxel_map[y][f][x] == "🟧"){code_num = 1;
+                            }else if (voxel_map[y][f][x] == "🟨"){code_num = 2;
+                            }else if (voxel_map[y][f][x] == "🟩"){code_num = 3;
+                            }else if (voxel_map[y][f][x] == "🟦"){code_num = 4;
+                            }else if (voxel_map[y][f][x] == "🟪"){code_num = 5;
+                            }else if (voxel_map[y][f][x] == "🟫"){code_num = 6;
+                            }else if (voxel_map[y][f][x] == "⬛"){code_num = 7;
+                            }else if (voxel_map[y][f][x] == "⬜"){code_num = 8;
+                            }else if (voxel_map[y][f][x] == "░"){code_num = 9;
+                            }else if (voxel_map[y][f][x] == "▒"){code_num = 10;
+                            }else if (voxel_map[y][f][x] == "▓"){code_num = 11;
+
+
+                            -->

@@ -4,7 +4,7 @@ class =
 */
 
 @font-face {
-    src: url('https://github.com/kobe2018/kobe2018.github.io/m17.ttf') format('truetype');
+    src: url('./m17.ttf') format('truetype');
     font-family: 'GeoMathMono';
 }
 

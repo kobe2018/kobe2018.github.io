@@ -3,15 +3,7 @@ id = #
 class = 
 */
 
-@font-face {
-    src: url('https://github.com/kobe2018/GeoMathDotMono/blob/main/m17.ttf?raw=true') format('truetype');
-    font-family: 'GeoMathMono';
-}
 
-body,pre,span,input{
-    font-size:24px;
-    font-family:GeoMathMono;
-}
 input,span,pre{
     margin: 0;
     padding: 0;

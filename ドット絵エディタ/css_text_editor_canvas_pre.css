@@ -1,8 +1,16 @@
 /* ココがコメント
 id = #
 class = 
-*/
+*/ 
+@font-face {
+    src: url('https://kobe2018.github.io/m17.ttf') format('truetype');
+    font-family: 'GeoMathMono';
+}
 
+body,pre,span,input{
+    font-size:24px;
+    font-family:GeoMathMono;
+}
 
 input,span,pre{
     margin: 0;
